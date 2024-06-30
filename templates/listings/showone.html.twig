@@ -1,0 +1,13 @@
+{% include "base.html.twig" %}
+{% block title %}Annonce{% endblock %}
+{% block body %}
+<img style="widht: 100px; height: 150px" src="{{ asset('/images/9782100844395-001-X.jpeg')}}" alt="">
+<div class = "title">Titre: {{ book.title }} </div>
+<div class = "author">Auteur: {{ book.author }} </div>
+<div class = "location">Localisation: {{ book.location }} </div>
+<p class="description">Description: {{ book.description }} </p>
+<div class="isbn"> ISBN: {{ book.isbn }} </div>
+<div class="edition"> Edition: {{ book.edition }} </div>
+<a href="{{ path('listings_remove', {'id': book.id}) }}">Supprimer</a>
+
+{% endblock %}

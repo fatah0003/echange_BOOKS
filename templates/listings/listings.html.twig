@@ -1,7 +1,8 @@
 {% extends "base.html.twig" %}
 {% block title %}Annonces{% endblock %}
 {% block body %}
-<h1>MES ANNONCES</h1>
+<h1>ANNONCES</h1>
+<h2><a href="{{ path('listings_add')}}">Ajouter une annonce</a></h2>
 <div>
 {% for book in books %}
     {% include "partials/card.html.twig" %}
