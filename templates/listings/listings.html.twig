@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block title %}Annonces{% endblock %}
+{% block body %}
+<h1>MES ANNONCES</h1>
+<div>
+{% for book in books %}
+    {% include "partials/card.html.twig" %}
+{% endfor %}
+</div>
+{% endblock %}
