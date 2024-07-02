@@ -1,5 +1,8 @@
 {% extends "base.html.twig" %}
 {% block title %}Annonces{% endblock %}
+{% block importmap %}
+{{ importmap(['app', 'card']) }}
+{% endblock %}
 {% block body %}
 <h1>ANNONCES</h1>
 <h2><a href="{{ path('listings_add')}}">Ajouter une annonce</a></h2>

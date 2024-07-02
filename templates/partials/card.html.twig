@@ -1,7 +1,22 @@
-<div>
-<img style="widht: 100px; height: 150px" src="{{ asset('/images/9782100844395-001-X.jpeg')}}" alt="">
-<div class = "title">Titre: {{ book.title }} </div>
-<div class = "author">Auteur: {{ book.author }} </div>
-<div class = "location">Localisation: {{ book.location }} </div>
-<a href="{{ path('listings_showone', {'id': book.id}) }}">Détails</a>
-</div>
+<a id="card" class="card" href="{{ path('listings_showone', { id: book.id }) }}">
+	<div class="supe-card">
+		<div class="left-sup-card">Temporaire</div>
+		<img class="middle-sup-card" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
+
+		<div class="right-sup-card">
+			<img class="favorite" src="{{ asset('/images/favoris.png') }}" alt="logo favoris"/>
+		</div>
+	</div>
+	<div class="low-card">
+		<div class="book-title">Titre du livre</div>
+		<div class="book-author">Aureur du livre</div>
+		<div class="details">
+			<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="logo localisation"/>Localisation
+		</div>
+		<div class="book-infos">
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/calendrier.png') }}" alt="logo calendrier"/>2023</span>
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt=""/>romance</span>
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/page-blanche.png') }}" alt=""/>189 P</span>
+		</div>
+	</div>
+</a>

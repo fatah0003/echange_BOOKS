@@ -61,7 +61,7 @@ class ListingsController extends AbstractController
 
     //Méthode pour supprimer une annonce
     #[Route(path:"/remove/{id}", name:"remove")]
-    public function remove(Books $books, EntityManagerInterface $entityManager)
+    public function remove(Books $books, EntityManagerInterface $entityManager): Response
     {
       $entityManager->remove($books);
       $entityManager->flush();

@@ -1,0 +1,83 @@
+@font-face {
+    font-family: "nunito";
+    src: url(../font/Nunito-VariableFont_wght.ttf);
+}
+
+.card {
+    font-family: "nunito", sans-serif;
+    text-decoration: none;
+    color: black;
+    display: block;
+    background-color: white;
+    width: 407px;
+    height: 481px;
+}
+
+.supe-card {
+    display: flex;
+    justify-content: space-around;
+}
+
+.middle-sup-card {
+    margin-top: 5px;
+    width: 197;
+    height: 264px;
+}
+
+.right-sup-card {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    width: 79px;
+}
+
+.favorite {
+    height: 33px;
+    width: 33px;
+}
+
+.left-sup-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    width: 79px;
+    height: 25px;
+    background-color: rgb(37, 169, 15);
+    border-radius: 3px;
+}
+
+.low-card {
+    margin-left: 15px;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.book-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.book-author {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.details {
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
+
+.infos-logo {
+    width: 20px;
+    height: 20px;
+}
+
+.book-infos {
+    display: flex;
+    justify-content: space-between;
+}

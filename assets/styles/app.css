@@ -1,3 +1,114 @@
 body {
-    background-color: skyblue;
+    background-color: rgb(125, 164, 231);
+    font-family: "nunito", sans-serif;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
 }
+/* -----------------Header style------------------ */
+header{
+    position: fixed;
+    top: 0;
+    width: 1440px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(7px);
+}
+.logo-design{
+    height: 60px;
+    width: 80px;
+}
+.logo-name{
+    height: 48px;
+    width: 243px;
+}
+.logo{
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+}
+.navbar{
+    width: 500px;
+    margin-right: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav{
+    text-decoration: none;
+    color: white;
+}
+.nav-connect{
+    background-color: #27AE60;
+    border-radius: 8px;
+    width: 120px;
+    height: 40px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav {
+    position: relative;
+    padding: 10px 0;
+}
+.nav::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: rgb(255, 90, 60);
+    left: 50%;
+    bottom: 0;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+.nav:hover::after {
+    width: 100%;
+    left: 0;
+}
+/* ---------------Banner Style---------------------- */
+
+.banner{
+    height: 680px;
+    width: 1440px;
+    background-image: url(../images/Banner1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    font-size: 50px;
+    color: #25a65b;
+    text-shadow:
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+        -1px  0   0 #000,
+         1px  0   0 #000,
+         0   -1px 0 #000,
+         0    1px 0 #000;
+}
+.welcome {
+    color: #efefef;
+    text-shadow:
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+        -1px  0   0 #000,
+         1px  0   0 #000,
+         0   -1px 0 #000,
+         0    1px 0 #000;
+}
+
