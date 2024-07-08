@@ -8,15 +8,15 @@
 		</div>
 	</div>
 	<div class="low-card">
-		<div class="book-title">Titre du livre</div>
-		<div class="book-author">Aureur du livre</div>
+		<div class="book-title">{{ book.title }}</div>
+		<div class="book-author">{{ book.author }}</div>
 		<div class="details">
-			<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="logo localisation"/>Localisation
+			<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="logo localisation"/>{{ book.location }}
 		</div>
 		<div class="book-infos">
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/calendrier.png') }}" alt="logo calendrier"/>2023</span>
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt=""/>romance</span>
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/page-blanche.png') }}" alt=""/>189 P</span>
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/calendrier.png') }}" alt="logo calendrier"/>{{ book.state.value }}</span>
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt=""/>{{book.bookCategorie.name}}</span>
+			<span class="details"><img class="infos-logo" src="{{ asset('/images/page-blanche.png') }}" alt=""/>{{ book.pages }} P</span>
 		</div>
 	</div>
 </a>

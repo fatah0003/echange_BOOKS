@@ -4,11 +4,18 @@
 {{ importmap(['app', 'card']) }}
 {% endblock %}
 {% block body %}
-<h1>ANNONCES</h1>
-<h2><a href="{{ path('listings_add')}}">Ajouter une annonce</a></h2>
-<div>
+
+<section class="banner">
+        <h1 class="title">BOOKSINDER</h1>
+        <h2 class="welcome">Bienvennue sur BOOKSINDER</h2>
+        <h3 class="welcome">Les Livres de tes Reves</h3>
+    </section>
+
+<h1>Notre Bibliotheque BOOKSINDER</h1>
+<a href="{{ path('listings_add')}}">Ajouter une annonce</a>
+<section class ="announces">
 {% for book in books %}
     {% include "partials/card.html.twig" %}
 {% endfor %}
-</div>
+</section>
 {% endblock %}

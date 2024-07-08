@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(125, 164, 231);
+    background-color: rgb(52, 110, 203);
     font-family: "nunito", sans-serif;
     height: 100%;
     margin: 0;
@@ -110,5 +110,15 @@ header{
          1px  0   0 #000,
          0   -1px 0 #000,
          0    1px 0 #000;
+}
+
+/* -----------------------Announces style-------------- */
+.announces{
+    background: linear-gradient(0.25turn, rgb(11, 11, 88), rgb(13, 3, 44));
+    width: 1440px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
 }
 

@@ -5,8 +5,10 @@ use App\Entity\Books;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\ListingType;
 #[Route(path:"/listings", name:"listings_")]
 class ListingsController extends AbstractController
 {
@@ -21,33 +23,25 @@ class ListingsController extends AbstractController
     }
     //Méthode pour creer une annonce (page formulaire de création) 
     #[Route(path:"/add", name:"add")]
-    public function addListings(EntityManagerInterface $entityManager): Response
+    public function addListings(Request $request, EntityManagerInterface $entityManager): Response
     {
-      if ($_SERVER['REQUEST_METHOD'] === "POST") {
-         $title = $_POST['title'];
-         $author = $_POST['author'];
-         $isbn = $_POST['isbn'];
-         $description = $_POST['description'];
-         $edition = $_POST['edition'];
-         $location = $_POST['location'];      
+      $books = new Books();
+      $form = $this->createForm(ListingType::class, $books);
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+         $books
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable())
+            ->setFavorite(false)
+         ;
          
-         $book = new Books();
-         $book->setTitle($title)
-               ->setAuthor($author)
-               ->setISBN($isbn)
-               ->setDescription($description)
-               ->setEdition($edition)
-               ->setLocation($location)
-               ->setFavorite(false)
-               ->setCreatedAt(new \DateTimeImmutable())
-               ->setUpdatedAt(new \DateTimeImmutable());
-               
-         $entityManager->persist($book);
+         $entityManager->persist($books);
          $entityManager->flush();
          return $this->redirectToRoute('listings_show');
       }
-       return $this->render('listings/add.html.twig',[
 
+       return $this->render('listings/add.html.twig',[
+         'form'=> $form
        ]);
     }
     // Méthode pour afficher une seule annonce

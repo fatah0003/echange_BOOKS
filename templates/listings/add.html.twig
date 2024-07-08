@@ -2,37 +2,23 @@
 {% block title %}Add Listing{% endblock %}
 {% block header %}{% endblock %}
 {% block body %}
-
 <h1>Ajouter une annonce</h1>
-    <form method="POST">
-        <div>
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div>
-            <label for="author">Auteur :</label>
-            <input type="text" id="author" name="author" required>
-        </div>
-        <div>
-            <label for="isbn">ISBN :</label>
-            <input type="text" id="isbn" name="isbn" required>
-        </div>
-        <div>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea>
-        </div>
-        <div>
-            <label for="edition">Édition :</label>
-            <input type="text" id="edition" name="edition" required>
-        </div>
-        <div>
-            <label for="location">Localisation :</label>
-            <input type="text" id="location" name="location" required>
-        </div>
-        <div>
-            <button type="submit">Soumettre</button>
-        </div>
-    </form>
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.author) }}
+    {{ form_row(form.isbn) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.edition) }}
+    {{ form_row(form.location) }}
+    {{ form_row(form.pages) }}
+    {{ form_row(form.state) }}
+    {{ form_row(form.bookCategorie) }}
+
+    <button type="submit">Ajouter</button>
+
+
+{{ form_end(form) }}
+
 
 {% endblock %}
 {% block footer %}{% endblock %}

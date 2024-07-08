@@ -4,9 +4,9 @@
             <img class="logo-name" src="{{ asset('/images/logo-name.png')}}" alt="">
         </div>
         <nav class="navbar">
-                <a class="nav" href="">Accueil</a>
+                <a class="nav" href="{{ path('home')}}">Accueil</a>
                 <a class="nav" href="">About</a>
-                <a class="nav" href="">Annonces</a>
+                <a class="nav" href="{{ path('listings_show')}}">Annonces</a>
                 <a class="nav" href="">Contact</a>
                 <a class="nav-connect" href="">Se connecter</a>
         </nav>
