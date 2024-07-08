@@ -1,10 +1,14 @@
-<a id="card" class="card" href="{{ path('listings_showone', { id: book.id }) }}">
+<div id="card" class="card">
 	<div class="supe-card">
 		<div class="left-sup-card">Temporaire</div>
+		<a href="{{ path('listings_showone', { id: book.id }) }}">
 		<img class="middle-sup-card" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
+		</a>
 
 		<div class="right-sup-card">
+			<a href="">
 			<img class="favorite" src="{{ asset('/images/favoris.png') }}" alt="logo favoris"/>
+			</a>
 		</div>
 	</div>
 	<div class="low-card">
@@ -19,4 +23,4 @@
 			<span class="details"><img class="infos-logo" src="{{ asset('/images/page-blanche.png') }}" alt=""/>{{ book.pages }} P</span>
 		</div>
 	</div>
-</a>
+</div>
