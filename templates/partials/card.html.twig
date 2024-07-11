@@ -1,6 +1,10 @@
 <div id="card" class="card">
 	<div class="supe-card">
-		<div class="left-sup-card">Temporaire</div>
+		<div class="left-sup-card">
+			{% for exchangeType in book.exchangeType %}
+		<div class=" {{ exchangeType.value }}">{{ exchangeType.value }}</div>
+		{% endfor %}
+		</div>
 		<a href="{{ path('listings_showone', { id: book.id }) }}">
 		<img class="middle-sup-card" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
 		</a>

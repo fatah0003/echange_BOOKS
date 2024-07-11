@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\ListingType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 #[Route(path:"/listings", name:"listings_")]
 class ListingsController extends AbstractController
 {
@@ -17,12 +19,14 @@ class ListingsController extends AbstractController
     public function listings(BooksRepository $booksRepository): Response
     {
       $books = $booksRepository->findAll();
+
        return $this->render('listings/listings.html.twig', [
          'books'=>$books,
        ]);
     }
     //Méthode pour creer une annonce (page formulaire de création) 
     #[Route(path:"/add", name:"add")]
+    #[IsGranted('ROLE_USER')]
     public function addListings(Request $request, EntityManagerInterface $entityManager): Response
     {
       $books = new Books();
@@ -55,6 +59,7 @@ class ListingsController extends AbstractController
 
     //Méthode pour supprimer une annonce
     #[Route(path:"/remove/{id}", name:"remove")]
+    #[IsGranted('ROLE_USER')]
     public function remove(Books $books, EntityManagerInterface $entityManager): Response
     {
       $entityManager->remove($books);
@@ -64,6 +69,7 @@ class ListingsController extends AbstractController
 
    //Méthode pour modifier une annonce (page formulaire de modification) 
     #[Route(path:"/update", name:"uodate")]
+    #[IsGranted('ROLE_USER')]
     public function updateListings(): Response
     {
        return $this->render('listings/update.html.twig');

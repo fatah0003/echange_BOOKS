@@ -36,15 +36,23 @@
     width: 33px;
 }
 
-.left-sup-card {
+.left-sup-card{
+display: flex;
+flex-direction: column;
+}
+
+.temporary, .permanent  {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-    width: 79px;
+    width: 85px;
     height: 25px;
     background-color: rgb(37, 169, 15);
     border-radius: 3px;
+}
+.permanent{
+    background-color: skyblue;
 }
 
 .low-card {

@@ -1,13 +1,15 @@
 <header>
     <div class="logo" id="logo">
+            <a href="{{ path('home')}}">
             <img class="logo-design" src="{{ asset('/images/logo.png')}}" alt="">
             <img class="logo-name" src="{{ asset('/images/logo-name.png')}}" alt="">
+            </a>
         </div>
         <nav class="navbar">
                 <a class="nav" href="{{ path('home')}}">Accueil</a>
                 <a class="nav" href="">About</a>
                 <a class="nav" href="{{ path('listings_show')}}">Annonces</a>
                 <a class="nav" href="">Contact</a>
-                <a class="nav-connect" href="">Se connecter</a>
+                <a class="nav-connect" href="{{ path('app_login')}}">Se connecter</a>
         </nav>
 </header>

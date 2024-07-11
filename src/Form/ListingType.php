@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\BookCategorie;
 use App\Entity\Books;
+use App\Enum\ExchangeTypeEnum;
 use App\Enum\StateEnum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -92,6 +93,19 @@ class ListingType extends AbstractType
             ->add('state', EnumType::class, [
                 'class' => StateEnum::class,
                 'label' => 'Etat du Livre',
+                'required' => true,
+                'label_attr' => [
+                    'class' => 'label-form',
+                ],
+                'attr' => [
+                    'class' => 'input-form'
+                ],
+            ])
+            ->add('exchangeType', EnumType::class, [
+                'class' => ExchangeTypeEnum::class,
+                'multiple' => true,
+                'label' => 'Type change',
+                'expanded' => true,
                 'required' => true,
                 'label_attr' => [
                     'class' => 'label-form',

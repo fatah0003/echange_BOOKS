@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ExchangeTypeEnum;
 use App\Enum\StateEnum;
 use App\Repository\BooksRepository;
 use Doctrine\DBAL\Types\Types;
@@ -61,6 +62,9 @@ class Books
 
     #[ORM\Column(enumType: StateEnum::class)]
     private ?StateEnum $state = null;
+
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, enumType: ExchangeTypeEnum::class)]
+    private array $exchangeType = [];
 
     public function getId(): ?int
     {
@@ -207,6 +211,21 @@ class Books
     public function setState(StateEnum $state): static
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return ExchangeTypeEnum[]
+     */
+    public function getExchangeType(): array
+    {
+        return $this->exchangeType;
+    }
+
+    public function setExchangeType(array $exchangeType): static
+    {
+        $this->exchangeType = $exchangeType;
 
         return $this;
     }
