@@ -8,84 +8,84 @@
     text-decoration: none;
     color: black;
     display: block;
-    background-color: white;
-    width: 407px;
-    height: 481px;
-}
-
-.supe-card {
-    display: flex;
-    justify-content: space-around;
-}
-
-.middle-sup-card {
-    margin-top: 5px;
-    width: 197;
-    height: 264px;
-}
-
-.right-sup-card {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    width: 79px;
-}
-
-.favorite {
-    height: 33px;
-    width: 33px;
-}
-
-.left-sup-card{
-display: flex;
-flex-direction: column;
-}
-
-.temporary, .permanent  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    width: 85px;
-    height: 25px;
-    background-color: rgb(37, 169, 15);
-    border-radius: 3px;
-}
-.permanent{
-    background-color: skyblue;
-}
-
-.low-card {
-    margin-left: 15px;
-    height: 190px;
+    background-color:#deb887;
+    width: 300px;
+    height: 390px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
 }
-
-.book-title {
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.book-author {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.details {
-    width: 120px;
+.sup-card{
     display: flex;
+    width: 100%;
     justify-content: space-around;
-    font-weight: bold;
-}
-
-.infos-logo {
-    width: 20px;
-    height: 20px;
-}
-
-.book-infos {
-    display: flex;
-    justify-content: space-between;
-}
+    margin-top: 5px;
+   
+    
+    }
+    .type{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 65px;
+    }
+    .temporary, .permanent  {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+    }
+    .permanenticone, .favorite{
+        width: 25px;
+        height: 25px;
+    }
+    .fav{
+        height: 25px;
+    }
+    .image-box {
+        margin-top: 5px;
+        width: 197;
+        height: 264px;
+    }
+    .low-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 280px;
+        height: 130px;
+    }
+    
+    .book-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #c26a0b;
+    }
+    
+    .book-author {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .infos-logo {
+        width: 15px;
+        height: 15px;
+    }
+    .location, .book-state, .book-categorie, .rate{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .details {
+        display: flex;
+        justify-content: space-between;
+        height: 40px;
+    }
+    .detail{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .value{
+        margin-left: 10px;
+    }

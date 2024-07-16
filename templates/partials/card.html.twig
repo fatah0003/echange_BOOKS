@@ -1,30 +1,53 @@
-<div id="card" class="card">
-	<div class="supe-card">
-		<div class="left-sup-card">
+<article id="card" class="card">
+	<section class="sup-card">
+
+		<div class="type">
 			{% for exchangeType in book.exchangeType %}
-		<div class=" {{ exchangeType.value }}">{{ exchangeType.value }}</div>
-		{% endfor %}
+				{% if exchangeType.value == "permanent" %}
+					<div title="échange définitif" class="{{ exchangeType.value }}">
+						<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="">
+					</div>
+				{% endif %}
+				{% if exchangeType.value == "temporary" %}
+				<div title="échange temporaire" class="{{ exchangeType.value }}">
+						<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="">
+					</div>
+				{% endif %}
+				
+			{% endfor %}
 		</div>
 		<a href="{{ path('listings_showone', { id: book.id }) }}">
-		<img class="middle-sup-card" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
+			<img class="image-box" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
+		</a>
+		<a class="fav" href="">
+			<img class="favorite" src="{{ asset('/images/favori.png') }}" alt="logo favoris"/>
 		</a>
 
-		<div class="right-sup-card">
-			<a href="">
-			<img class="favorite" src="{{ asset('/images/favoris.png') }}" alt="logo favoris"/>
-			</a>
-		</div>
+	</section>
+	<div>
+		
 	</div>
-	<div class="low-card">
+	<section class="low-card">
 		<div class="book-title">{{ book.title }}</div>
 		<div class="book-author">{{ book.author }}</div>
 		<div class="details">
-			<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="logo localisation"/>{{ book.location }}
+			<div class="detail">
+				<div class="location">
+					<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="icone localisation"/><span class="value">{{ book.location }}</span>
+				</div>
+				<div class="rate">
+					<img class="infos-logo" src="{{ asset('/images/star.png') }}" alt="icone étoile"/><span class="value">5</span>
+				</div>
+				
+			</div>
+			<div class="detail">
+				<div class="book-state">
+					<img class="infos-logo" src="{{ asset('/images/etatdulivre.png') }}" alt="icone état du livre"/><span class="value">{{ book.state.value }}</span>
+				</div>
+				<div class="book-categorie">
+					<img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt="icone catégorie"/><span class="value">{{book.bookCategorie.name}}</span>
+				</div>
+			</div>
 		</div>
-		<div class="book-infos">
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/calendrier.png') }}" alt="logo calendrier"/>{{ book.state.value }}</span>
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt=""/>{{book.bookCategorie.name}}</span>
-			<span class="details"><img class="infos-logo" src="{{ asset('/images/page-blanche.png') }}" alt=""/>{{ book.pages }} P</span>
-		</div>
-	</div>
-</div>
+	</section>
+</article>
