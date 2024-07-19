@@ -1,0 +1,81 @@
+body{
+    display: flex;
+    align-items: center;
+}
+.container{
+    /* height: 100vh; */
+    margin-top: 20px;
+    width: 1440px;
+    display: flex;
+    justify-content: space-between;
+}
+form{
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    justify-content: space-around;
+    border: solid 10px rgb(207, 203, 203);
+    border-radius: 6px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+}
+h1{
+    color: rgb(241, 224, 224);
+}
+.form-element{
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.form-element-check{
+    display: flex;
+    justify-content: space-between;
+}
+.label-form{
+font-weight: bold;
+}
+.input-form, .text-form{
+    height: 30px;
+    border: solid 1px skyblue;
+    border-radius: 3px;
+    padding: 5px;
+}
+.text-form{
+    height: 60px;
+}
+.input-form-type{
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+input[type=checkbox] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: solid 2px skyblue;
+    border-radius: 4px; /* Coins arrondis */
+    position: relative;
+    cursor: pointer;
+}
+input[type=checkbox]:checked {
+    background-color: #0c66e5;
+}
+
+input[type=checkbox]:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+button{
+    background-color: #27ae60;
+    height: 40px;
+    border-radius: 3px;
+    border: hidden;
+    margin-top: 15px;
+    font-weight: bold;
+}

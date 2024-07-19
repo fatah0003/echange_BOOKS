@@ -1,20 +1,7 @@
 <article id="card" class="card">
 	<section class="sup-card">
-
-		<div class="type">
-			{% for exchangeType in book.exchangeType %}
-				{% if exchangeType.value == "permanent" %}
-					<div title="échange définitif" class="{{ exchangeType.value }}">
-						<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="">
-					</div>
-				{% endif %}
-				{% if exchangeType.value == "temporary" %}
-				<div title="échange temporaire" class="{{ exchangeType.value }}">
-						<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="">
-					</div>
-				{% endif %}
-				
-			{% endfor %}
+		<div class="rate">
+			<img class="icone-rate" src="{{ asset('/images/star.png') }}" alt="icone étoile"/><span class="value">5</span>
 		</div>
 		<a href="{{ path('listings_showone', { id: book.id }) }}">
 			<img class="image-box" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
@@ -35,10 +22,21 @@
 				<div class="location">
 					<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="icone localisation"/><span class="value">{{ book.location }}</span>
 				</div>
-				<div class="rate">
-					<img class="infos-logo" src="{{ asset('/images/star.png') }}" alt="icone étoile"/><span class="value">5</span>
-				</div>
-				
+				<div class="type">
+					{% for exchangeType in book.exchangeType %}
+						{% if exchangeType.value == "permanent" %}
+							<div title="échange définitif" class="{{ exchangeType.value }}">
+								<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="">
+							</div>
+						{% endif %}
+						{% if exchangeType.value == "temporary" %}
+						<div title="échange temporaire" class="{{ exchangeType.value }}">
+								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="">
+							</div>
+						{% endif %}
+						
+					{% endfor %}
+				</div>				
 			</div>
 			<div class="detail">
 				<div class="book-state">

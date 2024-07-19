@@ -1,24 +1,81 @@
 {% extends "base.html.twig" %}
-{% block title %}Add Listing{% endblock %}
+{% block title %}Add Listing
+{% endblock %}
 {% block header %}{% endblock %}
 {% block body %}
 <h1>Ajouter une annonce</h1>
-{{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.author) }}
-    {{ form_row(form.isbn) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.edition) }}
-    {{ form_row(form.location) }}
-    {{ form_row(form.pages) }}
-    {{ form_row(form.state) }}
-    {{ form_row(form.exchangeType) }}
-    {{ form_row(form.bookCategorie) }}
+<section class="container">
+    <div class="">Retour à l'Accueil</div>
+    {{ form_start(form) }}
 
-    <button type="submit">Ajouter</button>
+    <div class="form-element">
+        {{ form_label(form.isbn) }}
+        {{ form_widget(form.isbn) }}
+        {{ form_errors(form.isbn) }}
+    </div>
+<div class="form-element">
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title) }}
+    {{ form_errors(form.title) }}
+</div>
 
+<div class="form-element">
+    {{ form_label(form.author) }}
+    {{ form_widget(form.author) }}
+    {{ form_errors(form.author) }}
+</div>
+
+
+
+<div class="form-element">
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description) }}
+    {{ form_errors(form.description) }}
+</div>
+
+<div class="form-element">
+    {{ form_label(form.edition) }}
+    {{ form_widget(form.edition) }}
+    {{ form_errors(form.edition) }}
+</div>
+
+
+
+<div class="form-element">
+    {{ form_label(form.pages) }}
+    {{ form_widget(form.pages) }}
+    {{ form_errors(form.pages) }}
+</div>
+
+<div class="form-element">
+    {{ form_label(form.state) }}
+    {{ form_widget(form.state) }}
+    {{ form_errors(form.state) }}
+</div>
+
+<div class="form-element-type">
+    {{ form_label(form.exchangeType) }}
+    {{ form_widget(form.exchangeType) }}
+    {{ form_errors(form.exchangeType) }}
+</div>
+
+<div class="form-element">
+    {{ form_label(form.bookCategorie) }}
+    {{ form_widget(form.bookCategorie) }}
+    {{ form_errors(form.bookCategorie) }}
+</div>
+<div class="form-element">
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location) }}
+    {{ form_errors(form.location) }}
+</div>
+
+<button type="submit">Ajouter</button>
 
 {{ form_end(form) }}
+    <div>Voir les Annonces</div>
+</section>
+
 
 
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,19 +19,36 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'input-form'
+                ],
+                'label' => 'Adresse e-mail',
+                'label_attr' => [
+                    'class' => 'label-form'
+                ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+                'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'label' => 'Aaccepte les termes et conditions',
+                'label_attr' => [
+                        'class' => 'label-form'
+                    ],
+                    'attr' => [
+                        'class' => 'input-form'
+                    ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => [
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => ['autocomplete' => 'new-password',
+                'class' => 'input-form'
+                ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -41,14 +59,23 @@ class RegistrationFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'Password',
+                    'label' => 'Mot de passe',
+                    'label_attr' => [
+                        'class' => 'label-form'
+                    ],
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
-                    'label' => 'Repeat Password',
+                    'attr' => ['autocomplete' => 'new-password',
+                'class' => 'input-form'
+                ],
+                    'label' => 'Confirmer le mot de passe',
+                    'label_attr' => [
+                        'class' => 'label-form'
+                    ],
                 ],
                 'invalid_message' => 'The password fields must match.',
                 'mapped' => false,
+                
             ]);
     }
 

@@ -1,5 +1,20 @@
+@font-face {
+  font-family: "nunito";
+  src: url(../font/Nunito-VariableFont_wght.ttf);
+}
+
+
+@font-face {
+  font-family: "Amaranth";
+  src: url(../font/Amaranth/Amaranth-Regular.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
-  background: linear-gradient(to right, #030328, #00000A);
+  background-color: #06668C;
   font-family: "nunito", sans-serif;
   height: 100%;
   margin: 0;
@@ -100,6 +115,92 @@ header {
     1px 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000;
 }
 
+/* ---------------Home style------------- */
+main{
+  margin-top: 100px;
+}
+.introduction{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 120px;
+}
+.img-about, .img-step{
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  
+}
+.about-text, .objective, .text-step{
+  font-family: "Amaranth", sans-serif;
+  font-size: 20px;
+  color: white;
+  height: 300px;
+  width: 525px;
+  line-height:51px;
+  text-align: justify;
+  word-spacing: 6px;
+}
+.objective{
+  line-height:35px;
+  word-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.booksinder{
+  font-size: 32px;
+}
+.how-it-works{
+  margin-top: 150px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(11, calc(300px / 4));
+  column-gap: 150px;
+  row-gap: 15px;
+}
+.step-one, .step-two, .step-three, .step-four{
+  display: flex;
+  height: 300px;
+  width: 525px;
+  justify-content: space-around;
+  align-items: center;
+}
+.step-one{
+  grid-column: 1;
+  grid-row: 1;
+}
+.step-two{
+  grid-column: 2;
+  grid-row: 3 / span 4;
+}
+.step-three{
+  grid-column: 1;
+  grid-row: 6 / span 4;
+}
+.step-four{
+  grid-column: 2;
+  grid-row: 8 / span 4;
+}
+.text-step{
+  height:313px ;
+  width:152px ;
+  display: flex;
+  flex-direction: column;
+}
+.step-number{
+  font-weight: bold;
+  font-size: 40px;
+}
+.green-word{
+  color: #25a65b;
+  text-decoration: none;
+}
+.img-step{
+  height:230px ;
+}
 /* -----------------------Announces style-------------- */
 .announces {
   margin-top: 50px;
@@ -132,3 +233,13 @@ h1 {
   padding: 5px;
   border-radius: 5px;
 }
+/* -------------------add-banner style------------ */
+.add-banner{
+  margin-top: 50px;
+  background-image: url(../images/add-banner7.jpg);
+  height: 800px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+

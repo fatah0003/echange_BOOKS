@@ -111,7 +111,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-form-type'
                 ],
             ])
             ->add('bookCategorie', EntityType::class, [

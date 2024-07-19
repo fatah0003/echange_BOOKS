@@ -1,27 +1,30 @@
 {% extends "base.html.twig" %}
-{% block title %}Annonces{% endblock %}
+{% block title %}Annonces
+{% endblock %}
 {% block importmap %}
-{{ importmap(['app', 'card']) }}
+	{{ importmap(['app', 'card']) }}
 {% endblock %}
 {% block body %}
 
-<section class="banner">
-        <span class="title">BOOKSINDER</span>
-        <span class="welcome">Bienvennue sur BOOKSINDER</span>
-        <span class="welcome">Les Livres de tes Reves</span>
+	<section class="banner">
+		<span class="title">BOOKSINDER</span>
+		<span class="welcome">Bienvennue sur BOOKSINDER</span>
+		<span class="welcome">Les Livres de tes Reves</span>
+	</section>
+
+
+	<section class="announces">
+		<div class="titles">
+			<h1>Notre Bibliotheque BOOKSINDER</h1>
+			<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
+		</div>
+		<div class="grid">
+			{% for book in books %}
+				{% include "partials/card.html.twig" %}
+			{% endfor %}
+		</div>
+
+	</section>
+    <section class="add-banner">
     </section>
-
-
-<section class ="announces">
-    <div class="titles">
-<h1>Notre Bibliotheque BOOKSINDER</h1>
-<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
-</div>
-<div class="grid">
-{% for book in books %}
-    {% include "partials/card.html.twig" %}
-{% endfor %}
-</div>
-
-</section>
 {% endblock %}
