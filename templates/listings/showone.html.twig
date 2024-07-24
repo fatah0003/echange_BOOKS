@@ -1,13 +1,40 @@
 {% include "base.html.twig" %}
-{% block title %}Annonce{% endblock %}
+{% block title %}Annonce
+{% endblock %}
 {% block body %}
-<img style="widht: 100px; height: 150px" src="{{ asset('/images/9782100844395-001-X.jpeg')}}" alt="">
-<div class = "title">Titre: {{ book.title }} </div>
-<div class = "author">Auteur: {{ book.author }} </div>
-<div class = "location">Localisation: {{ book.location }} </div>
-<p class="description">Description: {{ book.description }} </p>
-<div class="isbn"> ISBN: {{ book.isbn }} </div>
-<div class="edition"> Edition: {{ book.edition }} </div>
-<a href="{{ path('listings_remove', {'id': book.id}) }}">Supprimer</a>
+	<img style="width: 100px; height: 150px" src="{{ asset('/images/9782100844395-001-X.jpeg')}}" alt="">
+	<div class="title">Titre:
+		{{ book.title }}
+	</div>
+	<div class="author">Auteur:
+		{{ book.author }}
+	</div>
+	<div class="location">Localisation:
+		{{ book.location }}
+	</div>
+	<p class="description">Description:
+		{{ book.description }}
+	</p>
+	<div class="isbn">
+		ISBN:
+		{{ book.isbn }}
+	</div>
+	<div class="edition">
+		Edition:
+		{{ book.edition }}
+	</div>
+	{% if is_granted('ROLE_USER') and book.user.id == app.user.id %}
+	 <div class='delete-update'>
+	<form action="{{ path('listings_remove', {'id': book.id}) }}" method="POST">
+    <input type="hidden" name="token"
+    value="{{ csrf_token('delete-book' ~ book.id) }}">
+    <button type="submit">Supprimer</button>
+    </form>
+	
+	<a href="{{ path('listings_update', {'id': book.id}) }}">Modifier</a>
+	</div>
+	{% endif %}
+	
+   
 
 {% endblock %}

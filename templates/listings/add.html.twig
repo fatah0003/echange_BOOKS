@@ -3,9 +3,13 @@
 {% endblock %}
 {% block header %}{% endblock %}
 {% block body %}
-<h1>Ajouter une annonce</h1>
+<h1>{% if book is defined %}
+            Modifier l'annonce {{ book.title }}
+        {% else %}
+            Ajouter une Annonce
+        {% endif %}</h1>
 <section class="container">
-    <div class="">Retour à l'Accueil</div>
+<a class="nav-connect" href="{{ path('home')}}">Retour à l'Accueil</a>
     {{ form_start(form) }}
 
     <div class="form-element">
@@ -70,10 +74,16 @@
     {{ form_errors(form.location) }}
 </div>
 
-<button type="submit">Ajouter</button>
+<button type="submit">
+{% if book is defined %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+</button>
 
 {{ form_end(form) }}
-    <div>Voir les Annonces</div>
+<a class="nav-connect" href="{{ path('listings_show')}}">Voir les Annonces</a>
 </section>
 
 

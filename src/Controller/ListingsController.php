@@ -32,13 +32,7 @@ class ListingsController extends AbstractController
       $books = new Books();
       $form = $this->createForm(ListingType::class, $books);
       $form->handleRequest($request);
-      if ($form->isSubmitted() && $form->isValid()) {
-         $books
-            ->setCreatedAt(new \DateTimeImmutable())
-            ->setUpdatedAt(new \DateTimeImmutable())
-            ->setFavorite(false)
-         ;
-         
+      if ($form->isSubmitted() && $form->isValid()) {         
          $entityManager->persist($books);
          $entityManager->flush();
          return $this->redirectToRoute('listings_show');
@@ -60,19 +54,47 @@ class ListingsController extends AbstractController
     //Méthode pour supprimer une annonce
     #[Route(path:"/remove/{id}", name:"remove")]
     #[IsGranted('ROLE_USER')]
-    public function remove(Books $books, EntityManagerInterface $entityManager): Response
+    public function remove(Request $request, Books $books, EntityManagerInterface $entityManager): Response
     {
-      $entityManager->remove($books);
-      $entityManager->flush();
+      /** @var User $user */
+      $user = $this->getUser();
+      if (!$user->getBooks()->contains($books)) {
+        return $this->redirectToRoute('listings_show');
+      }
+      $token = $request->getPayload()->get('token');
+   
+      if($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
+         $entityManager->remove($books);
+         $entityManager->flush();
+         return $this->redirectToRoute('listings_show');
+      }
+      
       return $this->redirectToRoute('listings_show');
     }
 
    //Méthode pour modifier une annonce (page formulaire de modification) 
-    #[Route(path:"/update", name:"uodate")]
+   #[Route(path:"/update/{id}", name:"update")]
     #[IsGranted('ROLE_USER')]
-    public function updateListings(): Response
+    public function update(Books $books, Request $request, EntityManagerInterface $entityManager): Response
     {
-       return $this->render('listings/update.html.twig');
+      /** @var User $user */
+      $user = $this->getUser();
+      if (!$user->getBooks()->contains($books)) {
+        return $this->redirectToRoute('listings_show');
+      }
+      $form = $this->createForm(ListingType::class, $books);
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {   
+         $books->setUpdatedAt(new \DateTimeImmutable());      
+         $entityManager->persist($books);
+         $entityManager->flush();
+         return $this->redirectToRoute('listings_show');
+      }
+
+       return $this->render('listings/add.html.twig',[
+         'form'=> $form,
+         'book' => $books
+       ]);
     }
 }
     

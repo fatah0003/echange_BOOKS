@@ -42,9 +42,6 @@ class Books
     private ?string $edition = null;
 
     #[ORM\Column]
-    private ?bool $isFavorite = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -65,6 +62,14 @@ class Books
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, enumType: ExchangeTypeEnum::class)]
     private array $exchangeType = [];
+
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+    public function __construct(){
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -127,18 +132,6 @@ class Books
     public function setEdition(string $edition): static
     {
         $this->edition = $edition;
-
-        return $this;
-    }
-
-    public function isFavorite(): ?bool
-    {
-        return $this->isFavorite;
-    }
-
-    public function setFavorite(bool $isFavorite): static
-    {
-        $this->isFavorite = $isFavorite;
 
         return $this;
     }
@@ -226,6 +219,18 @@ class Books
     public function setExchangeType(array $exchangeType): static
     {
         $this->exchangeType = $exchangeType;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
