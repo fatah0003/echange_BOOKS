@@ -16,8 +16,9 @@ class ListingsController extends AbstractController
 {
    //Méthode pour afficher la liste des annonces sur la page annonce 
     #[Route(path:"", name:"show")]
-    public function listings(BooksRepository $booksRepository): Response
+    public function listings(Request $request, BooksRepository $booksRepository): Response
     {
+      
       $books = $booksRepository->findAll();
 
        return $this->render('listings/listings.html.twig', [
