@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,9 +45,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Books::class, mappedBy: 'user')]
     private Collection $books;
 
+    /**
+     * @var Collection<int, Books>
+     */
+    #[ORM\ManyToMany(targetEntity: Books::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'favorite')]
+    private Collection $favorites;
+
     public function __construct()
     {
         $this->books = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,5 +177,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Books>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Books $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Books $favorite): static
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+    public function toggleFavorite(Books $books): void {
+        if ($this->favorites->contains($books)){
+            $this->removeFavorite($books);
+        } else{
+            $this->addFavorite($books);
+        }
     }
 }

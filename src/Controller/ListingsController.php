@@ -97,5 +97,15 @@ class ListingsController extends AbstractController
          'book' => $books
        ]);
     }
+     //Méthode pour les favoris
+    #[Route('/favorite/{id}', name: 'toggle_favorite')]
+    public function toggleFavorite(Books $books, EntityManagerInterface $entityManager) : Response {
+      /** @var User $user */
+      $user = $this->getUser();
+     $user->toggleFavorite($books);
+      
+      $entityManager->flush();
+      return $this->redirectToRoute('listings_show');
+    }
 }
     

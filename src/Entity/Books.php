@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\ExchangeTypeEnum;
 use App\Enum\StateEnum;
 use App\Repository\BooksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,9 +68,16 @@ class Books
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorites')]
+    private Collection $users;
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +240,33 @@ class Books
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeFavorite($this);
+        }
 
         return $this;
     }

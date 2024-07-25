@@ -6,14 +6,22 @@
 		<a href="{{ path('listings_showone', { id: book.id }) }}">
 			<img class="image-box" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
 		</a>
-		<a class="fav" href="">
-			<img class="favorite" src="{{ asset('/images/favori.png') }}" alt="logo favoris"/>
-		</a>
+		{% if app.user %}
+			<a class="fav" href="{{ path('listings_toggle_favorite', {'id': book.id })}}">
+				{% if book in app.user.favorites %}
+					
+					<img class="favorite" src="{{ asset('/images/fav.png') }}" alt="logo favoris"/>
+				{% else %}
+					
+					<img class="favorite" src="{{ asset('/images/favori.png') }}" alt="logo favoris"/>
+				{% endif %}
+
+
+			</a>
+		{% endif %}
 
 	</section>
-	<div>
-		
-	</div>
+	<div></div>
 	<section class="low-card">
 		<div class="book-title">{{ book.title }}</div>
 		<div class="book-author">{{ book.author }}</div>
@@ -30,13 +38,13 @@
 							</div>
 						{% endif %}
 						{% if exchangeType.value == "temporary" %}
-						<div title="échange temporaire" class="{{ exchangeType.value }}">
+							<div title="échange temporaire" class="{{ exchangeType.value }}">
 								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="">
 							</div>
 						{% endif %}
-						
+
 					{% endfor %}
-				</div>				
+				</div>
 			</div>
 			<div class="detail">
 				<div class="book-state">
