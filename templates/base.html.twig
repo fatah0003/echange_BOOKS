@@ -12,6 +12,12 @@
         {% endblock %}
     </head>
     <body>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            {% include 'partials/notification.html.twig' %}
+        {% endfor %}
+    {% endfor %}
+    
         {% block header %} {% include "partials/header.html.twig" %} {% endblock %}
         
         {% block body %}

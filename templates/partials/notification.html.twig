@@ -1,0 +1,10 @@
+<div class="alert-container {% if label == 'success' %}success{% else %}error{% endif %}" role="alert">
+    <strong class="alert-title">{{ message.title }}</strong>
+    <span class="alert-message">{{ message.message }}</span>
+    <button type="button" class="alert-close" onclick="this.parentElement.style.display='none';">
+        <svg class="close-icon" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <title>Close</title>
+            <path d="M14.348 14.849a1 1 0 01-1.414 0L10 11.415l-2.934 2.934a1 1 0 01-1.414-1.414l2.934-2.934-2.934-2.934a1 1 0 011.414-1.414l2.934 2.934 2.934-2.934a1 1 0 011.414 1.414L11.415 10l2.934 2.934a1 1 0 010 1.415z"/>
+        </svg>
+    </button>
+</div>

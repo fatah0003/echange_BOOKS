@@ -33,7 +33,8 @@ class ListingsController extends AbstractController
       $books = new Books();
       $form = $this->createForm(ListingType::class, $books);
       $form->handleRequest($request);
-      if ($form->isSubmitted() && $form->isValid()) {         
+      if ($form->isSubmitted() && $form->isValid()) {   
+        $books->setUser($this->getUser());      
          $entityManager->persist($books);
          $entityManager->flush();
          return $this->redirectToRoute('listings_show');
@@ -85,10 +86,19 @@ class ListingsController extends AbstractController
       }
       $form = $this->createForm(ListingType::class, $books);
       $form->handleRequest($request);
+
       if ($form->isSubmitted() && $form->isValid()) {   
          $books->setUpdatedAt(new \DateTimeImmutable());      
          $entityManager->persist($books);
          $entityManager->flush();
+         $this->addFlash('success', [
+            'title' => 'Success title',
+            'message' => 'Message de notification'
+        ]);
+        $this->addFlash('success', [
+          'title' => 'Success title',
+          'message' => 'Message de notification'
+      ]);
          return $this->redirectToRoute('listings_show');
       }
 
@@ -105,6 +115,10 @@ class ListingsController extends AbstractController
      $user->toggleFavorite($books);
       
       $entityManager->flush();
+      $this->addFlash('success', [
+        'title' => 'Success title',
+        'message' => 'Message de notification'
+    ]);
       return $this->redirectToRoute('listings_show');
     }
 }
