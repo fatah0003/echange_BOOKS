@@ -16,6 +16,14 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'card' => [
+        'path' => './assets/card.js',
+        'entrypoint' => true,
+    ],
+    'notification' => [
+        'path' => './assets/notification.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

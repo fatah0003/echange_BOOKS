@@ -2,8 +2,12 @@
 {% block title %}Annonces
 {% endblock %}
 {# {% block importmap %}
+	{{ importmap(['app', 'card', 'notification']) }}
+{% endblock %}
+{% block body %} #}
+{% block importmap %}
 	{{ importmap('app') }}
-{% endblock %} #}
+{% endblock %}
 {% block body %}
 
 	<section class="banner">

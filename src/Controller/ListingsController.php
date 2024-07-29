@@ -37,6 +37,10 @@ class ListingsController extends AbstractController
         $books->setUser($this->getUser());      
          $entityManager->persist($books);
          $entityManager->flush();
+         $this->addFlash('success', [
+          'title' => 'Success title',
+          'message' => 'Message de notification'
+      ]);
          return $this->redirectToRoute('listings_show');
       }
 
@@ -68,6 +72,10 @@ class ListingsController extends AbstractController
       if($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
          $entityManager->remove($books);
          $entityManager->flush();
+         $this->addFlash('success', [
+          'title' => 'Success title',
+          'message' => 'Message de notification'
+      ]);
          return $this->redirectToRoute('listings_show');
       }
       
@@ -95,10 +103,6 @@ class ListingsController extends AbstractController
             'title' => 'Success title',
             'message' => 'Message de notification'
         ]);
-        $this->addFlash('success', [
-          'title' => 'Success title',
-          'message' => 'Message de notification'
-      ]);
          return $this->redirectToRoute('listings_show');
       }
 
