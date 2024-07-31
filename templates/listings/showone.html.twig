@@ -2,7 +2,22 @@
 {% block title %}Annonce
 {% endblock %}
 {% block body %}
-	<img style="width: 100px; height: 150px" src="{{ asset('/images/9782100844395-001-X.jpeg')}}" alt="">
+	<div>
+	{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %}
+        {% if book.cover is defined and book.cover is not null %}
+            {% set imageUrl = vich_uploader_asset(book.cover) %}
+        {% endif %}
+			<img class="image-box" src="{{ imageUrl }}" alt="image du livre"/>
+	</div>
+
+	<div>
+	{% set imageBackUrl = asset('/images/back.jpg') %}
+        {% if book.back is defined and book.back is not null %}
+            {% set imageBackUrl = vich_uploader_asset(book.back) %}
+        {% endif %}
+			<img class="image-box" src="{{ imageBackUrl }}" alt="image du livre"/>
+	</div>
+
 	<div class="title">Titre:
 		{{ book.title }}
 	</div>

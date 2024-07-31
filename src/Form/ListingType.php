@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ListingType extends AbstractType
 {
@@ -125,7 +126,28 @@ class ListingType extends AbstractType
                 'attr' => [
                     'class' => 'input-form'
                 ],
-            ]);
+            ])
+            ->add('back', ImageType::class, [
+                'label' => 'Image Back',
+                'required' => true,
+                'label_attr' => [
+                    'class' => 'label-form',
+                ],
+                'attr' => [
+                    'class' => 'input-form'
+                ],
+            ])
+            ->add('cover', ImageType::class, [
+                'label' => 'Image cover',
+                'required' => true,
+                'label_attr' => [
+                    'class' => 'label-form',
+                ],
+                'attr' => [
+                    'class' => 'input-form'
+                ],
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

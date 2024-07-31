@@ -13,6 +13,16 @@
     {{ form_start(form) }}
 
     <div class="form-element">
+        {{ form_label(form.cover) }}
+        {{ form_widget(form.cover) }}
+        {{ form_errors(form.cover) }}
+    </div>
+    <div class="form-element">
+        {{ form_label(form.back) }}
+        {{ form_widget(form.back) }}
+        {{ form_errors(form.back) }}
+    </div>
+    <div class="form-element">
         {{ form_label(form.isbn) }}
         {{ form_widget(form.isbn) }}
         {{ form_errors(form.isbn) }}

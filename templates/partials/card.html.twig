@@ -4,8 +4,17 @@
 			<img class="icone-rate" src="{{ asset('/images/star.png') }}" alt="icone étoile"/><span class="value">5</span>
 		</div>
 		<a href="{{ path('listings_showone', { id: book.id }) }}">
-			<img class="image-box" src="{{ asset('/images/9782100844395-001-X.jpeg') }}" alt="image du livre"/>
+
+
+		{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %}
+        {% if book.cover is defined and book.cover is not null %}
+            {% set imageUrl = vich_uploader_asset(book.cover) %}
+        {% endif %}
+			<img class="image-box" src="{{ imageUrl }}" alt="image du livre"/>
 		</a>
+
+
+
 		{% if app.user %}
 			<a class="fav" href="{{ path('listings_toggle_favorite', {'id': book.id })}}">
 				{% if book in app.user.favorites %}

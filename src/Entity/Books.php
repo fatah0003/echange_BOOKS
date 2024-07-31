@@ -10,9 +10,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Serializable;
 
 #[ORM\Entity(repositoryClass: BooksRepository::class)]
-class Books
+#[Vich\Uploadable()]
+class Books implements Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -74,6 +77,14 @@ class Books
      */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorites')]
     private Collection $users;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Image $back = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Image $cover = null;
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
@@ -270,4 +281,44 @@ class Books
 
         return $this;
     }
+
+    public function getBack(): ?Image
+    {
+        return $this->back;
+    }
+
+    public function setBack(Image $back): static
+    {
+        $this->back = $back;
+
+        return $this;
+    }
+
+    public function getCover(): ?Image
+    {
+        return $this->cover;
+    }
+
+    public function setCover(Image $cover): static
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id
+        ]);
+    }
+
+    public function unserialize(string $serialized)
+    {
+        list(
+            $this->id
+        ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+
 }

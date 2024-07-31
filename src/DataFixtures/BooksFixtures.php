@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Books;
+use App\Entity\Image;
 use App\Enum\ExchangeTypeEnum;
 use App\Enum\StateEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -14,6 +15,15 @@ class BooksFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 20; $i++){
+            $rand = rand(1, 3);
+            $cover = new Image();
+            $cover
+                ->setName('cover' . $rand . '.jpg');
+
+            $back = new Image();
+            $back
+                ->setName('back' . $rand . '.png');
+
            $book = new Books();
            $book
                 ->setTitle('Astronomie pour tous'.$i)
@@ -27,7 +37,10 @@ class BooksFixtures extends Fixture implements DependentFixtureInterface
                 ->setExchangeType([ExchangeTypeEnum::PERMANENT])
                 ->setState(StateEnum::GOOD)
                 ->setUser($this->getReference('user_'. rand(0,2)))
+                ->setBack($back)
+                ->setCover($cover)
                 ;
+                
                 $manager->persist($book);
         }
 
@@ -37,6 +50,7 @@ class BooksFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
+            ImageFixtures::class,
             CategorieFixtures::class,
             UserFixtures::class,
         ];
