@@ -16,11 +16,18 @@
         {{ form_label(form.cover) }}
         {{ form_widget(form.cover) }}
         {{ form_errors(form.cover) }}
+        {% if book.cover is defined and book.cover is not null %}
+        <img src="{{ vich_uploader_asset(book.cover) }}" alt="">
+        {% endif %}
     </div>
     <div class="form-element">
         {{ form_label(form.back) }}
         {{ form_widget(form.back) }}
         {{ form_errors(form.back) }}
+        {% set imageBackUrl = asset('/images/back.jpg') %}
+        {% if book.back is defined and book.back is not null %}
+            <img src="{{ vich_uploader_asset(book.back) }}" alt="">
+        {% endif %}
     </div>
     <div class="form-element">
         {{ form_label(form.isbn) }}

@@ -146,6 +146,7 @@ class ListingType extends AbstractType
                 'attr' => [
                     'class' => 'input-form'
                 ],
+                
             ])
             ;
     }
