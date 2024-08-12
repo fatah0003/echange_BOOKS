@@ -33,6 +33,8 @@ class ListingsController extends AbstractController
   #[IsGranted('ROLE_USER')]
   public function addListings(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
   {
+
+    // dd($request);
     $books = new Books();
     $form = $this->createForm(ListingType::class, $books);
     $form->handleRequest($request);

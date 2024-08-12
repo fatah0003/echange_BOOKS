@@ -1,0 +1,3 @@
+workers:
+  messenger:
+    cmd: ['symfony', 'console', 'messenger:consume', 'async']

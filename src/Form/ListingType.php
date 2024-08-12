@@ -129,17 +129,17 @@ class ListingType extends AbstractType
             ])
             ->add('back', ImageType::class, [
                 'label' => 'Image Back',
-                'required' => true,
+                'required' => !$options['data']?->getBack(),
                 'label_attr' => [
                     'class' => 'label-form',
                 ],
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-form'                    
                 ],
             ])
             ->add('cover', ImageType::class, [
                 'label' => 'Image cover',
-                'required' => true,
+                'required' => !$options['data']?->getCover(),
                 'label_attr' => [
                     'class' => 'label-form',
                 ],
