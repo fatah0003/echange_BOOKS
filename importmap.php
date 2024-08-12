@@ -33,4 +33,8 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'search' => [
+        'path' => './assets/js/serach/address-input.js',
+        'entrypoint' => true,
+    ],
 ];

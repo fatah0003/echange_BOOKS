@@ -79,3 +79,14 @@ button{
     margin-top: 15px;
     font-weight: bold;
 }
+.show{
+    display: block;
+}
+ul{
+   list-style-type: none;
+}
+/* .aaa{
+    width: 200px;
+    color: blue;
+    background-color: #27ae60;
+} */

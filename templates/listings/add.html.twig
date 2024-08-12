@@ -2,6 +2,7 @@
 {% block title %}Add Listing
 {% endblock %}
 {% block header %}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
 {% block body %}
 <h1>{% if book is defined %}
             Modifier l'annonce {{ book.title }}
@@ -85,10 +86,17 @@
     {{ form_widget(form.bookCategorie) }}
     {{ form_errors(form.bookCategorie) }}
 </div>
-<div class="form-element">
+<div class="form-element" id="locationContainer">
     {{ form_label(form.location) }}
     {{ form_widget(form.location) }}
     {{ form_errors(form.location) }}
+    <div id="showlist" class="show">
+    <ul id="showresults">
+    {# <li></li>
+    <li></li>
+    <li></li> #}
+    </ul>
+    </div>
 </div>
 
 <button type="submit">

@@ -78,6 +78,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'address-input',
                     'class' => 'input-form'
                 ],
             ])
