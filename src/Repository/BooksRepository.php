@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\BookCategorie;
 use App\Entity\Books;
+use App\Enum\ExchangeTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +16,48 @@ class BooksRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Books::class);
+    }
+
+    public function search(
+        ?string $title,
+        ?string $author,
+        ?string $location,
+        ?array $exchangeTypes,
+        ?BookCategorie $bookCategorie,
+
+    ): array {
+        $qb = $this->createQueryBuilder('b');
+        if ($title) {
+            $qb->andWhere('b.title LIKE :title')
+            ->setParameter('title', '%'.$title.'%')
+            ;
+        }
+        if ($author) {
+            $qb->andWhere('b.author LIKE :author')
+            ->setParameter('author', '%'.$author.'%')
+            ;
+        }
+        if ($location) {
+            $qb->andWhere('b.location LIKE :location')
+            ->setParameter('location', '%'.$location.'%')
+            ;
+        }
+        if ($exchangeTypes) { 
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->like('b.exchangeType', ':permanent'),
+                $qb->expr()->like('b.exchangeType', ':temporary')
+            ))         
+            ->setParameter('permanent', 'permanent')
+            ->setParameter('temporary', 'temporary')
+            ;
+
+        }
+        if ($bookCategorie) {
+            $qb->andWhere('b.bookCategorie = :bookCategorie')
+            ->setParameter('bookCategorie', $bookCategorie);
+        }
+        return $qb->getQuery()->getResult();
+        
     }
     // public function getByCategorieName(string $categorie)
     // {

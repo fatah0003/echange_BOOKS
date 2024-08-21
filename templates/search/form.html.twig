@@ -1,0 +1,39 @@
+    {{ form_start(form) }}
+<div class="form-element">
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title) }}
+    {{ form_errors(form.title) }}
+</div>
+
+<div class="form-element">
+    {{ form_label(form.author) }}
+    {{ form_widget(form.author) }}
+    {{ form_errors(form.author) }}
+</div>
+
+<div class="form-element-type">
+    {{ form_label(form.exchangeType) }}
+    {{ form_widget(form.exchangeType) }}
+    {{ form_errors(form.exchangeType) }}
+</div>
+
+<div class="form-element">
+    {{ form_label(form.bookCategorie) }}
+    {{ form_widget(form.bookCategorie) }}
+    {{ form_errors(form.bookCategorie) }}
+</div>
+<div class="form-element" id="locationContainer">
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location) }}
+    {{ form_errors(form.location) }}
+    <div id="showlist" class="show">
+    <ul id="showresults">
+    </ul>
+    </div>
+</div>
+
+<button type="submit">
+Lancer la recherche
+</button>
+
+{{ form_end(form) }}

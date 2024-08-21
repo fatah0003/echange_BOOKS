@@ -72,7 +72,7 @@ class ListingType extends AbstractType
                 ],
             ])
             ->add('location', TextType::class, [
-                'label' => 'Localisation',
+                'label' => 'Ville',
                 'required' => true,
                 'label_attr' => [
                     'class' => 'label-form',

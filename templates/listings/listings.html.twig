@@ -1,19 +1,20 @@
 {% extends "base.html.twig" %}
 {% block title %}Annonces
 {% endblock %}
-{# {% block importmap %}
-	{{ importmap(['app', 'card', 'notification']) }}
-{% endblock %}
-{% block body %} #}
 {% block importmap %}
-	{{ importmap('app') }}
+	{{ importmap(['app', 'card', 'notification', 'search']) }}
 {% endblock %}
+{# {% block body %} #}
+{# {% block importmap %}
+	{{ importmap('app') }}
+{% endblock %} #}
 {% block body %}
 
 	<section class="banner">
 		<span class="title">BOOKSINDER</span>
 		<span class="welcome">Bienvennue sur BOOKSINDER</span>
 		<span class="welcome">Les Livres de tes Reves</span>
+		{% include "search/form.html.twig" %}
 	</section>
 
 

@@ -8,8 +8,8 @@ import './bootstrap.js';
 
 import './styles/app.css';
 import './styles/form.css';
-import './styles/card.css';
-import './styles/notification.css';
+import './styles/card.css'; //creer un style pour la page showone------------------------------------------------
+// import './styles/notification.css';
 
 
 

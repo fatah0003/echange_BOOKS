@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\ListingType;
+use App\Form\SearchType;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -21,11 +22,25 @@ class ListingsController extends AbstractController
   #[Route(path: "", name: "show")]
   public function listings(Request $request, BooksRepository $booksRepository): Response
   {
+    $form = $this->createForm(SearchType::class);
+    $form->handleRequest($request);
 
     $books = $booksRepository->findAll();
+    if ($form->isSubmitted() && $form->isValid()) {
+      $books = $booksRepository->search(
+          $form->get('title')->getData(),
+          $form->get('author')->getData(),
+          $form->get('location')->getData(),
+          $form->get('exchangeType')->getData(),
+          $form->get('bookCategorie')->getData()
+          
+         );
+
+    }
 
     return $this->render('listings/listings.html.twig', [
       'books' => $books,
+      'form' => $form,
     ]);
   }
   //Méthode pour creer une annonce (page formulaire de création) 
