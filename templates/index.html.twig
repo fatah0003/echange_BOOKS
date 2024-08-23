@@ -1,4 +1,7 @@
 {% extends "base.html.twig" %} {% block title %}accueil{% endblock %} 
+{% block importmap %}
+	{{ importmap(['app', 'home']) }}
+{% endblock %}
 {% block body %}
 <section class="banner">
   <h1 class="title">BOOKSINDER</h1>

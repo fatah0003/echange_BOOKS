@@ -202,10 +202,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    public function toggleFavorite(Books $books): void {
-        if ($this->favorites->contains($books)){
+    public function toggleFavorite(Books $books): void
+    {
+        if ($this->favorites->contains($books)) {
             $this->removeFavorite($books);
-        } else{
+        } else {
             $this->addFavorite($books);
         }
     }

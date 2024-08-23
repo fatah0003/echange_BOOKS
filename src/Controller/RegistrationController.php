@@ -17,8 +17,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -26,7 +30,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-                    $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -36,17 +40,17 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             $email = (new Email())
-        ->from('admin@booksinder.com')
-        ->to($user->getEmail())
+            ->from('admin@booksinder.com')
+            ->to($user->getEmail())
         //->cc('cc@example.com')
         //->bcc('bcc@example.com')
         //->replyTo('fabien@example.com')
         //->priority(Email::PRIORITY_HIGH)
-        ->subject('Confirmation : Votre compte a été créé avec succès')
+            ->subject('Confirmation : Votre compte a été créé avec succès')
         //->text('Sending emails is fun again!')
-        ->html('Bienvenu mon reuf');
+            ->html('Bienvenu mon reuf');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
             // do anything else you need here, like send an email
 

@@ -24,23 +24,44 @@ class Books implements Serializable
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
-    #[Assert\Length(min:2, max:50, maxMessage:"le titre ne devrait aps passer 50 caracteres", minMessage:"le titre doit avoir au moins deux caracteres")]
+    #[Assert\Length(
+        min:2,
+        max:50,
+        maxMessage:"le titre ne devrait aps passer 50 caracteres",
+        minMessage:"le titre doit avoir au moins deux caracteres"
+    )]
 
     private ?string $title = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
-    #[Assert\Length(min:2, max:50, maxMessage:"le nom de l'auteur ne devrait aps passer 50 caracteres", minMessage:"le nom de l'auteur doit avoir au moins deux caracteres")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        maxMessage: "Le nom de l'auteur ne devrait pas dépasser 50 caractères",
+        minMessage: "Le nom de l'auteur doit avoir au moins deux caractères"
+    )]
     private ?string $author = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
-    #[Assert\Length(min:2, max:20, maxMessage:"l'ISBN ne devrait aps passer 20 caracteres", minMessage:"l'ISBN doit avoir au moins deux caracteres")]
+    #[Assert\Length(
+        min: 2,
+        max: 20,
+        maxMessage: "L'ISBN ne devrait pas dépasser 20 caractères",
+        minMessage: "L'ISBN doit avoir au moins deux caractères"
+    )]
     private ?string $isbn = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
-    #[Assert\Length(min:1, max:500, maxMessage:"La discreption doit avoir entre 20 et 500 caracteres", minMessage:"La discreption doit avoir entre 100 et 500 caracteres")]
+    #[Assert\Length(
+        min: 20,
+        max: 500,
+        maxMessage: "La description doit avoir entre 20 et 500 caractères",
+        minMessage: "La description doit avoir au moins 20 caractères"
+    )]
+
     private ?string $description = null;
 
     #[ORM\Column(length: 40)]
@@ -85,7 +106,8 @@ class Books implements Serializable
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Image $cover = null;
-    public function __construct(){
+    public function __construct()
+    {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->users = new ArrayCollection();
@@ -320,5 +342,15 @@ class Books implements Serializable
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+        ];
+    }
 
+    public function __unserialize(array $serialized): void
+    {
+        $this->id = $serialized['id'];
+    }
 }

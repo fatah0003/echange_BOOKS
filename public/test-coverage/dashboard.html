@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\99MFOVA-PP015-W\Desktop\AINSERI Fatah\Projet final\Echange de livres Symfony\livre_echange\src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\Users\99MFOVA-PP015-W\Desktop\AINSERI Fatah\Projet final\Echange de livres Symfony\livre_echange\src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/HomeController.php.html#9">App\Controller\HomeController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#19">App\Controller\ListingsController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#17">App\Controller\RegistrationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#10">App\Controller\SecurityController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#8">App\DataFixtures\AppFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/BooksFixtures.php.html#13">App\DataFixtures\BooksFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/CategorieFixtures.php.html#9">App\DataFixtures\CategorieFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/ImageFixtures.php.html#12">App\DataFixtures\ImageFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/UserFixtures.php.html#10">App\DataFixtures\UserFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#10">App\Entity\Image</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#9">App\Entity\InfosUser</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ImageType.php.html#11">App\Form\ImageType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ListingType.php.html#19">App\Form\ListingType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#17">App\Form\RegistrationFormType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/SearchType.php.html#13">App\Form\SearchType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BookCategorieRepository.php.html#12">App\Repository\BookCategorieRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BooksRepository.php.html#14">App\Repository\BooksRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ImageRepository.php.html#12">App\Repository\ImageRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/InfosUserRepository.php.html#12">App\Repository\InfosUserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#15">App\Repository\UserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#14">App\Entity\User</a></td><td class="text-right">56%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#16">App\Entity\Books</a></td><td class="text-right">62%</td></tr>
+       <tr><td><a href="Entity/BookCategorie.php.html#10">App\Entity\BookCategorie</a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/ListingsController.php.html#19">App\Controller\ListingsController</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="Entity/Books.php.html#16">App\Entity\Books</a></td><td class="text-right">128</td></tr>
+       <tr><td><a href="Entity/Image.php.html#10">App\Entity\Image</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Entity/User.php.html#14">App\Entity\User</a></td><td class="text-right">76</td></tr>
+       <tr><td><a href="DataFixtures/ImageFixtures.php.html#12">App\DataFixtures\ImageFixtures</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Repository/BooksRepository.php.html#14">App\Repository\BooksRepository</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#17">App\Controller\RegistrationController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DataFixtures/BooksFixtures.php.html#13">App\DataFixtures\BooksFixtures</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DataFixtures/UserFixtures.php.html#10">App\DataFixtures\UserFixtures</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#15">App\Repository\UserRepository</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Entity/BookCategorie.php.html#10">App\Entity\BookCategorie</a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="DataFixtures/CategorieFixtures.php.html#9">App\DataFixtures\CategorieFixtures</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/HomeController.php.html#11"><abbr title="App\Controller\HomeController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#23"><abbr title="App\Controller\ListingsController::listings">listings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#46"><abbr title="App\Controller\ListingsController::addListings">addListings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#91"><abbr title="App\Controller\ListingsController::showone">showone</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#100"><abbr title="App\Controller\ListingsController::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#143"><abbr title="App\Controller\ListingsController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#190"><abbr title="App\Controller\ListingsController::toggleFavorite">toggleFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#19"><abbr title="App\Controller\RegistrationController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#12"><abbr title="App\Controller\SecurityController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#27"><abbr title="App\Controller\SecurityController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#10"><abbr title="App\DataFixtures\AppFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/BooksFixtures.php.html#15"><abbr title="App\DataFixtures\BooksFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/BooksFixtures.php.html#50"><abbr title="App\DataFixtures\BooksFixtures::getDependencies">getDependencies</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/CategorieFixtures.php.html#22"><abbr title="App\DataFixtures\CategorieFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/ImageFixtures.php.html#14"><abbr title="App\DataFixtures\ImageFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/UserFixtures.php.html#13"><abbr title="App\DataFixtures\UserFixtures::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/UserFixtures.php.html#17"><abbr title="App\DataFixtures\UserFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/BookCategorie.php.html#32"><abbr title="App\Entity\BookCategorie::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/BookCategorie.php.html#37"><abbr title="App\Entity\BookCategorie::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#116"><abbr title="App\Entity\Books::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#283"><abbr title="App\Entity\Books::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#288"><abbr title="App\Entity\Books::addUser">addUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#298"><abbr title="App\Entity\Books::removeUser">removeUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#307"><abbr title="App\Entity\Books::getBack">getBack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#312"><abbr title="App\Entity\Books::setBack">setBack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#319"><abbr title="App\Entity\Books::getCover">getCover</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#324"><abbr title="App\Entity\Books::setCover">setCover</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#331"><abbr title="App\Entity\Books::serialize">serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#338"><abbr title="App\Entity\Books::unserialize">unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#345"><abbr title="App\Entity\Books::__serialize">__serialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Books.php.html#352"><abbr title="App\Entity\Books::__unserialize">__unserialize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#31"><abbr title="App\Entity\Image::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#36"><abbr title="App\Entity\Image::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#41"><abbr title="App\Entity\Image::getUpdatedAt">getUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#46"><abbr title="App\Entity\Image::setUpdatedAt">setUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#53"><abbr title="App\Entity\Image::getName">getName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#58"><abbr title="App\Entity\Image::setName">setName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#64"><abbr title="App\Entity\Image::setImageFile">setImageFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Image.php.html#75"><abbr title="App\Entity\Image::getImageFile">getImageFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#39"><abbr title="App\Entity\InfosUser::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#44"><abbr title="App\Entity\InfosUser::getUserName">getUserName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#49"><abbr title="App\Entity\InfosUser::setUserName">setUserName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#56"><abbr title="App\Entity\InfosUser::getPhoneNumber">getPhoneNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#61"><abbr title="App\Entity\InfosUser::setPhoneNumber">setPhoneNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#68"><abbr title="App\Entity\InfosUser::getCity">getCity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#73"><abbr title="App\Entity\InfosUser::setCity">setCity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#80"><abbr title="App\Entity\InfosUser::getBirthDate">getBirthDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#85"><abbr title="App\Entity\InfosUser::setBirthDate">setBirthDate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#92"><abbr title="App\Entity\InfosUser::getBio">getBio</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#97"><abbr title="App\Entity\InfosUser::setBio">setBio</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#104"><abbr title="App\Entity\InfosUser::getCreatedAt">getCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#109"><abbr title="App\Entity\InfosUser::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#116"><abbr title="App\Entity\InfosUser::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/InfosUser.php.html#121"><abbr title="App\Entity\InfosUser::setUser">setUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#61"><abbr title="App\Entity\User::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#83"><abbr title="App\Entity\User::getUserIdentifier">getUserIdentifier</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#129"><abbr title="App\Entity\User::eraseCredentials">eraseCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#135"><abbr title="App\Entity\User::getInfosUser">getInfosUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#140"><abbr title="App\Entity\User::setInfosUser">setInfosUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#185"><abbr title="App\Entity\User::getFavorites">getFavorites</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#190"><abbr title="App\Entity\User::addFavorite">addFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#199"><abbr title="App\Entity\User::removeFavorite">removeFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#205"><abbr title="App\Entity\User::toggleFavorite">toggleFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ImageType.php.html#13"><abbr title="App\Form\ImageType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ImageType.php.html#24"><abbr title="App\Form\ImageType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ListingType.php.html#21"><abbr title="App\Form\ListingType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/ListingType.php.html#155"><abbr title="App\Form\ListingType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#19"><abbr title="App\Form\RegistrationFormType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/RegistrationFormType.php.html#82"><abbr title="App\Form\RegistrationFormType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/SearchType.php.html#15"><abbr title="App\Form\SearchType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BookCategorieRepository.php.html#14"><abbr title="App\Repository\BookCategorieRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BooksRepository.php.html#16"><abbr title="App\Repository\BooksRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BooksRepository.php.html#21"><abbr title="App\Repository\BooksRepository::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ImageRepository.php.html#14"><abbr title="App\Repository\ImageRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/InfosUserRepository.php.html#14"><abbr title="App\Repository\InfosUserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#17"><abbr title="App\Repository\UserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#25"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataFixtures/ImageFixtures.php.html#14"><abbr title="App\DataFixtures\ImageFixtures::load">load</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Repository/BooksRepository.php.html#21"><abbr title="App\Repository\BooksRepository::search">search</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#143"><abbr title="App\Controller\ListingsController::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#23"><abbr title="App\Controller\ListingsController::listings">listings</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#46"><abbr title="App\Controller\ListingsController::addListings">addListings</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/ListingsController.php.html#100"><abbr title="App\Controller\ListingsController::remove">remove</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/RegistrationController.php.html#19"><abbr title="App\Controller\RegistrationController::register">register</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DataFixtures/BooksFixtures.php.html#15"><abbr title="App\DataFixtures\BooksFixtures::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataFixtures/CategorieFixtures.php.html#22"><abbr title="App\DataFixtures\CategorieFixtures::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataFixtures/UserFixtures.php.html#17"><abbr title="App\DataFixtures\UserFixtures::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Books.php.html#288"><abbr title="App\Entity\Books::addUser">addUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Books.php.html#298"><abbr title="App\Entity\Books::removeUser">removeUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Image.php.html#64"><abbr title="App\Entity\Image::setImageFile">setImageFile</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#140"><abbr title="App\Entity\User::setInfosUser">setInfosUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#190"><abbr title="App\Entity\User::addFavorite">addFavorite</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#205"><abbr title="App\Entity\User::toggleFavorite">toggleFavorite</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#25"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.31</a> using <a href="https://secure.php.net/" target="_top">PHP 8.3.4</a> and <a href="https://phpunit.de/">PHPUnit 9.6.19</a> at Fri Aug 23 12:59:22 UTC 2024.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=9.2.31" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=9.2.31" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=9.2.31" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([20,0,0,0,0,0,1,1,0,1,0,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([77,0,0,0,0,0,0,0,0,0,0,42], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controller\/HomeController.php.html#9\">App\\Controller\\HomeController<\/a>"],[0,15,"<a href=\"Controller\/ListingsController.php.html#19\">App\\Controller\\ListingsController<\/a>"],[0,3,"<a href=\"Controller\/RegistrationController.php.html#17\">App\\Controller\\RegistrationController<\/a>"],[0,2,"<a href=\"Controller\/SecurityController.php.html#10\">App\\Controller\\SecurityController<\/a>"],[0,1,"<a href=\"DataFixtures\/AppFixtures.php.html#8\">App\\DataFixtures\\AppFixtures<\/a>"],[0,3,"<a href=\"DataFixtures\/BooksFixtures.php.html#13\">App\\DataFixtures\\BooksFixtures<\/a>"],[0,2,"<a href=\"DataFixtures\/CategorieFixtures.php.html#9\">App\\DataFixtures\\CategorieFixtures<\/a>"],[0,8,"<a href=\"DataFixtures\/ImageFixtures.php.html#12\">App\\DataFixtures\\ImageFixtures<\/a>"],[0,3,"<a href=\"DataFixtures\/UserFixtures.php.html#10\">App\\DataFixtures\\UserFixtures<\/a>"],[85.71428571428571,10,"<a href=\"Entity\/BookCategorie.php.html#10\">App\\Entity\\BookCategorie<\/a>"],[62.68656716417911,41,"<a href=\"Entity\/Books.php.html#16\">App\\Entity\\Books<\/a>"],[0,9,"<a href=\"Entity\/Image.php.html#10\">App\\Entity\\Image<\/a>"],[0,15,"<a href=\"Entity\/InfosUser.php.html#9\">App\\Entity\\InfosUser<\/a>"],[56.41025641025641,25,"<a href=\"Entity\/User.php.html#14\">App\\Entity\\User<\/a>"],[0,2,"<a href=\"Form\/ImageType.php.html#11\">App\\Form\\ImageType<\/a>"],[0,2,"<a href=\"Form\/ListingType.php.html#19\">App\\Form\\ListingType<\/a>"],[0,2,"<a href=\"Form\/RegistrationFormType.php.html#17\">App\\Form\\RegistrationFormType<\/a>"],[0,1,"<a href=\"Form\/SearchType.php.html#13\">App\\Form\\SearchType<\/a>"],[100,0,"<a href=\"Kernel.php.html#8\">App\\Kernel<\/a>"],[0,1,"<a href=\"Repository\/BookCategorieRepository.php.html#12\">App\\Repository\\BookCategorieRepository<\/a>"],[0,7,"<a href=\"Repository\/BooksRepository.php.html#14\">App\\Repository\\BooksRepository<\/a>"],[0,1,"<a href=\"Repository\/ImageRepository.php.html#12\">App\\Repository\\ImageRepository<\/a>"],[0,1,"<a href=\"Repository\/InfosUserRepository.php.html#12\">App\\Repository\\InfosUserRepository<\/a>"],[0,3,"<a href=\"Repository\/UserRepository.php.html#15\">App\\Repository\\UserRepository<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controller\/HomeController.php.html#11\">App\\Controller\\HomeController::index<\/a>"],[0,3,"<a href=\"Controller\/ListingsController.php.html#23\">App\\Controller\\ListingsController::listings<\/a>"],[0,3,"<a href=\"Controller\/ListingsController.php.html#46\">App\\Controller\\ListingsController::addListings<\/a>"],[0,1,"<a href=\"Controller\/ListingsController.php.html#91\">App\\Controller\\ListingsController::showone<\/a>"],[0,3,"<a href=\"Controller\/ListingsController.php.html#100\">App\\Controller\\ListingsController::remove<\/a>"],[0,4,"<a href=\"Controller\/ListingsController.php.html#143\">App\\Controller\\ListingsController::update<\/a>"],[0,1,"<a href=\"Controller\/ListingsController.php.html#190\">App\\Controller\\ListingsController::toggleFavorite<\/a>"],[0,3,"<a href=\"Controller\/RegistrationController.php.html#19\">App\\Controller\\RegistrationController::register<\/a>"],[0,1,"<a href=\"Controller\/SecurityController.php.html#12\">App\\Controller\\SecurityController::login<\/a>"],[0,1,"<a href=\"Controller\/SecurityController.php.html#27\">App\\Controller\\SecurityController::logout<\/a>"],[0,1,"<a href=\"DataFixtures\/AppFixtures.php.html#10\">App\\DataFixtures\\AppFixtures::load<\/a>"],[0,2,"<a href=\"DataFixtures\/BooksFixtures.php.html#15\">App\\DataFixtures\\BooksFixtures::load<\/a>"],[0,1,"<a href=\"DataFixtures\/BooksFixtures.php.html#50\">App\\DataFixtures\\BooksFixtures::getDependencies<\/a>"],[0,2,"<a href=\"DataFixtures\/CategorieFixtures.php.html#22\">App\\DataFixtures\\CategorieFixtures::load<\/a>"],[0,8,"<a href=\"DataFixtures\/ImageFixtures.php.html#14\">App\\DataFixtures\\ImageFixtures::load<\/a>"],[0,1,"<a href=\"DataFixtures\/UserFixtures.php.html#13\">App\\DataFixtures\\UserFixtures::__construct<\/a>"],[0,2,"<a href=\"DataFixtures\/UserFixtures.php.html#17\">App\\DataFixtures\\UserFixtures::load<\/a>"],[100,1,"<a href=\"Entity\/BookCategorie.php.html#27\">App\\Entity\\BookCategorie::__construct<\/a>"],[0,1,"<a href=\"Entity\/BookCategorie.php.html#32\">App\\Entity\\BookCategorie::getId<\/a>"],[0,1,"<a href=\"Entity\/BookCategorie.php.html#37\">App\\Entity\\BookCategorie::getName<\/a>"],[100,1,"<a href=\"Entity\/BookCategorie.php.html#42\">App\\Entity\\BookCategorie::setName<\/a>"],[100,1,"<a href=\"Entity\/BookCategorie.php.html#52\">App\\Entity\\BookCategorie::getBooksId<\/a>"],[100,2,"<a href=\"Entity\/BookCategorie.php.html#57\">App\\Entity\\BookCategorie::addBooksId<\/a>"],[100,3,"<a href=\"Entity\/BookCategorie.php.html#67\">App\\Entity\\BookCategorie::removeBooksId<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#109\">App\\Entity\\Books::__construct<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#116\">App\\Entity\\Books::getId<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#121\">App\\Entity\\Books::getTitle<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#126\">App\\Entity\\Books::setTitle<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#133\">App\\Entity\\Books::getAuthor<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#138\">App\\Entity\\Books::setAuthor<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#145\">App\\Entity\\Books::getIsbn<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#150\">App\\Entity\\Books::setIsbn<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#157\">App\\Entity\\Books::getDescription<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#162\">App\\Entity\\Books::setDescription<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#169\">App\\Entity\\Books::getEdition<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#174\">App\\Entity\\Books::setEdition<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#181\">App\\Entity\\Books::getCreatedAt<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#186\">App\\Entity\\Books::setCreatedAt<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#193\">App\\Entity\\Books::getUpdatedAt<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#198\">App\\Entity\\Books::setUpdatedAt<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#205\">App\\Entity\\Books::getLocation<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#210\">App\\Entity\\Books::setLocation<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#217\">App\\Entity\\Books::getBookCategorie<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#222\">App\\Entity\\Books::setBookCategorie<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#229\">App\\Entity\\Books::getPages<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#234\">App\\Entity\\Books::setPages<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#241\">App\\Entity\\Books::getState<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#246\">App\\Entity\\Books::setState<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#256\">App\\Entity\\Books::getExchangeType<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#261\">App\\Entity\\Books::setExchangeType<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#268\">App\\Entity\\Books::getUser<\/a>"],[100,1,"<a href=\"Entity\/Books.php.html#273\">App\\Entity\\Books::setUser<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#283\">App\\Entity\\Books::getUsers<\/a>"],[0,2,"<a href=\"Entity\/Books.php.html#288\">App\\Entity\\Books::addUser<\/a>"],[0,2,"<a href=\"Entity\/Books.php.html#298\">App\\Entity\\Books::removeUser<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#307\">App\\Entity\\Books::getBack<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#312\">App\\Entity\\Books::setBack<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#319\">App\\Entity\\Books::getCover<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#324\">App\\Entity\\Books::setCover<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#331\">App\\Entity\\Books::serialize<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#338\">App\\Entity\\Books::unserialize<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#345\">App\\Entity\\Books::__serialize<\/a>"],[0,1,"<a href=\"Entity\/Books.php.html#352\">App\\Entity\\Books::__unserialize<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#31\">App\\Entity\\Image::__construct<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#36\">App\\Entity\\Image::getId<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#41\">App\\Entity\\Image::getUpdatedAt<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#46\">App\\Entity\\Image::setUpdatedAt<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#53\">App\\Entity\\Image::getName<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#58\">App\\Entity\\Image::setName<\/a>"],[0,2,"<a href=\"Entity\/Image.php.html#64\">App\\Entity\\Image::setImageFile<\/a>"],[0,1,"<a href=\"Entity\/Image.php.html#75\">App\\Entity\\Image::getImageFile<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#39\">App\\Entity\\InfosUser::getId<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#44\">App\\Entity\\InfosUser::getUserName<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#49\">App\\Entity\\InfosUser::setUserName<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#56\">App\\Entity\\InfosUser::getPhoneNumber<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#61\">App\\Entity\\InfosUser::setPhoneNumber<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#68\">App\\Entity\\InfosUser::getCity<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#73\">App\\Entity\\InfosUser::setCity<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#80\">App\\Entity\\InfosUser::getBirthDate<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#85\">App\\Entity\\InfosUser::setBirthDate<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#92\">App\\Entity\\InfosUser::getBio<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#97\">App\\Entity\\InfosUser::setBio<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#104\">App\\Entity\\InfosUser::getCreatedAt<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#109\">App\\Entity\\InfosUser::setCreatedAt<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#116\">App\\Entity\\InfosUser::getUser<\/a>"],[0,1,"<a href=\"Entity\/InfosUser.php.html#121\">App\\Entity\\InfosUser::setUser<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#55\">App\\Entity\\User::__construct<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#61\">App\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#66\">App\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#71\">App\\Entity\\User::setEmail<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#83\">App\\Entity\\User::getUserIdentifier<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#92\">App\\Entity\\User::getRoles<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#104\">App\\Entity\\User::setRoles<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#114\">App\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#119\">App\\Entity\\User::setPassword<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#129\">App\\Entity\\User::eraseCredentials<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#135\">App\\Entity\\User::getInfosUser<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#140\">App\\Entity\\User::setInfosUser<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#155\">App\\Entity\\User::getBooks<\/a>"],[100,2,"<a href=\"Entity\/User.php.html#160\">App\\Entity\\User::addBook<\/a>"],[100,3,"<a href=\"Entity\/User.php.html#170\">App\\Entity\\User::removeBook<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#185\">App\\Entity\\User::getFavorites<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#190\">App\\Entity\\User::addFavorite<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#199\">App\\Entity\\User::removeFavorite<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#205\">App\\Entity\\User::toggleFavorite<\/a>"],[0,1,"<a href=\"Form\/ImageType.php.html#13\">App\\Form\\ImageType::buildForm<\/a>"],[0,1,"<a href=\"Form\/ImageType.php.html#24\">App\\Form\\ImageType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/ListingType.php.html#21\">App\\Form\\ListingType::buildForm<\/a>"],[0,1,"<a href=\"Form\/ListingType.php.html#155\">App\\Form\\ListingType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/RegistrationFormType.php.html#19\">App\\Form\\RegistrationFormType::buildForm<\/a>"],[0,1,"<a href=\"Form\/RegistrationFormType.php.html#82\">App\\Form\\RegistrationFormType::configureOptions<\/a>"],[0,1,"<a href=\"Form\/SearchType.php.html#15\">App\\Form\\SearchType::buildForm<\/a>"],[0,1,"<a href=\"Repository\/BookCategorieRepository.php.html#14\">App\\Repository\\BookCategorieRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/BooksRepository.php.html#16\">App\\Repository\\BooksRepository::__construct<\/a>"],[0,6,"<a href=\"Repository\/BooksRepository.php.html#21\">App\\Repository\\BooksRepository::search<\/a>"],[0,1,"<a href=\"Repository\/ImageRepository.php.html#14\">App\\Repository\\ImageRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/InfosUserRepository.php.html#14\">App\\Repository\\InfosUserRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/UserRepository.php.html#17\">App\\Repository\\UserRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#25\">App\\Repository\\UserRepository::upgradePassword<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable()]
 class Image
@@ -77,6 +76,4 @@ class Image
     {
         return $this->imageFile;
     }
-
-   
 }

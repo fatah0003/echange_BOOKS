@@ -42,21 +42,21 @@ class SearchType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
-                    'data-action' => 'address-input',
                     'class' => 'input-form'
                 ],
             ])
             ->add('exchangeType', EnumType::class, [
                 'class' => ExchangeTypeEnum::class,
-                'expanded' => true,
-                'multiple' => true,
+                'expanded' => false,
+                'multiple' => false,
                 'required' => false,
                 'label' => 'Type Echange',
                 'label_attr' => [
                     'class' => 'label-form',
                 ],
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-form',
+                    'placeholder' => 'iugiugg'
                 ],
             ])
             ->add('bookCategorie', EntityType::class, [
