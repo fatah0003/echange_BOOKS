@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\InfosUserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: InfosUserRepository::class)]
+// #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['userName'])]
+#[UniqueEntity(fields: ['userName'], message: 'Ce Psudo est déja utilisé par un autre utilisateur, veuillez choisir un autre !')]
+#[UniqueEntity(fields: ['phoneNumber'], message: 'Ce numéro est déja utilisé !')]
 class InfosUser
 {
     #[ORM\Id]
@@ -35,6 +39,11 @@ class InfosUser
     #[ORM\OneToOne(inversedBy: 'infosUser', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

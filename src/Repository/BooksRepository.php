@@ -22,42 +22,35 @@ class BooksRepository extends ServiceEntityRepository
         ?string $title,
         ?string $author,
         ?string $location,
-        ?array $exchangeTypes,
+        ?ExchangeTypeEnum $exchangeTypes,
         ?BookCategorie $bookCategorie,
-
     ): array {
         $qb = $this->createQueryBuilder('b');
         if ($title) {
             $qb->andWhere('b.title LIKE :title')
-            ->setParameter('title', '%'.$title.'%')
+            ->setParameter('title', '%' . $title . '%')
             ;
         }
         if ($author) {
             $qb->andWhere('b.author LIKE :author')
-            ->setParameter('author', '%'.$author.'%')
+            ->setParameter('author', '%' . $author . '%')
             ;
         }
         if ($location) {
             $qb->andWhere('b.location LIKE :location')
-            ->setParameter('location', '%'.$location.'%')
+            ->setParameter('location', '%' . $location . '%')
             ;
         }
-        if ($exchangeTypes) { 
-            $qb->andWhere($qb->expr()->orX(
-                $qb->expr()->like('b.exchangeType', ':permanent'),
-                $qb->expr()->like('b.exchangeType', ':temporary')
-            ))         
-            ->setParameter('permanent', 'permanent')
-            ->setParameter('temporary', 'temporary')
+        if ($exchangeTypes) {
+            $qb->andWhere('b.exchangeType LIKE :exchangeType')
+            ->setParameter('exchangeType', '%'.$exchangeTypes->value.'%')
             ;
-
         }
         if ($bookCategorie) {
             $qb->andWhere('b.bookCategorie = :bookCategorie')
             ->setParameter('bookCategorie', $bookCategorie);
         }
         return $qb->getQuery()->getResult();
-        
     }
     // public function getByCategorieName(string $categorie)
     // {

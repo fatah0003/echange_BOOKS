@@ -2,7 +2,8 @@
 
 namespace App\Enum;
 
-enum StateEnum: string {
+enum StateEnum: string
+{
     case NEW = 'new';
     case LIKE_NEW = 'like_new';
     case VERY_GOOD = 'very_good';

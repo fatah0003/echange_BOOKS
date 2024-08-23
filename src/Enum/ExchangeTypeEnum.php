@@ -2,7 +2,8 @@
 
 namespace App\Enum;
 
-enum ExchangeTypeEnum: string {
+enum ExchangeTypeEnum: string
+{
     case PERMANENT = "permanent";
     case TEMPORARY = "temporary";
 }

@@ -135,7 +135,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
-                    'class' => 'input-form'                    
+                    'class' => 'input-form'
                 ],
             ])
             ->add('cover', ImageType::class, [
@@ -147,7 +147,7 @@ class ListingType extends AbstractType
                 'attr' => [
                     'class' => 'input-form'
                 ],
-                
+
             ])
             ;
     }

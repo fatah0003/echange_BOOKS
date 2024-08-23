@@ -3,6 +3,7 @@
 {% block title %}Register
 {% endblock %}
 {% block header %}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
 
 {% block body %}
 	<h1>Créer un Compte</h1>
@@ -23,6 +24,35 @@
 			{{ form_label(registrationForm.plainPassword.second) }}
 			{{ form_widget(registrationForm.plainPassword.second) }}
 			{{ form_errors(registrationForm.plainPassword.second) }}
+		</div>
+		<div class="form-element">
+			{{ form_label(registrationForm.infosUser.userName) }}
+			{{ form_widget(registrationForm.infosUser.userName) }}
+			{{ form_errors(registrationForm.infosUser.userName) }}
+		</div><div class="form-element">
+			{{ form_label(registrationForm.infosUser.phoneNumber) }}
+			{{ form_widget(registrationForm.infosUser.phoneNumber) }}
+			{{ form_errors(registrationForm.infosUser.phoneNumber) }}
+		</div><div class="form-element">
+			{{ form_label(registrationForm.infosUser.city) }}
+			{{ form_widget(registrationForm.infosUser.city) }}
+			{{ form_errors(registrationForm.infosUser.city) }}
+			<div id="showlist" class="show">
+    <ul id="showresults">
+    {# <li></li>
+    <li></li>
+    <li></li> #}
+    </ul>
+    </div>
+		</div>
+		<div class="form-element">
+			{{ form_label(registrationForm.infosUser.birthDate) }}
+			{{ form_widget(registrationForm.infosUser.birthDate) }}
+			{{ form_errors(registrationForm.infosUser.birthDate) }}
+		</div><div class="form-element">
+			{{ form_label(registrationForm.infosUser.bio) }}
+			{{ form_widget(registrationForm.infosUser.bio) }}
+			{{ form_errors(registrationForm.infosUser.bio) }}
 		</div>
 
 

@@ -2,7 +2,8 @@
 
 namespace App\Enum;
 
-enum BookCategorieEnum: string {
+enum BookCategorieEnum: string
+{
     case PHILOSOPHY = 'philosophy';
     case FICTION = 'fiction';
     case HiSTORICAL = 'Historical';

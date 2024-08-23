@@ -4,10 +4,14 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+// use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+// use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+// use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+// use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -48,7 +52,7 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => [
                     'attr' => ['autocomplete' => 'new-password',
                 'class' => 'input-form'
-                ],
+                    ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -67,7 +71,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => [
                     'attr' => ['autocomplete' => 'new-password',
                 'class' => 'input-form'
-                ],
+                    ],
                     'label' => 'Confirmer le mot de passe',
                     'label_attr' => [
                         'class' => 'label-form'
@@ -75,8 +79,10 @@ class RegistrationFormType extends AbstractType
                 ],
                 'invalid_message' => 'The password fields must match.',
                 'mapped' => false,
-                
-            ]);
+
+            ])
+            ->add('infosUser', InfoUserType::class)
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

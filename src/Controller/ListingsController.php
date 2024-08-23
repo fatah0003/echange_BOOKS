@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\User;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,174 +19,186 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route(path: "/listings", name: "listings_")]
 class ListingsController extends AbstractController
 {
-  //Méthode pour afficher la liste des annonces sur la page annonce 
-  #[Route(path: "", name: "show")]
-  public function listings(Request $request, BooksRepository $booksRepository): Response
-  {
-    $form = $this->createForm(SearchType::class);
-    $form->handleRequest($request);
+  //Méthode pour afficher la liste des annonces sur la page annonce
+    #[Route(path: "", name: "show")]
+    public function listings(Request $request, BooksRepository $booksRepository): Response
+    {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
 
-    $books = $booksRepository->findAll();
-    if ($form->isSubmitted() && $form->isValid()) {
-      $books = $booksRepository->search(
-          $form->get('title')->getData(),
-          $form->get('author')->getData(),
-          $form->get('location')->getData(),
-          $form->get('exchangeType')->getData(),
-          $form->get('bookCategorie')->getData()
-          
-         );
+        $books = $booksRepository->findAll();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $books = $booksRepository->search(
+                $form->get('title')->getData(),
+                $form->get('author')->getData(),
+                $form->get('location')->getData(),
+                $form->get('exchangeType')->getData(),
+                $form->get('bookCategorie')->getData()
+            );
+        }
 
+        return $this->render('listings/listings.html.twig', [
+        'books' => $books,
+        'form' => $form,
+        ]);
     }
+  //Méthode pour creer une annonce (page formulaire de création)
+    #[Route(path: "/add", name: "add")]
+    #[IsGranted('ROLE_USER')]
+    public function addListings(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+      /**
+       * @var User $user
+       */
+        $user = $this->getUser();
+      // dd($request);
+        $books = new Books();
+        $form = $this->createForm(ListingType::class, $books);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $books->setUser($user);
+            $entityManager->persist($books);
+            $entityManager->flush();
 
-    return $this->render('listings/listings.html.twig', [
-      'books' => $books,
-      'form' => $form,
-    ]);
-  }
-  //Méthode pour creer une annonce (page formulaire de création) 
-  #[Route(path: "/add", name: "add")]
-  #[IsGranted('ROLE_USER')]
-  public function addListings(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-  {
+            $email = (new Email())
+            ->from('admin@booksinder.com')
+            ->to($books->getUser()->getEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation : Votre nouvelle annonce a été créée avec succès')
+            //->text('Sending emails is fun again!')
+            ->html($this->renderView('email/index.html.twig', ['book' => $books]));
 
-    // dd($request);
-    $books = new Books();
-    $form = $this->createForm(ListingType::class, $books);
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      $books->setUser($this->getUser());
-      $entityManager->persist($books);
-      $entityManager->flush();
+            $mailer->send($email);
 
-      $email = (new Email())
-        ->from('admin@booksinder.com')
-        ->to($books->getUser()->getEmail())
-        //->cc('cc@example.com')
-        //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
-        //->priority(Email::PRIORITY_HIGH)
-        ->subject('Confirmation : Votre nouvelle annonce a été créée avec succès')
-        //->text('Sending emails is fun again!')
-        ->html($this->renderView('email/index.html.twig', ['book' => $books]));
-        
-        $mailer->send($email);
+            $this->addFlash('success', [
+            'title' => 'Success title',
+            'message' => 'Message de notification'
+            ]);
+            return $this->redirectToRoute('listings_show');
+        }
 
-      $this->addFlash('success', [
-        'title' => 'Success title',
-        'message' => 'Message de notification'
-      ]);
-      return $this->redirectToRoute('listings_show');
+        return $this->render('listings/add.html.twig', [
+        'form' => $form
+        ]);
     }
-
-    return $this->render('listings/add.html.twig', [
-      'form' => $form
-    ]);
-  }
   // Méthode pour afficher une seule annonce
-  #[Route(path: "/showone/{id}", name: "showone")]
-  public function showone(Books $books): Response
-  {
-    return $this->render('listings/showone.html.twig', [
-      'book' => $books,
-    ]);
-  }
+    #[Route(path: "/showone/{id}", name: "showone")]
+    public function showone(Books $books): Response
+    {
+        return $this->render('listings/showone.html.twig', [
+        'book' => $books,
+        ]);
+    }
 
   //Méthode pour supprimer une annonce
-  #[Route(path: "/remove/{id}", name: "remove")]
-  #[IsGranted('ROLE_USER')]
-  public function remove(Request $request, Books $books, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-  {
-    /** @var User $user */
-    $user = $this->getUser();
-    if (!$user->getBooks()->contains($books)) {
-      return $this->redirectToRoute('listings_show');
-    }
-    $token = $request->getPayload()->get('token');
+    #[Route(path: "/remove/{id}", name: "remove")]
+    #[IsGranted('ROLE_USER')]
+    public function remove(
+        Request $request,
+        Books $books,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+      /** @var User $user */
+        $user = $this->getUser();
+        if (!$user->getBooks()->contains($books)) {
+            return $this->redirectToRoute('listings_show');
+        }
+        $token = $request->getPayload()->get('token');
 
-    if ($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
-      $entityManager->remove($books);
-      $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
+            $entityManager->remove($books);
+            $entityManager->flush();
 
-      $email = (new Email())
-        ->from('admin@booksinder.com')
-        ->to($books->getUser()->getEmail())
-        //->cc('cc@example.com')
-        //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
-        //->priority(Email::PRIORITY_HIGH)
-        ->subject('Confirmation : Votre annonce a été supprimée avec succès')
-        //->text('Sending emails is fun again!')
-        ->html('Annonce supprimée');
+            $email = (new Email())
+            ->from('admin@booksinder.com')
+            ->to($books->getUser()->getEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation : Votre annonce a été supprimée avec succès')
+            //->text('Sending emails is fun again!')
+            ->html('Annonce supprimée');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
-      $this->addFlash('success', [
-        'title' => 'Success title',
-        'message' => 'Message de notification'
-      ]);
-      return $this->redirectToRoute('listings_show');
-    }
+            $this->addFlash('success', [
+            'title' => 'Success title',
+            'message' => 'Message de notification'
+            ]);
+            return $this->redirectToRoute('listings_show');
+        }
 
-    return $this->redirectToRoute('listings_show');
-  }
-
-  //Méthode pour modifier une annonce (page formulaire de modification) 
-  #[Route(path: "/update/{id}", name: "update")]
-  #[IsGranted('ROLE_USER')]
-  public function update(Books $books, Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-  {
-    /** @var User $user */
-    $user = $this->getUser();
-    if (!$user->getBooks()->contains($books)) {
-      return $this->redirectToRoute('listings_show');
-    }
-    $form = $this->createForm(ListingType::class, $books);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $books->setUpdatedAt(new \DateTimeImmutable());
-      $entityManager->persist($books);
-      $entityManager->flush();
-
-      $email = (new Email())
-        ->from('admin@booksinder.com')
-        ->to($books->getUser()->getEmail())
-        //->cc('cc@example.com')
-        //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
-        //->priority(Email::PRIORITY_HIGH)
-        ->subject('Confirmation : Votre annonce a été modifiée avec succès')
-        //->text('Sending emails is fun again!')
-        ->html('Annonce modifiée');
-
-        $mailer->send($email);
-
-      $this->addFlash('success', [
-        'title' => 'Success title',
-        'message' => 'Message de notification'
-      ]);
-      return $this->redirectToRoute('listings_show');
+        return $this->redirectToRoute('listings_show');
     }
 
-    return $this->render('listings/add.html.twig', [
-      'form' => $form,
-      'book' => $books
-    ]);
-  }
+  //Méthode pour modifier une annonce (page formulaire de modification)
+    #[Route(path: "/update/{id}", name: "update")]
+    #[IsGranted('ROLE_USER')]
+    public function update(
+        Books $books,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+      /** @var User $user */
+        $user = $this->getUser();
+        if (!$user->getBooks()->contains($books)) {
+            return $this->redirectToRoute('listings_show');
+        }
+        $form = $this->createForm(ListingType::class, $books);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $books->setUpdatedAt(new \DateTimeImmutable());
+            $entityManager->persist($books);
+            $entityManager->flush();
+
+            $email = (new Email())
+            ->from('admin@booksinder.com')
+            ->to($books->getUser()->getEmail())
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Confirmation : Votre annonce a été modifiée avec succès')
+            //->text('Sending emails is fun again!')
+            ->html('Annonce modifiée');
+
+            $mailer->send($email);
+
+            $this->addFlash('success', [
+            'title' => 'Success title',
+            'message' => 'Message de notification'
+            ]);
+            return $this->redirectToRoute('listings_show');
+        }
+
+        return $this->render('listings/add.html.twig', [
+        'form' => $form,
+        'book' => $books
+        ]);
+    }
   //Méthode pour les favoris
-  #[Route('/favorite/{id}', name: 'toggle_favorite')]
-  public function toggleFavorite(Books $books, EntityManagerInterface $entityManager): Response
-  {
-    /** @var User $user */
-    $user = $this->getUser();
-    $user->toggleFavorite($books);
+    #[Route('/favorite/{id}', name: 'toggle_favorite')]
+    public function toggleFavorite(Books $books, EntityManagerInterface $entityManager): Response
+    {
+      /** @var User $user */
+        $user = $this->getUser();
+        $user->toggleFavorite($books);
 
-    $entityManager->flush();
-    $this->addFlash('success', [
-      'title' => 'Success title',
-      'message' => 'Message de notification'
-    ]);
-    return $this->redirectToRoute('listings_show');
-  }
+        $entityManager->flush();
+        $this->addFlash('success', [
+        'title' => 'Success title',
+        'message' => 'Message de notification'
+        ]);
+        return $this->redirectToRoute('listings_show');
+    }
 }
