@@ -37,6 +37,7 @@ class RegistrationController extends AbstractController
             );
 
             $entityManager->persist($user);
+            $entityManager->persist($user->getInfosUser());
             $entityManager->flush();
 
             $email = (new Email())
