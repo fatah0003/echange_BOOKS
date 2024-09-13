@@ -1,6 +1,6 @@
 <header>
     <div class="logo" id="logo">
-            <a href="{{ path('home')}}">
+            <a class="hreflogo" href="{{ path('home')}}">
             <img class="logo-design" src="{{ asset('/images/logo.png')}}" alt="">
             <img class="logo-name" src="{{ asset('/images/logo-name.png')}}" alt="">
             </a>
@@ -10,6 +10,15 @@
                 <a class="nav" href="">About</a>
                 <a class="nav" href="{{ path('listings_show')}}">Annonces</a>
                 <a class="nav" href="">Contact</a>
-                <a class="nav-connect" href="{{ path('app_login')}}">Se connecter</a>
+                
+                {% if app.user is not null and app.user is defined %}
+                <a class="nav-connect" href="{{ path('app_logout')}}">Se Déconnecter</a>
+                <a class="nav-profil" href="{{ path('app_user_show', {id: app.user.id})}}"><img class="img-profil" src="{{ asset('/images/profil.png')}}" alt=""></a>
+                {% else %}
+                        <a class="nav-connect" href="{{ path('app_login')}}">Se connecter</a>
+                {% endif %}
+                
+                
+
         </nav>
 </header>

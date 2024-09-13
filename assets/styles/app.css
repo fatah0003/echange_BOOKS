@@ -34,6 +34,9 @@ header {
   justify-content: space-between;
   backdrop-filter: blur(7px);
 }
+.hreflogo{
+  text-decoration: none;
+}
 .logo-design {
   height: 60px;
   width: 80px;
@@ -86,6 +89,10 @@ header {
 .nav:hover::after {
   width: 100%;
   left: 0;
+}
+
+.img-profil {
+  height: 50px;
 }
 /* ---------------Banner Style---------------------- */
 
