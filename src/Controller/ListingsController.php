@@ -23,10 +23,16 @@ class ListingsController extends AbstractController
     #[Route(path: "", name: "show")]
     public function listings(Request $request, BooksRepository $booksRepository): Response
     {
+      $page = $request->query->getInt('page', 1);
+      $limit = $request->query->getInt('limit', 12);
+      
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
 
-        $books = $booksRepository->findAll();
+        // $books = $booksRepository->findAll();
+        $books = $booksRepository->pagination($page, $limit);
+        // $pageMax = ceil($books->count() / $limit);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $books = $booksRepository->search(
                 $form->get('title')->getData(),
@@ -40,6 +46,7 @@ class ListingsController extends AbstractController
         return $this->render('listings/listings.html.twig', [
         'books' => $books,
         'form' => $form,
+        // 'pageMax' => $pageMax,
         ]);
     }
   //Méthode pour creer une annonce (page formulaire de création)

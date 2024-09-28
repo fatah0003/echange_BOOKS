@@ -240,6 +240,44 @@ h1 {
   padding: 5px;
   border-radius: 5px;
 }
+/*------------------------ pagination style --------------*/
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.navigation a {
+  margin: 0 5px;
+  padding: 8px 12px;
+  text-decoration: none;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.navigation a:hover {
+  background-color: #e0e0e0;
+}
+
+.navigation .current {
+  font-weight: bold;
+  background-color: #d0d0d0;
+  pointer-events: none;
+}
+.navigation .current {
+  font-weight: bold;
+  background-color: #d0d0d0;
+  pointer-events: none;
+  border: 2px solid #333;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+
+
 /* -------------------add-banner style------------ */
 .add-banner{
   margin-top: 50px;

@@ -6,14 +6,16 @@ use App\Entity\BookCategorie;
 use App\Entity\Books;
 use App\Enum\ExchangeTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Books>
  */
 class BooksRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, public PaginatorInterface $paginator)
     {
         parent::__construct($registry, Books::class);
     }
@@ -52,37 +54,23 @@ class BooksRepository extends ServiceEntityRepository
         }
         return $qb->getQuery()->getResult();
     }
-    // public function getByCategorieName(string $categorie)
+    
+    // public function pagination(int $page = 1, int $limit = 12): Paginator
     // {
-    //     $qb = $this->createQueryBuilder('b')
-    //         ->join('b.bookCategorie', 'bookCategorie')
-    //         ->where('bookCategorie.name = :bookCategorie')
-    //         ->setParameter('bookCategorie', $categorie);
-    //     return $qb->getQuery()->getResult();
+    //     return new Paginator($this
+    //         ->createQueryBuilder('b')
+    //         ->setFirstResult(($page - 1) * $limit)
+    //         ->setMaxResults($limit)
+    //         ->getQuery()
+    // );
     // }
 
-    //    /**
-    //     * @return Books[] Returns an array of Books objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('b.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Books
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function pagination (int $page = 1, int $limit = 12): \KNP\Component\Pager\Pagination\PaginationInterface 
+    {
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('b'),
+            $page,
+            $limit
+        );
+    }
 }

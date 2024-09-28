@@ -22,12 +22,17 @@
 		<div class="titles">
 			<h1>Notre Bibliotheque BOOKSINDER</h1>
 			<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
+			{{ knp_pagination_sortable(books, 'Titre', 'b.title') }}
+			{{ knp_pagination_sortable(books, 'Auteur', 'b.author') }}
 		</div>
 		<div class="grid">
 			{% for book in books %}
 				{% include "partials/card.html.twig" %}
 			{% endfor %}
 		</div>
+		<div class="navigation">
+    {{ knp_pagination_render(books) }}
+</div>
 
 	</section>
     <section class="add-banner">
