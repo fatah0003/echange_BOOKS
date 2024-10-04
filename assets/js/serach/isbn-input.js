@@ -11,17 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let isbnContainer = document.querySelector("#isbnContainer");
 
   let noResultIsbn = document.createElement("li");
-
   noResultIsbn.className = "bbb";
-  noResultIsbn.innerText =
-    "ISBN ne correspend à aucun livre sur notre base de données";
+  noResultIsbn.innerText = "ISBN ne correspend à aucun livre sur notre base de données";
 
   isbnInput.addEventListener(
     "keyup",
     debounce(function (e) {
       let value = e.target.value;
       if (value.length < 10 || value.length > 13) {
-        alert("Btween 10 and 13");
+        alert("Le numéro ISBN doit comporter 10 ou 13 caractères.");
+
       } else {
         fetch(`https://openlibrary.org/search.json?q=${value}`, {
           method: "GET",
@@ -36,14 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .then((body) => {
             let results = body.docs[0];
-            if (results) {
+            if (results || body.docs.length > 0) {
               let title = results.title;
               let author = results.author_name[0];
               let pages = results.number_of_pages_median;
               let edition = results.first_publish_year;
-              let category = results.subject[0];
+              // let category = results.subject[0];
+
               showResultsIsbn.innerHTML = "";
               showListIsbn.style.display = "block";
+
               let li = document.createElement("li");
               li.className = "aaa";
               li.innerText = `${title} de ${author}`;
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 pagesInput.value = pages;
                 editionInput.value = edition;
                 // categoryInput.value = category;
-                showListIsbn.style.display = "non";
+                showListIsbn.style.display = "none";
                 showResultsIsbn.innerHTML = "";
               });
               showResultsIsbn.appendChild(li);
@@ -67,9 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 1000)
   );
+
   document.addEventListener("click", function (event) {
     if (!isbnContainer.contains(event.target)) {
-      showListIsbn.style.display = "non";
+      showListIsbn.style.display = "none";
       showResultsIsbn.innerHTML = "";
     }
   });
