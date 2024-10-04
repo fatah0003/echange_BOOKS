@@ -41,4 +41,8 @@ return [
         'path' => './assets/js/serach/address-input.js',
         'entrypoint' => true,
     ],
+    'search-isbn' => [
+        'path' => './assets/js/serach/isbn-input.js',
+        'entrypoint' => true,
+    ],
 ];

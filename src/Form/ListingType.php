@@ -28,6 +28,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'title-input',
                     'class' => 'input-form'
                 ],
             ])
@@ -38,6 +39,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'author-input',
                     'class' => 'input-form'
                 ],
             ])
@@ -48,6 +50,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'isbn-input',
                     'class' => 'input-form'
                 ],
             ])
@@ -68,6 +71,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'edition-input',
                     'class' => 'input-form'
                 ],
             ])
@@ -89,6 +93,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'pages-input',
                     'class' => 'input-form'
                 ],
             ])
@@ -125,6 +130,7 @@ class ListingType extends AbstractType
                     'class' => 'label-form',
                 ],
                 'attr' => [
+                    'data-action' => 'category-input',
                     'class' => 'input-form'
                 ],
             ])

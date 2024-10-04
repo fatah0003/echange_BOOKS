@@ -6,6 +6,7 @@ use App\Entity\Books;
 use App\Entity\User;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,34 +22,36 @@ class ListingsController extends AbstractController
 {
   //Méthode pour afficher la liste des annonces sur la page annonce
     #[Route(path: "", name: "show")]
-    public function listings(Request $request, BooksRepository $booksRepository): Response
+    public function listings(Request $request, BooksRepository $booksRepository, PaginatorInterface $paginator): Response
     {
-      $page = $request->query->getInt('page', 1);
-      $limit = $request->query->getInt('limit', 12);
-      
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 12);
+    
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
-
-        // $books = $booksRepository->findAll();
-        $books = $booksRepository->pagination($page, $limit);
-        // $pageMax = ceil($books->count() / $limit);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $books = $booksRepository->search(
+            // Utilisez le QueryBuilder pour la pagination
+            $queryBuilder = $booksRepository->searchQueryBuilder(
                 $form->get('title')->getData(),
                 $form->get('author')->getData(),
                 $form->get('location')->getData(),
                 $form->get('exchangeType')->getData(),
                 $form->get('bookCategorie')->getData()
             );
+    
+            $books = $paginator->paginate($queryBuilder, 1, $limit);
+        } else {
+            // Pagination des livres sans filtre
+            $books = $booksRepository->pagination($page, $limit);
         }
-
+    
         return $this->render('listings/listings.html.twig', [
-        'books' => $books,
-        'form' => $form,
-        // 'pageMax' => $pageMax,
+            'books' => $books,
+            'form' => $form,
         ]);
     }
+    
   //Méthode pour creer une annonce (page formulaire de création)
     #[Route(path: "/add", name: "add")]
     #[IsGranted('ROLE_USER')]

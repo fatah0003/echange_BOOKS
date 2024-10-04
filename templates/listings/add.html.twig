@@ -2,7 +2,7 @@
 {% block title %}Add Listing
 {% endblock %}
 {% block header %}{% endblock %}
-{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search', 'search-isbn']) }}{% endblock %}
 {% block body %}
 <h1>{% if book is defined %}
             Modifier l'annonce {{ book.title }}
@@ -30,10 +30,15 @@
             <img src="{{ vich_uploader_asset(book.back) }}" alt="">
         {% endif %}
     </div>
-    <div class="form-element">
+    <div class="form-element" id="isbnContainer">
         {{ form_label(form.isbn) }}
         {{ form_widget(form.isbn) }}
         {{ form_errors(form.isbn) }}
+        <div id="showlist-isbn" class="show-isbn">
+    <ul id="showresults-isbn">
+    
+    </ul>
+    </div>
     </div>
 <div class="form-element">
     {{ form_label(form.title) }}
@@ -92,9 +97,7 @@
     {{ form_errors(form.location) }}
     <div id="showlist" class="show">
     <ul id="showresults">
-    {# <li></li>
-    <li></li>
-    <li></li> #}
+    
     </ul>
     </div>
 </div>
