@@ -46,10 +46,10 @@ class Books implements Serializable
     #[ORM\Column(length: 20)]
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
     #[Assert\Length(
-        min: 2,
-        max: 20,
-        maxMessage: "L'ISBN ne devrait pas dépasser 20 caractères",
-        minMessage: "L'ISBN doit avoir au moins deux caractères"
+        min: 10,
+        max: 13,
+        maxMessage: "L'ISBN ne devrait pas dépasser 13 caractères",
+        minMessage: "L'ISBN doit avoir au moins 10 caractères"
     )]
     private ?string $isbn = null;
 
@@ -57,9 +57,9 @@ class Books implements Serializable
     #[Assert\NotBlank(message:"ce champs est obligatoire")]
     #[Assert\Length(
         min: 20,
-        max: 500,
-        maxMessage: "La description doit avoir entre 20 et 500 caractères",
-        minMessage: "La description doit avoir au moins 20 caractères"
+        max: 600,
+        minMessage: 'La description doit contenir au moins 20 caractères.',
+        maxMessage: 'La description ne peut pas dépasser 600 caractères.'
     )]
 
     private ?string $description = null;
