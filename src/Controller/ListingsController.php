@@ -28,8 +28,7 @@ class ListingsController extends AbstractController
         $limit = $request->query->getInt('limit', 12);
     
         $form = $this->createForm(SearchType::class);
-        $form->handleRequest($request);
-    
+        $form->handleRequest($request);    
         if ($form->isSubmitted() && $form->isValid()) {
             // Utilisez le QueryBuilder pour la pagination
             $queryBuilder = $booksRepository->searchQueryBuilder(
@@ -68,8 +67,11 @@ class ListingsController extends AbstractController
         $books = new Books();
         $form = $this->createForm(ListingType::class, $books);
         $form->handleRequest($request);
+        // dd($form);
+        // dd($form->isValid());
         if ($form->isSubmitted() && $form->isValid()) {
             $books->setUser($user);
+
             $entityManager->persist($books);
             $entityManager->flush();
 
