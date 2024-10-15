@@ -3,46 +3,40 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    //Méthode pour voir tout les utilisateurs
+    // Méthode pour voir tous les utilisateurs
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Security $security): Response
     {
+        // Vérifier si l'utilisateur n'a pas le rôle d'administrateur
+    if (!$security->isGranted('ROLE_ADMIN')) {
+        // Rediriger vers la page d'accueil
+        return $this->redirectToRoute('home');
+    }
+    // Si l'utilisateur est admin, afficher la liste des utilisateurs
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
-
+    // Méthode pour voir les infos d'un utilisateur
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -51,32 +45,119 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
+    // Méthode pour modifier les infos d'un utilisateur
+    #[Route('/update/{id}', name: 'update')]
+    #[IsGranted(
+        attribute: new Expression(
+            'user === subject or is_granted("ROLE_ADMIN")'
+        ),
+        subject: 'user'
+    )]
+    public function update(
+        User $user,
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer le mot de passe soumis dans le formulaire
+            $password = $form->get('password')->getData();
+    
+            // Vérifier si le mot de passe a bien été soumis
+            if (!$password) {
+
+                return $this->render('user/edit.html.twig', [
+                    'UserType' => $form,
+                    'user' => $user,
+                ]);
+            }
+    
+            // Vérifier si le mot de passe est incorrect
+            if (!$userPasswordHasher->isPasswordValid($user, $password)) {
+                $this->addFlash('error', [
+                    'title' => 'error title',
+                    'message' => 'mot de passe incorrect'
+                    ]);
+    
+                return $this->render('user/edit.html.twig', [
+                    'UserType' => $form,
+                    'user' => $user,
+                ]);
+            }
+    
+            // Si le mot de passe est correct, continuer avec les modifications
+            $entityManager->persist($user);
+            $entityManager->persist($user->getInfosUser());
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    
+            // Envoi d'un email de confirmation
+            $email = (new Email())
+                ->from('admin@booksinder.com')
+                ->to($user->getEmail())
+                ->subject('Confirmation : Compte modifié')
+                ->html('Votre compte a été modifié avec succès');
+            
+            $mailer->send($email);
+    
+            // Redirection vers la page de profil
+            return $this->redirectToRoute('app_user_show', [
+                'id' => $user->getId(),
+            ]);
         }
-
+    
+        // Rendre la vue du formulaire si le formulaire n'est pas encore soumis ou est invalide
         return $this->render('user/edit.html.twig', [
+            'UserType' => $form,
             'user' => $user,
-            'form' => $form,
         ]);
     }
+    
+    
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+    // Méthode pour supprimer un utilisateur
+    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+#[IsGranted(
+    attribute: new Expression(
+        'user === subject or is_granted("ROLE_ADMIN")'
+    ),
+    subject: 'user'
+)]
+public function delete(Request $request, User $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+{
+    // Récupérer le token CSRF à partir du payload
+    $token = $request->getPayload()->get('_token');
+
+    // Vérifier la validité du token CSRF
+    if ($this->isCsrfTokenValid('delete' . $user->getId(), $token)) {
+        // Supprimer l'utilisateur
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $email = (new Email())
+            ->from('admin@booksinder.com')
+            ->to($user->getEmail())
+            ->subject('Votre compte a été supprimé avec succès.')
+            ->html('Nous espérons vous revoir bientôt :)');
+
+            $mailer->send($email);
+
+        // Si l'utilisateur supprime son propre compte, déconnexion et invalidation de la session
+        if ($this->getUser() === $user) {
+            $this->container->get('security.token_storage')->setToken(null);
+            $request->getSession()->invalidate();
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        // Rediriger vers la page d'accueil après suppression (par un admin)
+        return $this->redirectToRoute('home');
     }
+
+    // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
+    return $this->redirectToRoute('home');
+}
+
 }

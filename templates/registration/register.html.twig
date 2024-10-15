@@ -6,7 +6,13 @@
 {% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
 
 {% block body %}
-	<h1>Créer un Compte</h1>
+	<h1>
+	{% if user is defined %}
+            Modifier le Profil de {{ user.infosUser.userName }}
+        {% else %}
+            Créer un Compte
+        {% endif %}
+	</h1>
 	<section class="container">
 		<div class="">Retour à l'Accueil</div>
 		{{ form_start(registrationForm) }}
@@ -39,9 +45,6 @@
 			{{ form_errors(registrationForm.infosUser.city) }}
 			<div id="showlist" class="show">
     <ul id="showresults">
-    {# <li></li>
-    <li></li>
-    <li></li> #}
     </ul>
     </div>
 		</div>
@@ -61,15 +64,15 @@
 			{{ form_widget(registrationForm.agreeTerms) }}
 			{{ form_errors(registrationForm.agreeTerms) }}
 		</div>
-		<button type="submit" class="btn">Créer un Compte</button>
+		<button type="submit" class="btn">
+		{% if user is defined %}
+                Modifier
+            {% else %}
+                Créer un Compte
+            {% endif %}
+		</button>
 		{{ form_end(registrationForm) }}
 		<div>Voir les Annonces</div>
 	</section>
-
-	{# 
-	        {{ form_row(registrationForm.plainPassword, {
-	            label: 'Password'
-	        }) }}
-	 #}
 {% endblock %}
 {% block footer %}{% endblock %}

@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}User index{% endblock %}
-
+{% block importmap %}
+	{{ importmap(['app', 'notification']) }}
+{% endblock %}
 {% block body %}
 <div>aaaaaaaaaaaaaaaaaa</div>
 <div>aaaaaaaaaaaaaaaaaa</div>
 <div>aaaaaaaaaaaaaaaaaa</div>
 <div>aaaaaaaaaaaaaaaaaa</div>
-<div>aaaaaaaaaaaaaaaaaa</div>
+<div>bbbbbbbbbbb</div>
 
-    <h1>User index</h1>
+    <h1>Liste des Utilisateurs</h1>
 
     <table class="table">
         <thead>
@@ -29,8 +31,8 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 {# <td>{{ user.password }}</td> #}
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">Voir le Profil</a>
+                    <a href="{{ path('update', {'id': user.id}) }}">Modifier le Profil</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_register') }}">Create new</a>
 {% endblock %}

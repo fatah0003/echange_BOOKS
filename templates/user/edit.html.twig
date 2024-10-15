@@ -1,13 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Register
+{% endblock %}
+{% block header %}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+	<h1>Modifier le Profil de {{ user.infosUser.userName }}</h1>
+	<section class="container">
+		<div class="">Retour à l'Accueil</div>
+		{{ form_start(UserType) }}
+		<div class="form-element">
+			{{ form_label(UserType.email) }}
+			{{ form_widget(UserType.email) }}
+			{{ form_errors(UserType.email) }}
+		</div>
+		<div class="form-element">
+			{{ form_label(UserType.infosUser.userName) }}
+			{{ form_widget(UserType.infosUser.userName) }}
+			{{ form_errors(UserType.infosUser.userName) }}
+		</div><div class="form-element">
+			{{ form_label(UserType.infosUser.phoneNumber) }}
+			{{ form_widget(UserType.infosUser.phoneNumber) }}
+			{{ form_errors(UserType.infosUser.phoneNumber) }}
+		</div><div class="form-element">
+			{{ form_label(UserType.infosUser.city) }}
+			{{ form_widget(UserType.infosUser.city) }}
+			{{ form_errors(UserType.infosUser.city) }}
+			<div id="showlist" class="show">
+    <ul id="showresults">
+    </ul>
+    </div>
+		</div>
+		<div class="form-element">
+			{{ form_label(UserType.infosUser.birthDate) }}
+			{{ form_widget(UserType.infosUser.birthDate) }}
+			{{ form_errors(UserType.infosUser.birthDate) }}
+		</div><div class="form-element">
+			{{ form_label(UserType.infosUser.bio) }}
+			{{ form_widget(UserType.infosUser.bio) }}
+			{{ form_errors(UserType.infosUser.bio) }}
+		</div>
+		<div class="form-element">
+    		{{ form_label(UserType.password) }}
+    		{{ form_widget(UserType.password) }}
+    		{{ form_errors(UserType.password) }}
+		</div>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+		{# <div class="form-element-check">
+			{{ form_label(UserType.agreeTerms) }}
+			{{ form_widget(UserType.agreeTerms) }}
+			{{ form_errors(UserType.agreeTerms) }}
+		</div> #}
+		<button type="submit" class="btn">Modifier</button>
+		{{ form_end(UserType) }}
+		<div>Voir les Annonces</div>
+	</section>
 {% endblock %}
+{% block footer %}{% endblock %}
+

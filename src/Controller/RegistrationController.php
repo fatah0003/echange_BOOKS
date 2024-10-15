@@ -43,17 +43,10 @@ class RegistrationController extends AbstractController
             $email = (new Email())
             ->from('admin@booksinder.com')
             ->to($user->getEmail())
-        //->cc('cc@example.com')
-        //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
-        //->priority(Email::PRIORITY_HIGH)
             ->subject('Confirmation : Votre compte a été créé avec succès')
-        //->text('Sending emails is fun again!')
-            ->html('Bienvenu mon reuf');
+            ->html('Bienvenu sur booksinder');
 
             $mailer->send($email);
-
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_login');
         }
@@ -62,4 +55,8 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form,
         ]);
     }
+
+    
+
+    
 }
