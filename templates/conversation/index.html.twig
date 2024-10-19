@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block body %}
+<div>-----Conversation------</div>
+<div>-----Conversation------</div>
+<div>-----Conversation------</div>
+<div>-----Conversation------</div>
+<div>-----Conversation------</div>
+<div>-----Conversation------</div>
+
+<h2>
+    {% for participant in conversation.participants %}
+        {% if participant != app.user %}
+            {{ participant.infosUser.userName }}:
+        {% endif %}
+        
+        
+    {% endfor %}
+</h2>
+<ul>
+    {% for message in conversation.messages %}
+    <li>
+    <strong>{{ message.writer.infosUser.userName }}:</strong> {{ message.content }}
+    <br>
+    <small>{{ message.createdAt|date('d-m-Y H:i') }}</small>
+    </li>
+        
+    {% endfor %}
+</ul>
+
+{{ form_start(form) }}
+    <div>{{ form_label(form.content) }}</div>
+    <div>{{ form_widget(form.content) }}</div>
+    <button type="submit">Envoyer</button>
+
+{{ form_end(form) }}
+
+{% endblock %}

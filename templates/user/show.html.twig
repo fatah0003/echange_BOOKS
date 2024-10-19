@@ -58,22 +58,12 @@
                 <th>Bio</th>
                 <td>{{ user.infosUser.bio }}</td>
             </tr>
+            <a href="{{ path('app_conversation_new', {'id': user.id}) }}">Contacter</a>
         </tbody>
     </table>
     {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_user_index') }}">Voir tous la liste des utilisateurs</a>
     {% endif %}
-    {# {% if is_granted('ROLE_USER') and user.id == app.user.id %}
-	 <div class='delete-update'>
-	<form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
-    <input type="hidden" name="token"
-    value="{{ csrf_token('delete-user' ~ user.id) }}">
-    <button type="submit">Supprimer</button>
-    </form>
-	
-	<a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-	</div>
-	{% endif %} #}
 
     {% if app.user is not null and (app.user.id == user.id or is_granted('ROLE_ADMIN')) %}
     <a href="{{ path('update', {'id': user.id}) }}">Modifier</a>
