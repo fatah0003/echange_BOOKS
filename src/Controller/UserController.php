@@ -45,76 +45,78 @@ class UserController extends AbstractController
         ]);
     }
 
-    // Méthode pour modifier les infos d'un utilisateur
-    #[Route('/update/{id}', name: 'update')]
-    #[IsGranted(
-        attribute: new Expression(
-            'user === subject or is_granted("ROLE_ADMIN")'
-        ),
-        subject: 'user'
-    )]
-    public function update(
-        User $user,
-        Request $request,
-        UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager,
-        MailerInterface $mailer
-    ): Response {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-    
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer le mot de passe soumis dans le formulaire
+// Méthode pour modifier les infos d'un utilisateur
+#[Route('/update/{id}', name: 'update')]
+public function update(
+    User $user,
+    Request $request,
+    UserPasswordHasherInterface $userPasswordHasher,
+    EntityManagerInterface $entityManager,
+    MailerInterface $mailer
+): Response {
+
+    // Redirection si l'utilisateur actuel n'est pas autorisé
+    if ($this->getUser() !== $user && !$this->isGranted('ROLE_ADMIN')) {
+        return $this->redirectToRoute('home');
+    }
+
+    $isAdmin = $this->isGranted('ROLE_ADMIN');
+    $isModifyingOwnProfile = $this->getUser() === $user;
+
+    // Le formulaire : l'admin n'a pas besoin de mot de passe sauf s'il modifie son propre profil
+    $form = $this->createForm(UserType::class, $user, ['is_admin' => $isAdmin && !$isModifyingOwnProfile]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Validation du mot de passe pour les utilisateurs non admin OU l'admin modifiant son propre profil
+        if (!$isAdmin || $isModifyingOwnProfile) {
             $password = $form->get('password')->getData();
-    
-            // Vérifier si le mot de passe a bien été soumis
-            if (!$password) {
+
+            if (!$password || !$userPasswordHasher->isPasswordValid($user, $password)) {
+                $this->addFlash('error', [
+                    'title' => 'Erreur',
+                    'message' => 'Mot de passe incorrect ou non fourni'
+                ]);
 
                 return $this->render('user/edit.html.twig', [
                     'UserType' => $form,
                     'user' => $user,
                 ]);
             }
-    
-            // Vérifier si le mot de passe est incorrect
-            if (!$userPasswordHasher->isPasswordValid($user, $password)) {
-                $this->addFlash('error', [
-                    'title' => 'error title',
-                    'message' => 'mot de passe incorrect'
-                    ]);
-    
-                return $this->render('user/edit.html.twig', [
-                    'UserType' => $form,
-                    'user' => $user,
-                ]);
-            }
-    
-            // Si le mot de passe est correct, continuer avec les modifications
-            $entityManager->persist($user);
-            $entityManager->persist($user->getInfosUser());
-            $entityManager->flush();
-    
-            // Envoi d'un email de confirmation
-            $email = (new Email())
-                ->from('admin@booksinder.com')
-                ->to($user->getEmail())
-                ->subject('Confirmation : Compte modifié')
-                ->html('Votre compte a été modifié avec succès');
-            
-            $mailer->send($email);
-    
-            // Redirection vers la page de profil
-            return $this->redirectToRoute('app_user_show', [
-                'id' => $user->getId(),
-            ]);
         }
-    
-        // Rendre la vue du formulaire si le formulaire n'est pas encore soumis ou est invalide
-        return $this->render('user/edit.html.twig', [
-            'UserType' => $form,
-            'user' => $user,
+
+        // Gestion des rôles si l'utilisateur est admin et modifie un autre profil
+        if ($isAdmin && !$isModifyingOwnProfile) {
+            $roles = $form->get('roles')->getData();
+            $user->setRoles($roles);
+        }
+
+        // Persistance des modifications
+        $entityManager->persist($user);
+        $entityManager->persist($user->getInfosUser());
+        $entityManager->flush();
+
+        // Envoi de l'email de confirmation
+        $email = (new Email())
+            ->from('admin@booksinder.com')
+            ->to($user->getEmail())
+            ->subject('Confirmation : Compte modifié')
+            ->html('Votre compte a été modifié avec succès');
+        $mailer->send($email);
+
+        // Redirection après modification
+        return $this->redirectToRoute('app_user_show', [
+            'id' => $user->getId(),
         ]);
     }
+
+    // Rendu du formulaire si le formulaire n'est pas soumis ou est invalide
+    return $this->render('user/edit.html.twig', [
+        'UserType' => $form,
+        'user' => $user,
+    ]);
+}
+
     
     
 

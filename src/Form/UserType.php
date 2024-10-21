@@ -4,14 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
@@ -28,24 +25,11 @@ class UserType extends AbstractType
                     'class' => 'label-form'
                 ],
             ])
-            // ->add('agreeTerms', CheckboxType::class, [
-            //     'mapped' => false,
-            //     'constraints' => [
-            //         new IsTrue([
-            //             'message' => 'You should agree to our terms.',
-            //         ]),
-            //     ],
-            //     'label' => 'Aaccepte les termes et conditions',
-            //     'label_attr' => [
-            //             'class' => 'label-form'
-            //         ],
-            //         'attr' => [
-            //             'class' => 'input-form'
-            //         ],
-            // ])
-            
-            ->add('infosUser', InfoUserType::class)
-            ->add('password', PasswordType::class, [
+            ->add('infosUser', InfoUserType::class);
+
+        // Si l'admin modifie son propre profil ou si l'utilisateur n'est pas admin
+        if (!$options['is_admin'] || $options['is_modifying_own_profile']) {
+            $builder->add('password', PasswordType::class, [
                 'mapped' => false, // Ce champ n'est pas lié à une propriété de l'entité User
                 'constraints' => [
                     new NotBlank([
@@ -59,49 +43,29 @@ class UserType extends AbstractType
                 'label_attr' => [
                     'class' => 'label-form',
                 ],
-            ])
-            ;
+            ]);
+        }
+
+        // Ajouter le champ roles uniquement si l'utilisateur est admin
+        if ($options['is_admin'] && !$options['is_modifying_own_profile']) {
+            $builder->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN',
+                ],
+                'multiple' => true,
+                'expanded' => true, // Utilise des cases à cocher
+                'label' => 'Rôles',
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'is_admin' => false, // Valeur par défaut
+            'is_modifying_own_profile' => false, // Pour détecter si l'admin modifie son propre profil
         ]);
     }
 }
-
-// class UserType extends AbstractType
-// {
-//     public function buildForm(FormBuilderInterface $builder, array $options): void
-//     {
-//         $builder
-//             ->add('email')
-//             ->add('roles', ChoiceType::class, [
-//                 'choices'  => [
-//                     'Admin' => 'ROLE_ADMIN',
-//                     'User' => 'ROLE_USER',
-//                 ],
-//                 'multiple' => true, // Car c'est un tableau
-//                 'expanded' => true, // Si tu veux afficher des cases à cocher
-//             ])
-//             ->add('password')
-//             ->add('infosUser', EntityType::class, [
-//                 'class' => InfosUser::class,
-// 'choice_label' => 'id',
-//             ])
-//             ->add('favorites', EntityType::class, [
-//                 'class' => Books::class,
-// 'choice_label' => 'id',
-// 'multiple' => true,
-//             ])
-//         ;
-//     }
-
-//     public function configureOptions(OptionsResolver $resolver): void
-//     {
-//         $resolver->setDefaults([
-//             'data_class' => User::class,
-//         ]);
-//     }
-// }

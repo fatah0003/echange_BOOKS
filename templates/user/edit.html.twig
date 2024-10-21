@@ -1,62 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
-{% endblock %}
+{% block title %}Modifier Profil{% endblock %}
 {% block header %}{% endblock %}
 {% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
 
 {% block body %}
-	<h1>Modifier le Profil de {{ user.infosUser.userName }}</h1>
-	<section class="container">
-		<div class="">Retour à l'Accueil</div>
-		{{ form_start(UserType) }}
-		<div class="form-element">
-			{{ form_label(UserType.email) }}
-			{{ form_widget(UserType.email) }}
-			{{ form_errors(UserType.email) }}
-		</div>
-		<div class="form-element">
-			{{ form_label(UserType.infosUser.userName) }}
-			{{ form_widget(UserType.infosUser.userName) }}
-			{{ form_errors(UserType.infosUser.userName) }}
-		</div><div class="form-element">
-			{{ form_label(UserType.infosUser.phoneNumber) }}
-			{{ form_widget(UserType.infosUser.phoneNumber) }}
-			{{ form_errors(UserType.infosUser.phoneNumber) }}
-		</div><div class="form-element">
-			{{ form_label(UserType.infosUser.city) }}
-			{{ form_widget(UserType.infosUser.city) }}
-			{{ form_errors(UserType.infosUser.city) }}
-			<div id="showlist" class="show">
-    <ul id="showresults">
-    </ul>
-    </div>
-		</div>
-		<div class="form-element">
-			{{ form_label(UserType.infosUser.birthDate) }}
-			{{ form_widget(UserType.infosUser.birthDate) }}
-			{{ form_errors(UserType.infosUser.birthDate) }}
-		</div><div class="form-element">
-			{{ form_label(UserType.infosUser.bio) }}
-			{{ form_widget(UserType.infosUser.bio) }}
-			{{ form_errors(UserType.infosUser.bio) }}
-		</div>
-		<div class="form-element">
-    		{{ form_label(UserType.password) }}
-    		{{ form_widget(UserType.password) }}
-    		{{ form_errors(UserType.password) }}
-		</div>
+    <h1>Modifier le Profil de {{ user.infosUser.userName }}</h1>
+    <section class="container">
+        <div><a href="{{ path('home') }}">Retour à l'Accueil</a></div>
+        
+        {{ form_start(UserType) }}
 
+        <div class="form-element">
+            {{ form_label(UserType.email) }}
+            {{ form_widget(UserType.email) }}
+            {{ form_errors(UserType.email) }}
+        </div>
+        
+        <div class="form-element">
+            {{ form_label(UserType.infosUser.userName) }}
+            {{ form_widget(UserType.infosUser.userName) }}
+            {{ form_errors(UserType.infosUser.userName) }}
+        </div>
+        
+        <div class="form-element">
+            {{ form_label(UserType.infosUser.phoneNumber) }}
+            {{ form_widget(UserType.infosUser.phoneNumber) }}
+            {{ form_errors(UserType.infosUser.phoneNumber) }}
+        </div>
+        
+        <div class="form-element">
+            {{ form_label(UserType.infosUser.city) }}
+            {{ form_widget(UserType.infosUser.city) }}
+            {{ form_errors(UserType.infosUser.city) }}
+            <div id="showlist" class="show">
+                <ul id="showresults"></ul>
+            </div>
+        </div>
+        
+        <div class="form-element">
+            {{ form_label(UserType.infosUser.birthDate) }}
+            {{ form_widget(UserType.infosUser.birthDate) }}
+            {{ form_errors(UserType.infosUser.birthDate) }}
+        </div>
+        
+        <div class="form-element">
+            {{ form_label(UserType.infosUser.bio) }}
+            {{ form_widget(UserType.infosUser.bio) }}
+            {{ form_errors(UserType.infosUser.bio) }}
+        </div>
 
-		{# <div class="form-element-check">
-			{{ form_label(UserType.agreeTerms) }}
-			{{ form_widget(UserType.agreeTerms) }}
-			{{ form_errors(UserType.agreeTerms) }}
-		</div> #}
-		<button type="submit" class="btn">Modifier</button>
-		{{ form_end(UserType) }}
-		<div>Voir les Annonces</div>
-	</section>
+        {# Afficher le champ mot de passe si l'utilisateur modifie son propre profil #}
+        {% if not is_granted('ROLE_ADMIN') or app.user == user %}
+            <div class="form-element">
+                {{ form_label(UserType.password) }}
+                {{ form_widget(UserType.password) }}
+                {{ form_errors(UserType.password) }}
+            </div>
+        {% endif %}
+
+        {# Ajouter la gestion des rôles uniquement pour l'admin modifiant un autre utilisateur #}
+        {% if is_granted('ROLE_ADMIN') and app.user != user %}
+            <div class="form-element">
+                {{ form_label(UserType.roles) }}
+                {{ form_widget(UserType.roles) }}
+                {{ form_errors(UserType.roles) }}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn">Modifier</button>
+
+        {{ form_end(UserType) }}
+
+        <div><a href="{{ path('listings_show') }}">Voir les Annonces</a></div>
+    </section>
 {% endblock %}
 {% block footer %}{% endblock %}
-
