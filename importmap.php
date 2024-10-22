@@ -45,4 +45,8 @@ return [
         'path' => './assets/js/serach/isbn-input.js',
         'entrypoint' => true,
     ],
+    'book' => [
+        'path' => './assets/book.js',
+        'entrypoint' => true,
+    ],
 ];

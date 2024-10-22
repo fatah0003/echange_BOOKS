@@ -14,9 +14,10 @@
   padding: 0;
 }
 body {
-  background-color: #06668C;
+  background-color: #f2f2f2;
   font-family: "nunito", sans-serif;
   height: 100%;
+  width: 100%;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -25,14 +26,16 @@ body {
 }
 /* -----------------Header style------------------ */
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
-  height: 100px;
+  height: 85px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(7px);
+  /* backdrop-filter: blur(7px); */
+  z-index: 2;
+  background-color: #06668C;
 }
 .hreflogo{
   text-decoration: none;
@@ -132,17 +135,18 @@ main{
   grid-template-rows: auto;
   gap: 120px;
 }
+
 .img-about, .img-step{
   height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-  
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.5);
 }
 .about-text, .objective, .text-step{
   font-family: "Amaranth", sans-serif;
   font-size: 20px;
-  color: white;
+  color: rgb(27, 4, 4);
   height: 300px;
   width: 525px;
   line-height:51px;
@@ -288,3 +292,76 @@ h1 {
   background-repeat: no-repeat;
 }
 
+/* -------------------Footer style------------------------------ */
+
+footer {
+  /* margin-top: 40px; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 150px;
+  padding-top:20px;
+  background-color:#06668C;
+  color:#4b4c4d;
+}
+
+footer ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+footer li {
+  padding:0 10px;
+}
+
+footer ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+footer ul a:hover {
+  opacity:1;
+}
+
+footer .social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.social-icon {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin:0 8px;
+  color:inherit;
+  opacity:0.75;
+}
+
+footer .social > a:hover {
+  opacity:0.9;
+}
+
+footer .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:0;
+}
+
+.list-inline {
+  display: flex;
+}
+
+/* ----------------------------------------------------------------- */

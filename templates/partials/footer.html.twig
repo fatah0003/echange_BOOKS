@@ -1,3 +1,17 @@
 <footer>
-<div>FOOTER</div>
+    <div class="social">
+        <a href="#"></a>
+        <a href="#"><img class="social-icon" src="{{ asset('/images/facebook.png')}}" alt=""></a>
+        <a href="#"><img class="social-icon" src="{{ asset('/images/instagram.png')}}" alt=""></a>
+        <a href="#"><img class="social-icon" src="{{ asset('/images/x.png')}}" alt=""></a>
+        <a href="#"><img class="social-icon" src="{{ asset('/images/tiktok.png')}}" alt=""></a>
+    </div>
+    <ul class="list-inline">
+        <li class="list-inline-item"><a href="{{ path('home')}}">Home</a></li>
+        <li class="list-inline-item"><a href="{{ path('listings_show')}}">Annpnces</a></li>
+        <li class="list-inline-item"><a href="#">About</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright">BooksInder © <span>{{ "now"|date("Y") }}</span></p>
 </footer>

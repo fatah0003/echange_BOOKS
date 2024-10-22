@@ -103,8 +103,10 @@ class ListingsController extends AbstractController
     #[Route(path: "/showone/{id}", name: "showone")]
     public function showone(Books $books): Response
     {
+      $user = $books->getUser();
         return $this->render('listings/showone.html.twig', [
         'book' => $books,
+        'user' => $user,
         ]);
     }
 
@@ -190,7 +192,7 @@ class ListingsController extends AbstractController
             'title' => 'Success title',
             'message' => 'Message de notification'
             ]);
-            return $this->redirectToRoute('listings_show');
+            return $this->redirectToRoute('listings_showone', ['id' => $books->getId()]);
         }
 
         return $this->render('listings/add.html.twig', [
