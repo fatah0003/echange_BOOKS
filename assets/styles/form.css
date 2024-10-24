@@ -9,7 +9,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
-form{
+.add-form-class {
     background-color: white;
     padding: 15px;
     display: flex;
@@ -71,7 +71,7 @@ input[type=checkbox]:checked::after {
     top: 0;
     left: 4px;
 }
-button{
+.add-form-btn {
     background-color: #27ae60;
     height: 40px;
     border-radius: 3px;

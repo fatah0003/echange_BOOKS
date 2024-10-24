@@ -92,7 +92,7 @@ class ListingsController extends AbstractController
             'title' => 'Success title',
             'message' => 'Message de notification'
             ]);
-            return $this->redirectToRoute('listings_show');
+            return $this->redirectToRoute('listings_showone', ['id' => $books->getId()]);
         }
 
         return $this->render('listings/add.html.twig', [
@@ -202,7 +202,7 @@ class ListingsController extends AbstractController
     }
   //Méthode pour les favoris
     #[Route('/favorite/{id}', name: 'toggle_favorite')]
-    public function toggleFavorite(Books $books, EntityManagerInterface $entityManager): Response
+    public function toggleFavorite(Books $books, EntityManagerInterface $entityManager, Request $request): Response
     {
       /** @var User $user */
         $user = $this->getUser();
@@ -213,6 +213,8 @@ class ListingsController extends AbstractController
         'title' => 'Success title',
         'message' => 'Message de notification'
         ]);
-        return $this->redirectToRoute('listings_show');
+       
+        //return $this->redirectToRoute('listings_show');
+        return $this->redirect($request->headers->get('referer'));
     }
 }

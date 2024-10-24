@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchType extends AbstractType
 {
@@ -17,32 +18,26 @@ class SearchType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'required' => false,
-                'label' => 'Titre du Livre',
-                'label_attr' => [
-                    'class' => 'label-form',
-                ],
+                'label' => false,
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-search-form',
+                    'placeholder' => 'Titre du Livre',
                 ],
             ])
             ->add('author', TextType::class, [
                 'required' => false,
-                'label' => 'Auteur du Livre',
-                'label_attr' => [
-                    'class' => 'label-form',
-                ],
+                'label' => false,
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-search-form',
+                    'placeholder' => 'Auteur',
                 ],
             ])
             ->add('location', TextType::class, [
                 'required' => false,
-                'label' => 'Ville',
-                'label_attr' => [
-                    'class' => 'label-form',
-                ],
+                'label' => false,
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-search-form',
+                    'placeholder' => 'Ville',
                 ],
             ])
             ->add('exchangeType', EnumType::class, [
@@ -50,26 +45,29 @@ class SearchType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'required' => false,
-                'label' => 'Type Echange',
-                'label_attr' => [
-                    'class' => 'label-form',
-                ],
+                'label' => false,
+                'placeholder' => 'Type d\'échange',
                 'attr' => [
-                    'class' => 'input-form',
-                    'placeholder' => 'iugiugg'
+                    'class' => 'input-search-form',
                 ],
             ])
             ->add('bookCategorie', EntityType::class, [
                 'class' => BookCategorie::class,
                 'choice_label' => 'name',
                 'required' => false,
-                'label' => 'Catégorie',
-                'label_attr' => [
-                    'class' => 'label-form',
-                ],
+                'label' => false,
+                'placeholder' => 'Catégorie', // Placeholder pour un champ <select>
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-search-form',
                 ],
-            ]);
+            ])
+            ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'method' => 'GET'
+        ]);
     }
 }

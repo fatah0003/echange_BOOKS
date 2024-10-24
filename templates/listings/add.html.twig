@@ -11,7 +11,7 @@
         {% endif %}</h1>
 <section class="container">
 <a class="nav-connect" href="{{ path('home')}}">Retour à l'Accueil</a>
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'class': 'add-form-class'}}) }}
 
     <div class="form-element">
         {{ form_label(form.cover) }}
@@ -102,7 +102,7 @@
     </div>
 </div>
 
-<button type="submit">
+<button class="add-form-btn" type="submit">
 {% if book is defined %}
                 Modifier
             {% else %}
