@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\Exchange;
 use App\Entity\User;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -100,15 +101,24 @@ class ListingsController extends AbstractController
         ]);
     }
   // Méthode pour afficher une seule annonce
-    #[Route(path: "/showone/{id}", name: "showone")]
-    public function showone(Books $books): Response
-    {
+  #[Route(path: "/showone/{id}", name: "showone")]
+  public function showone(Books $books, EntityManagerInterface $entityManager): Response
+  {
       $user = $books->getUser();
-        return $this->render('listings/showone.html.twig', [
-        'book' => $books,
-        'user' => $user,
-        ]);
-    }
+      $currentUser = $this->getUser();
+  
+      // Vérifier si l'utilisateur a une demande d'échange pour ce livre
+      $requestExists = $entityManager->getRepository(Exchange::class)
+          ->findOneBy(['bookOne' => $books, 'userRequester' => $currentUser]);
+  
+      return $this->render('listings/showone.html.twig', [
+          'book' => $books,
+          'user' => $user,
+          'requestExists' => $requestExists !== null, // true si la demande existe, sinon false
+          'exchange' => $requestExists, // Optionnel : pour récupérer les détails de la demande si nécessaire
+      ]);
+  }
+  
 
   //Méthode pour supprimer une annonce
     #[Route(path: "/remove/{id}", name: "remove")]

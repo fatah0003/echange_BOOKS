@@ -1,0 +1,27 @@
+{# templates/exchange/sent.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes envoyées{% endblock %}
+
+{% block body %}
+    <h1>Demandes envoyées</h1>
+
+    <ul>
+    {% for request in sent_requests %}
+        {% if request.status.value != 'validated' %}
+            <li>
+                {{ request.bookOne.title }}
+                <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Annuler</button>
+                </form>
+            </li>
+            {% else %}
+                <li>Aucune demande envoyée.</li>
+        {% endif %}
+    {% else %}
+        <li>Aucune demande envoyée.</li>
+    {% endfor %}
+</ul>
+
+    <a href="{{ path('app_exchange_index') }}">Retour à l'index</a>
+{% endblock %}
