@@ -16,3 +16,8 @@ import './styles/book.css';
 
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+
+document.querySelector(".svg-icon svg").addEventListener("click", function() {
+    document.querySelector(".filter-listings").classList.toggle("active");
+});

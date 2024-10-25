@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\ExchangeEnum;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Repository\ExchangeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,10 +40,12 @@ class UserController extends AbstractController
 
     // Méthode pour voir les infos d'un utilisateur
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, ExchangeRepository $exchangeRepository): Response
     {
+        $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'received_requests_number' => $receivedRequestsNumber,
         ]);
     }
 
@@ -161,5 +165,15 @@ public function delete(Request $request, User $user, EntityManagerInterface $ent
     // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
     return $this->redirectToRoute('home');
 }
+
+private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int
+    {
+        $receivedRequests = $exchangeRepository->findBy([
+            'userReceiver' => $this->getUser(),
+            'status' => ExchangeEnum::PENDING->value,
+        ]);
+    
+        return count($receivedRequests);
+    }
 
 }

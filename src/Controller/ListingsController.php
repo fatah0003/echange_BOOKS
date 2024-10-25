@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Books;
+use App\Entity\Exchange;
 use App\Entity\User;
+use App\Enum\ExchangeEnum;
 use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -14,6 +16,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\ListingType;
 use App\Form\SearchType;
+use App\Repository\ExchangeRepository;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -22,8 +25,9 @@ class ListingsController extends AbstractController
 {
   //Méthode pour afficher la liste des annonces sur la page annonce
     #[Route(path: "", name: "show")]
-    public function listings(Request $request, BooksRepository $booksRepository, PaginatorInterface $paginator): Response
+    public function listings(Request $request, BooksRepository $booksRepository, PaginatorInterface $paginator, ExchangeRepository $exchangeRepository): Response
     {
+      $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
         $page = $request->query->getInt('page', 1);
         $limit = $request->query->getInt('limit', 12);
     
@@ -48,6 +52,7 @@ class ListingsController extends AbstractController
         return $this->render('listings/listings.html.twig', [
             'books' => $books,
             'form' => $form,
+            'received_requests_number' => $receivedRequestsNumber,
         ]);
     }
     
@@ -100,15 +105,26 @@ class ListingsController extends AbstractController
         ]);
     }
   // Méthode pour afficher une seule annonce
-    #[Route(path: "/showone/{id}", name: "showone")]
-    public function showone(Books $books): Response
-    {
+  #[Route(path: "/showone/{id}", name: "showone")]
+  public function showone(Books $books, EntityManagerInterface $entityManager, ExchangeRepository $exchangeRepository): Response
+  {
+    $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
       $user = $books->getUser();
-        return $this->render('listings/showone.html.twig', [
-        'book' => $books,
-        'user' => $user,
-        ]);
-    }
+      $currentUser = $this->getUser();
+  
+      // Vérifier si l'utilisateur a une demande d'échange pour ce livre
+      $requestExists = $entityManager->getRepository(Exchange::class)
+          ->findOneBy(['bookOne' => $books, 'userRequester' => $currentUser]);
+  
+      return $this->render('listings/showone.html.twig', [
+          'book' => $books,
+          'user' => $user,
+          'requestExists' => $requestExists !== null, // true si la demande existe, sinon false
+          'exchange' => $requestExists,
+          'received_requests_number' => $receivedRequestsNumber,
+      ]);
+  }
+  
 
   //Méthode pour supprimer une annonce
     #[Route(path: "/remove/{id}", name: "remove")]
@@ -216,5 +232,15 @@ class ListingsController extends AbstractController
        
         //return $this->redirectToRoute('listings_show');
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int
+    {
+        $receivedRequests = $exchangeRepository->findBy([
+            'userReceiver' => $this->getUser(),
+            'status' => ExchangeEnum::PENDING->value,
+        ]);
+    
+        return count($receivedRequests);
     }
 }

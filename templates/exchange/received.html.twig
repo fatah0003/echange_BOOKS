@@ -1,0 +1,28 @@
+{# templates/exchange/received.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes reçues{% endblock %}
+
+{% block body %}
+    <h1>Demandes reçues</h1>
+    <pre>
+        {# {{ dump(received_requests_number) }} #}
+    </pre>
+
+    <ul>
+        {% for request in received_requests %}
+        {% if request.status.value != 'validated' %}
+            <li>
+                Livre: {{ request.bookOne.title }}
+                <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}">Voir</a>
+            </li>
+            {% else %}
+                <li>Aucune demande reçue.</li>
+        {% endif %}
+        {% else %}
+            <li>Aucune demande reçue.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_exchange_index') }}">Retour à l'index</a>
+{% endblock %}

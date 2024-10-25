@@ -80,7 +80,16 @@ importmap %}
 				<a class="creator-profil" href="{{ path('app_user_show', { id: book.user.id }) }}">{{ user.infosUser.userName|slice(0, 2)|upper }}</a>
 				<a class="creator-contact" href="{{ path('app_conversation_new', { id: book.user.id }) }}">Contacter</a>
 				
-				<a class="btn-reservation" href="">Reserver</a>
+				{% if requestExists %}
+    <form action="{{ path('app_exchange_cancel_request', {id: exchange.id}) }}" method="POST">
+        <button type="submit" class="btn btn-danger">Annuler</button>
+    </form>
+{% else %}
+    <form action="{{ path('app_exchange_request', {id: book.id}) }}" method="POST">
+        <button type="submit" class="btn btn-primary">Réserver</button>
+    </form>
+{% endif %}
+
 				{% endif %}
 			</div>
 
@@ -105,53 +114,6 @@ importmap %}
 		</article>
 	</section>
 </div>
+	{% block features %}
+        {% endblock %}
 {% endblock %}
-{#
-<div>
-	{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %} {% if
-	book.cover is defined and book.cover is not null %} {% set imageUrl =
-	vich_uploader_asset(book.cover) %} {% endif %}
-	<img class="image-box" src="{{ imageUrl }}" alt="image du livre" />
-</div>
-
-<div>
-	{% set imageBackUrl = asset('/images/back.jpg') %} {% if book.back is defined
-	and book.back is not null %} {% set imageBackUrl =
-	vich_uploader_asset(book.back) %} {% endif %}
-	<img class="image-box" src="{{ imageBackUrl }}" alt="image du livre" />
-</div>
-
-<div class="title">
-	Titre:
-	{{ book.title }}
-</div>
-<div class="author">
-	Auteur:
-	{{ book.author }}
-</div>
-<div class="location">
-	Localisation:
-	{{ book.location }}
-</div>
-<p class="description">
-	Description:
-	{{ book.description }}
-</p>
-<div class="isbn">
-	ISBN:
-	{{ book.isbn }}
-</div>
-<div class="edition">
-	Edition:
-	{{ book.edition }}
-</div>
-{% if is_granted('ROLE_USER') and book.user.id == app.user.id %}
-<div class="delete-update">
-	<form action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
-		<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
-		<button type="submit">Supprimer</button>
-	</form>
-
-	<a href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
-</div>
-{% endif %} #}

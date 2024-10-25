@@ -94,8 +94,37 @@ header {
   left: 0;
 }
 
+.logo-container {
+  display: flex;
+  position: relative;
+}
+
 .img-profil {
   height: 50px;
+  padding-left: 40px;
+}
+
+.notifs-circle {
+  color: white;
+  width: 30px;
+  height: 25px;
+  background-color: #FF0000;
+  border-radius: 40%;
+  text-align: center;
+  position: relative;
+  transform: translate(-8px, 35px);
+  z-index: 1;
+}
+
+.notifs-circle::after {
+  content: '';
+  position: absolute;
+  bottom: 95%;
+  left: 30%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #FF0000 transparent;
 }
 /* ---------------Banner Style---------------------- */
 
@@ -137,11 +166,11 @@ main{
 }
 
 .img-about, .img-step{
-  height: 300px;
+  height: 350px;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.5); */
 }
 .about-text, .objective, .text-step{
   font-family: "Amaranth", sans-serif;
@@ -149,12 +178,12 @@ main{
   color: rgb(27, 4, 4);
   height: 300px;
   width: 525px;
-  line-height:51px;
-  text-align: justify;
+  line-height:60px;
+  /* text-align: justify; */
   word-spacing: 6px;
 }
 .objective{
-  line-height:35px;
+  line-height:45px;
   word-spacing: 2px;
   display: flex;
   flex-direction: column;
@@ -210,7 +239,7 @@ main{
   text-decoration: none;
 }
 .img-step{
-  height:230px ;
+  height:260px ;
 }
 /* -----------------------Announces style-------------- */
 .announces {
@@ -229,20 +258,53 @@ main{
   grid-template-rows: auto;
   gap: 30px;
 }
-h1 {
-  color: white;
+.listings-title {
+  color: black;
 }
 .titles {
   width: 1300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+
+.listings-options {
+  display: flex;
+  width: 20%;
+  justify-content: space-between;
+  position: relative;
 }
 .add {
   text-decoration: none;
   background-color: #25a65b;
   padding: 5px;
   border-radius: 5px;
+}
+
+.filter-listings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  /* top: 100%; */
+  right: 0;
+  background: #fffbeb;
+  padding: 5px;
+  border-radius: 5px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.toggle-item {
+  display: none;
+}
+.filter-listings.active .toggle-item {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
 }
 /*------------------------ pagination style --------------*/
 .navigation {
@@ -397,6 +459,8 @@ footer .copyright {
 
   .search-form-btn {
     background-color: #07B01F;
+    color: white;
+    width: 100px;
   }
 
   /* ------------------------Choose style-------------------------------- */
@@ -406,7 +470,7 @@ footer .copyright {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #0b2c3d;
+  background-color: #c4bb99;
   height: 550px;
 }
 
@@ -421,16 +485,28 @@ footer .copyright {
 }
 
 .choose-box-one, .choose-box-two, .choose-box-three, .choose-box-four {
-  background-color: white;
-  width: 21%;
+  background-color: #fffbeb;
+  width: 19%;
   height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  /* margin: 20px 40px 20px 40px; */
   border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.svg-container svg {
+  margin-bottom: 10px;
+}
+
+.choose-text {
+  text-align: center;
+  color: #333;
+}
+
 
 .choose-box-one {
   margin-left: 40px;
@@ -444,8 +520,8 @@ footer .copyright {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   background-color: #148025;
   border-radius: 50%;
 }

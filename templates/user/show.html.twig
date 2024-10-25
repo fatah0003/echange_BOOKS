@@ -11,10 +11,7 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
+            <a href="{{ path('app_exchange_index', {'id': user.id}) }}">Voir les Echanges</a>
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
@@ -51,7 +48,9 @@
                 <th>Bio</th>
                 <td>{{ user.infosUser.bio }}</td>
             </tr>
+            {% if is_granted('ROLE_USER') and user.id != app.user.id %}
             <a href="{{ path('app_conversation_new', {'id': user.id}) }}">Contacter</a>
+            {% endif %}
         </tbody>
     </table>
     {% if is_granted('ROLE_ADMIN') %}
@@ -67,5 +66,6 @@
         <button type="submit" class="btn" onclick="return confirm('Confirm action ?')">Delete</button>
     </form>
 {% endif %}
-
+    {% block features %}
+        {% endblock %}
 {% endblock %}
