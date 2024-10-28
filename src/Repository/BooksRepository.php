@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\BookCategorie;
 use App\Entity\Books;
+use App\Entity\User;
 use App\Enum\ExchangeTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -66,4 +67,14 @@ class BooksRepository extends ServiceEntityRepository
             $limit
         );
     }
+
+    public function findByUser(User $user): array
+{
+    return $this->createQueryBuilder('b')
+        ->andWhere('b.user = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
+
 }

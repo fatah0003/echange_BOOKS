@@ -1,40 +1,34 @@
 {% extends 'base.html.twig' %}
-
+{% block header %}{% endblock %}
 {% block title %}Conversation{% endblock %}
 
 {% block body %}
-<div>-----Conversation------</div>
-<div>-----Conversation------</div>
-<div>-----Conversation------</div>
-<div>-----Conversation------</div>
-<div>-----Conversation------</div>
-<div>-----Conversation------</div>
 
-<h2>
+<h2 class="conversation-header">
     {% for participant in conversation.participants %}
         {% if participant != app.user %}
-            {{ participant.infosUser.userName }}:
+            {{ participant.infosUser.userName }}
         {% endif %}
-        
-        
     {% endfor %}
 </h2>
-<ul>
+<ul class="messages-list">
     {% for message in conversation.messages %}
-    <li>
-    <strong>{{ message.writer.infosUser.userName }}:</strong> {{ message.content }}
-    <br>
-    <small>{{ message.createdAt|date('d-m-Y H:i') }}</small>
-    </li>
-        
+        <li class="message-item {% if message.writer == app.user %}sent{% else %}received{% endif %}">
+            <strong class="message-writer">{{ message.writer.infosUser.userName }}:</strong> 
+            <span class="message-content">{{ message.content }}</span>
+            <br>
+            <small class="message-date">{{ message.createdAt|date('d-m-Y H:i') }}</small>
+        </li>
     {% endfor %}
 </ul>
 
 {{ form_start(form) }}
-    <div>{{ form_label(form.content) }}</div>
-    <div>{{ form_widget(form.content) }}</div>
-    <button type="submit">Envoyer</button>
-
+    {# <div class="form-group">{{ form_label(form.content) }}</div> #}
+    <div class="form-input">{{ form_widget(form.content) }}</div>
+    <button type="submit" class="submit-button">Envoyer</button>
 {{ form_end(form) }}
 
+
 {% endblock %}
+{% block features %}{% endblock %}
+{% block footer %}{% endblock %}

@@ -9,7 +9,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
-.add-form-class {
+.add-form-class, .registration-form-class {
     background-color: white;
     padding: 15px;
     display: flex;
@@ -21,7 +21,7 @@ body{
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 h1{
-    color: rgb(241, 224, 224);
+    /* color: rgb(241, 224, 224); */
 }
 .form-element{
     margin-bottom: 15px;
@@ -71,13 +71,18 @@ input[type=checkbox]:checked::after {
     top: 0;
     left: 4px;
 }
-.add-form-btn {
-    background-color: #27ae60;
+.add-form-btn, .navigation-btn {
+    background-color: #07b01f;
+    color: white;
     height: 40px;
     border-radius: 3px;
     border: hidden;
     margin-top: 15px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5px 0 5px;
 }
 .show{
     display: block;
@@ -85,8 +90,3 @@ input[type=checkbox]:checked::after {
 ul{
    list-style-type: none;
 }
-/* .aaa{
-    width: 200px;
-    color: blue;
-    background-color: #27ae60;
-} */

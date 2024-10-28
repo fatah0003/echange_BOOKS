@@ -2,48 +2,45 @@
 {% block title %}Annonces
 {% endblock %}
 {% block importmap %}
-	{{ importmap(['app', 'card', 'notification']) }}
+{{ importmap(['app', 'card', 'notification', 'filter']) }}
 {% endblock %}
-{# {% block body %} #}
-{# {% block importmap %}
-	{{ importmap('app') }}
-{% endblock %} #}
 {% block body %}
 
-	<section class="banner">
-		<span class="title">BOOKSINDER</span>
-		<span class="welcome">Bienvennue sur BOOKSINDER</span>
-		<span class="welcome">Les Livres de tes Reves</span>
-		{% include "search/form.html.twig" %}
-	</section>
+<section class="banner">
+	{# <span class="title">BOOKSINDER</span> #}
+	<span class="welcome">Bienvenue sur BOOKSINDER</span>
+	<span class="welcome">Les livres de tes rêves</span>
+	{% include "search/form.html.twig" %}
+</section>
 
 
-	<section class="announces">
-		<div class="titles">
-			<h1 class="listings-title">Notre Bibliotheque BOOKSINDER</h1>
-			<div class="listings-options">
-				<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
-				<ul class="filter-listings">
-    <li class="svg-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="30" height="30">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-        </svg>
-    </li>
-    <li class="toggle-item">{{ knp_pagination_sortable(books, 'Titre', 'b.title') }}</li>
-    <li class="toggle-item">{{ knp_pagination_sortable(books, 'Auteur', 'b.author') }}</li>
-</ul>
-			</div>
+<section class="announces">
+	<div class="titles">
+		<h1 class="listings-title">Notre bibliotheque BOOKSINDER</h1>
+		<div class="listings-options">
+			<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
+			<ul class="filter-listings">
+				<li class="svg-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5"
+						stroke="currentColor" width="30" height="30">
+						<path stroke-linecap="round" stroke-linejoin="round"
+							d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+					</svg>
+				</li>
+				<li class="toggle-item">{{ knp_pagination_sortable(books, 'Titre', 'b.title') }}</li>
+				<li class="toggle-item">{{ knp_pagination_sortable(books, 'Auteur', 'b.author') }}</li>
+			</ul>
 		</div>
-		<div class="grid">
-			{% for book in books %}
-				{% include "partials/card.html.twig" %}
-			{% endfor %}
-		</div>
-		<div class="navigation">
-    {{ knp_pagination_render(books) }}
-</div>
+	</div>
+	<div class="grid">
+		{% for book in books %}
+		{% include "partials/card.html.twig" %}
+		{% endfor %}
+	</div>
+	<div class="navigation">
+		{{ knp_pagination_render(books) }}
+	</div>
 
-	</section>
-    <section class="add-banner">
-    </section>
+</section>
+<section class="add-banner"></section>
 {% endblock %}

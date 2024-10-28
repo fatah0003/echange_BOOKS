@@ -1,22 +1,32 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Détails de la demande{% endblock %}
+{% block importmap %}
+{{ importmap(['app', 'home', 'card']) }}
+{% endblock %}
+{% block title %}Détails de la demande
+{% endblock %}
 
 {% block body %}
-    <h1>Détails de la demande d'échange</h1>
+	<h1>Détails de la demande d'échange</h1>
 
-    <p>Livre demandé : {{ exchange_request.bookOne.title }}</p>
+	<p>Livre demandé :
+		{{ exchange_request.bookOne.title }}</p>
 
-    <form action="{{ path('app_exchange_accept', { id: exchange_request.id }) }}" method="POST">
-    <h2>Livres disponibles de {{ exchange_request.userRequester.infosUser.username }}</h2>
-    <ul>
-        {% for book in books %}
-            <li>
-                <input type="radio" name="selected_book" value="{{ book.id }}" required>
-                {{ book.title }}
-            </li>
-        {% endfor %}
-    </ul>
-    <button type="submit" class="btn btn-success">Accepter</button>
-</form>
+	<form action="{{ path('app_exchange_accept', { id: exchange_request.id }) }}" method="POST">
+		<h2>Livres disponibles de
+			{{ exchange_request.userRequester.infosUser.username }}</h2>
+		
+			<div class="grid">
+				{% for book in books %}
+
+					<ul>
+						<input type="radio" name="selected_book" value="{{ book.id }}" required>
+						{% include "partials/card.html.twig" %}
+
+					</ul>
+				{% endfor %}
+			</div>
+		
+		<button type="submit" class="btn btn-success">Accepter</button>
+	</form>
+    {% block features %}{% endblock %}
 {% endblock %}

@@ -82,11 +82,11 @@ importmap %}
 				
 				{% if requestExists %}
     <form action="{{ path('app_exchange_cancel_request', {id: exchange.id}) }}" method="POST">
-        <button type="submit" class="btn btn-danger">Annuler</button>
+        <button type="submit" class="btn-reservation">Annuler</button>
     </form>
 {% else %}
     <form action="{{ path('app_exchange_request', {id: book.id}) }}" method="POST">
-        <button type="submit" class="btn btn-primary">Réserver</button>
+        <button type="submit" class="btn-reservation">Réserver</button>
     </form>
 {% endif %}
 
@@ -98,7 +98,7 @@ importmap %}
 				<div class="delete-update">
 					<a class="edit-btn" href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
 
-					<form class="form" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
+					<form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
 						<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
 						<button class="delete-btn" type="submit">Supprimer</button>
 					</form>

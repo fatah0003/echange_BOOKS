@@ -1,46 +1,52 @@
-{# templates/exchange/index.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Échanges{% endblock %}
 
 {% block body %}
-    <h1>{{ controller_name }}</h1>
+    <div class="exchange-container">
+    <h1 class="exchange-title exchange-title-main">{{ controller_name }}</h1>
 
-    <h2>Dernières demandes envoyées</h2>
-<ul>
-    {% for request in latest_sent_requests %}
-        {% if request.status.value != 'validated' %}
-            <li>
-                {{ request.bookOne.title }}
-                <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
-                    <button type="submit" class="btn btn-danger">Annuler</button>
-                </form>
-            </li>
+    <h2 class="exchange-title exchange-title-section">Dernières demandes envoyées</h2>
+    <ul class="exchange-list">
+        {% for request in latest_sent_requests %}
+            {% if request.status.value != 'validated' %}
+                <li class="exchange-item">
+                    {{ request.bookOne.title }}
+                    <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="exchange-btn exchange-btn-danger">Annuler</button>
+                    </form>
+                </li>
             {% else %}
-                <li>Aucune demande envoyée.</li>
-        {% endif %}
-    {% else %}
-        <li>Aucune demande envoyée.</li>
-    {% endfor %}
-</ul>
-
-    <h2>Dernières demandes reçues</h2>
-    <ul>
-        {% for request in latest_received_requests %}
-        {% if request.status.value != 'validated' %}
-            <li>
-                Livre: {{ request.bookOne.title }}
-                <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}">Voir</a>
-            </li>
-            {% else %}
-                <li>Aucune demande reçue.</li>
-        {% endif %}
+                <li class="exchange-item">Aucune demande envoyée.</li>
+            {% endif %}
         {% else %}
-            <li>Aucune demande reçue.</li>
+            <li class="exchange-item">Aucune demande envoyée.</li>
         {% endfor %}
     </ul>
 
-    <a href="{{ path('app_exchange_sent') }}">Voir toutes mes demandes envoyées</a>
-    <a href="{{ path('app_exchange_received') }}">Voir toutes mes demandes reçues</a>
+    <h2 class="exchange-title exchange-title-section">Dernières demandes reçues</h2>
+    <ul class="exchange-list">
+        {% for request in latest_received_requests %}
+            {% if request.status.value != 'validated' %}
+                <li class="exchange-item">
+                    Livre: {{ request.bookOne.title }}
+                    <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="exchange-link">Voir</a>
+                </li>
+            {% else %}
+                <li class="exchange-item">Aucune demande reçue.</li>
+            {% endif %}
+        {% else %}
+            <li class="exchange-item">Aucune demande reçue.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="exchange-actions">
+        <a href="{{ path('app_exchange_sent') }}" class="exchange-link">Voir toutes mes demandes envoyées</a>
+        <a href="{{ path('app_exchange_received') }}" class="exchange-link">Voir toutes mes demandes reçues</a>
+    </div>
+</div>
+
+
+    {% block features %}{% endblock %}
 {% endblock %}
 

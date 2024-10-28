@@ -1,17 +1,44 @@
-<footer>
-    <div class="social">
-        <a href="#"></a>
-        <a href="#"><img class="social-icon" src="{{ asset('/images/facebook.png')}}" alt=""></a>
-        <a href="#"><img class="social-icon" src="{{ asset('/images/instagram.png')}}" alt=""></a>
-        <a href="#"><img class="social-icon" src="{{ asset('/images/x.png')}}" alt=""></a>
-        <a href="#"><img class="social-icon" src="{{ asset('/images/tiktok.png')}}" alt=""></a>
+<footer class="footer">
+    <div class="footer-section logo-section">
+        <img src="logo.png" alt="BooksFinder Logo" class="logo">
+        <p>
+    BooksFinder facilite les échanges de livres entre passionnés. Publiez, découvrez et échangez vos ouvrages pour partager le plaisir de lire !
+</p>
+
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
     </div>
-    <ul class="list-inline">
-        <li class="list-inline-item"><a href="{{ path('home')}}">Home</a></li>
-        <li class="list-inline-item"><a href="{{ path('listings_show')}}">Annpnces</a></li>
-        <li class="list-inline-item"><a href="#">About</a></li>
-        <li class="list-inline-item"><a href="#">Terms</a></li>
-        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-    </ul>
-    <p class="copyright">BooksInder © <span>{{ "now"|date("Y") }}</span></p>
+
+    <div class="footer-section quick-links">
+       <h3>Liens Rapides</h3>
+<ul>
+    <li><a href="#">À Propos</a></li>
+    <li><a href="#">Blogs & Articles</a></li>
+    <li><a href="#">Conditions Générales</a></li>
+    <li><a href="#">Politique de Confidentialité</a></li>
+    <li><a href="#">Contactez-Nous</a></li>
+</ul>
+    </div>
+
+    <div class="footer-section newsletter">
+    <h3>Newsletter</h3>
+    <form action="#">
+        <input type="email" placeholder="Entrez votre adresse e-mail" required>
+        <button type="submit">S'abonner</button>
+    </form>
+    <p>Nous ne vous enverrons jamais de spam !</p>
+</div>
+
+<div class="footer-section contact">
+    <h3>Contact</h3>
+    <p><i class="fas fa-map-marker-alt"></i> 170 Bd des États-Unis, 69008 Lyon</p>
+    <p><i class="fas fa-envelope"></i> ainseri.fatah@proton.com</p>
+    <p><i class="fas fa-phone"></i> +33 999999999</p>
+</div>
+
 </footer>

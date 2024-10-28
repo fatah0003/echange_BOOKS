@@ -143,6 +143,7 @@
   
   .delete-edit-book {
     margin-bottom: 10px;
+    height: 25%;
   }
   
   .delete-update {
@@ -151,8 +152,8 @@
     flex-direction: column;
   }
   
-  .form {
-    background-color: #ffffff;
+  .form-listing-show {
+    /* background-color: #ffffff; */
       padding: 0;
       width: 100px;
       border: none;
@@ -160,8 +161,8 @@
       box-shadow: none;
   }
   
-   .edit-btn, .btn-reservation {
-    background-color: #27ae60;
+   .edit-btn, .btn-reservation, .delete-btn {
+    background-color: #07b01f;
     height: 40px;
     width: 100px;
     border-radius: 3px;
@@ -177,6 +178,7 @@
   
   .delete-btn {
     background-color: #FF0000;
+    margin-top: 20px;
   }
   
   .details-section-two {
@@ -204,4 +206,5 @@
   .summary {
     font-style: italic;
   }
+  
   

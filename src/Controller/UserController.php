@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Enum\ExchangeEnum;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Repository\BooksRepository;
 use App\Repository\ExchangeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -40,14 +41,18 @@ class UserController extends AbstractController
 
     // Méthode pour voir les infos d'un utilisateur
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user, ExchangeRepository $exchangeRepository): Response
-    {
-        $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-            'received_requests_number' => $receivedRequestsNumber,
-        ]);
-    }
+public function show(User $user, ExchangeRepository $exchangeRepository, BooksRepository $booksRepository): Response
+{
+    $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
+    $publishedBooks = $booksRepository->findByUser($user); // Récupère les livres publiés par cet utilisateur
+
+    return $this->render('user/show.html.twig', [
+        'user' => $user,
+        'received_requests_number' => $receivedRequestsNumber,
+        'published_books' => $publishedBooks, // Inclut les livres publiés dans le template
+    ]);
+}
+
 
 // Méthode pour modifier les infos d'un utilisateur
 #[Route('/update/{id}', name: 'update')]

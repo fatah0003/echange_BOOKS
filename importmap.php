@@ -49,4 +49,16 @@ return [
         'path' => './assets/book.js',
         'entrypoint' => true,
     ],
+    'form' => [
+        'path' => './assets/form.js',
+        'entrypoint' => true,
+    ],
+    'filter' => [
+        'path' => './assets/filter.js',
+        'entrypoint' => true,
+    ],
+    'profil' => [
+        'path' => './assets/profil.js',
+        'entrypoint' => true,
+    ],
 ];

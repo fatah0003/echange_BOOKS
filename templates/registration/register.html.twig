@@ -3,7 +3,7 @@
 {% block title %}Register
 {% endblock %}
 {% block header %}{% endblock %}
-{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search', 'form']) }}{% endblock %}
 
 {% block body %}
 	<h1>
@@ -14,8 +14,8 @@
         {% endif %}
 	</h1>
 	<section class="container">
-		<div class="">Retour à l'Accueil</div>
-		{{ form_start(registrationForm) }}
+		<a class="navigation-btn" href="{{ path('home') }}">Accueil</a>
+		{{ form_start(registrationForm, {'attr': {'class': 'registration-form-class'}}) }}
 		<div class="form-element">
 			{{ form_label(registrationForm.email) }}
 			{{ form_widget(registrationForm.email) }}
@@ -64,7 +64,7 @@
 			{{ form_widget(registrationForm.agreeTerms) }}
 			{{ form_errors(registrationForm.agreeTerms) }}
 		</div>
-		<button type="submit" class="btn">
+		<button class="add-form-btn" type="submit" class="btn">
 		{% if user is defined %}
                 Modifier
             {% else %}
@@ -72,7 +72,8 @@
             {% endif %}
 		</button>
 		{{ form_end(registrationForm) }}
-		<div>Voir les Annonces</div>
+		<a class="navigation-btn" href="{{ path('listings_show') }}">Annonces</a>
 	</section>
 {% endblock %}
+    {% block features %}{% endblock %}
 {% block footer %}{% endblock %}

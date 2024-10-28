@@ -2,14 +2,14 @@
 
 {% block title %}Modifier Profil{% endblock %}
 {% block header %}{% endblock %}
-{% block importmap %}{{ importmap(['app', 'search']) }}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search', 'form']) }}{% endblock %}
 
 {% block body %}
     <h1>Modifier le Profil de {{ user.infosUser.userName }}</h1>
     <section class="container">
-        <div><a href="{{ path('home') }}">Retour à l'Accueil</a></div>
+      <a class="navigation-btn" href="{{ path('home') }}">Accueil</a>
         
-        {{ form_start(UserType) }}
+        {{ form_start(UserType, {'attr': {'class': 'registration-form-class'}}) }}
 
         <div class="form-element">
             {{ form_label(UserType.email) }}
@@ -68,11 +68,12 @@
             </div>
         {% endif %}
 
-        <button type="submit" class="btn">Modifier</button>
+        <button class='add-form-btn' type="submit" class="btn">Modifier</button>
 
         {{ form_end(UserType) }}
 
-        <div><a href="{{ path('listings_show') }}">Voir les Annonces</a></div>
+        <a class="navigation-btn" href="{{ path('listings_show') }}">Annonces</a>
     </section>
 {% endblock %}
+{% block features %}{% endblock %}
 {% block footer %}{% endblock %}

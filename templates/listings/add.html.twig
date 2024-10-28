@@ -2,7 +2,7 @@
 {% block title %}Add Listing
 {% endblock %}
 {% block header %}{% endblock %}
-{% block importmap %}{{ importmap(['app', 'search', 'search-isbn']) }}{% endblock %}
+{% block importmap %}{{ importmap(['app', 'search', 'search-isbn', 'form']) }}{% endblock %}
 {% block body %}
 <h1>{% if book is defined %}
             Modifier l'annonce {{ book.title }}
@@ -10,7 +10,7 @@
             Ajouter une Annonce
         {% endif %}</h1>
 <section class="container">
-<a class="nav-connect" href="{{ path('home')}}">Retour à l'Accueil</a>
+<a class="navigation-btn" href="{{ path('home')}}">Accueil</a>
     {{ form_start(form, {'attr': {'class': 'add-form-class'}}) }}
 
     <div class="form-element">
@@ -111,10 +111,11 @@
 </button>
 
 {{ form_end(form) }}
-<a class="nav-connect" href="{{ path('listings_show')}}">Voir les Annonces</a>
+<a class="navigation-btn" href="{{ path('listings_show')}}">Annonces</a>
 </section>
 
 
 
 {% endblock %}
+{% block features %}{% endblock %}
 {% block footer %}{% endblock %}

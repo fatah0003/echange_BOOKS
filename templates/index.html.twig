@@ -1,14 +1,16 @@
-{% extends "base.html.twig" %} {% block title %}accueil{% endblock %} 
+{% extends "base.html.twig" %} {% block title %}accueil{% endblock %}
 {% block importmap %}
-	{{ importmap(['app', 'home']) }}
+{{ importmap(['app', 'home']) }}
 {% endblock %}
 {% block body %}
 <section class="banner">
-  <h1 class="title">BOOKSINDER</h1>
-  <h2 class="welcome">Bienvennue sur BOOKSINDER</h2>
-  <h3 class="welcome">La Communnauté d'Echange de Livre Entre Particuliers</h3>
+  {# <h1 class="title">BOOKSINDER</h1> #}
+  {# <img class="logo-name-banner" src="{{ asset('/images/logo-name.png')}}" alt=""> #}
+  <h1 class="welcome">Bienvenue sur BOOKSINDER</h1>
+  <p class="welcome">La communauté d'échange de livres Entre particuliers</p>
 </section>
 <main>
+  <h2 id="about">À propos</h2>
   <section class="introduction">
     <p class="about-text">
       <span class="booksinder">BOOKSINDER</span> est né de la passion pour la
@@ -29,36 +31,59 @@
       avec d'autres passionnés.
     </p>
   </section>
+
+  <hr class="decorative-line">
+  <h2>Comment ça fonctionne</h2>
   <section class="how-it-works">
     <div class="step-one">
-      <p class="text-step">
-        <span class="step-number">01.</span>
-        Je me <a href="{{ path('app_login')}}" class="green-word">connecte</a> et j'ajoute mes livres dans la bibliotheque BOOKSINDER
-      </p>
-      <img class="img-step" src="{{ asset('/images/step1.svg') }}" alt="" />
+      <h3 class="step-title"><span class="step-number">01.</span>Inscription et Création de Profil</h3>
+      <div class="step-one-container">
+        
+        <p class="text-step-one">
+          Je m'<a href="{{ path('app_register')}}" class="green-word">inscris</a> en créant un compte utilisateur et en
+          remplissant les informations de mon profil.
+        </p>
+        <img class="img-step" src="{{ asset('/images/step1.svg') }}" alt="" />
+      </div>
+      
     </div>
+
     <div class="step-two">
-      <p class="text-step">
-        <span class="step-number">02. </span>
-        Je cherche un livre qui m’intersse dans la <a href="{{ path('listings_show')}}" class="green-word">bibliotheque</a>
-      </p>
-      <img class="img-step" src="{{ asset('/images/step2.svg') }}" alt="" />
+      <h3 class="step-title"><span class="step-number">02.</span>Ajout de Livres</h3>
+      <div class="step-two-container">
+        
+        <p class="text-step-two">
+          Je vais dans la <a href="{{ path('listings_show')}}" class="green-word">bibliotheque</a> pour ajouter les
+          livres que je souhaite échanger. Je remplis les détails comme le titre, l'auteur, et une description.
+        </p>
+        <img class="img-step" src="{{ asset('/images/step2.svg') }}" alt="" />
+      </div>
+      
     </div>
     <div class="step-three">
-      <p class="text-step">
-        <span class="step-number">03.</span>
-        Je choisis un livre et je fais une demande d’échange
-      </p>
-      <img class="img-step" src="{{ asset('/images/step3.svg') }}" alt="" />
+      <h3 class="step-title"><span class="step-number">03.</span>Recherche et Demande d’Échange</h3>
+      <div class="step-three-container">
+        
+        <p class="text-step-three">
+          Je parcours les livres disponibles, choisis celui qui m'intéresse, et envoie une demande d’échange au
+          propriétaire du livre.
+        </p>
+        <img class="img-step" src="{{ asset('/images/step3.svg') }}" alt="" />
+      </div>
+      
     </div>
     <div class="step-four">
-      <p class="text-step">
-        <span class="step-number">04.</span> 
-        Si la personne accepte la demande, on échange nos deux livres
-      </p>
-      <img class="img-step" src="{{ asset('/images/step4.svg') }}" alt="" />
+      <h3 class="step-title"><span class="step-number">04.</span>Échange du Livre</h3>
+      <div class="step-four-container">
+        
+        <p class="text-step-four">
+          Une fois la demande acceptée, je confirme les livres à échanger et reçois les informations nécessaires pour
+          finaliser l’échange avec l'autre utilisateur.
+        </p>
+        <img class="img-step" src="{{ asset('/images/step4.svg') }}" alt="" />
+      </div>
+      
     </div>
   </section>
 </main>
 {% endblock %}
-
