@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions Légales - BooksFinder{% endblock %}
+
+{% block body %}
+<style>
+    .legal-content {
+        margin: 2em auto;
+        max-width: 800px;
+        width: 95%;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+    }
+    .legal-content h1 {
+        font-size: 28px;
+        margin-bottom: 1em;
+    }
+    .legal-content h2 {
+        font-size: 22px;
+        margin-top: 1.5em;
+    }
+    .legal-content p {
+        margin: 0.5em 0;
+    }
+</style>
+
+<div class="legal-content">
+    <h1>Mentions Légales</h1>
+
+    <h2>Informations générales</h2>
+    <p>
+        Nom du site : BooksFinder<br>
+        Responsable de publication : Fatah Ainseri<br>
+        Adresse : Votre adresse postale<br>
+        Email : contact@booksfinder.com<br>
+        Hébergeur : Nom de l'hébergeur et ses coordonnées
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>
+        Le contenu du site BooksFinder, incluant textes, images, et graphismes, est la propriété de BooksFinder et de ses contributeurs. Toute reproduction ou représentation, en tout ou partie, sans autorisation préalable est interdite.
+    </p>
+
+    <h2>Collecte de données personnelles</h2>
+    <p>
+        Conformément à la réglementation en vigueur, BooksFinder collecte et traite vos données personnelles uniquement pour le bon fonctionnement du site et la gestion des échanges de livres. Vos données ne sont ni vendues, ni partagées avec des tiers sans votre consentement.
+    </p>
+
+    <h2>Responsabilité</h2>
+    <p>
+        BooksFinder ne pourra être tenu responsable des dommages directs ou indirects causés au matériel de l'utilisateur lors de l'accès au site.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+        Le site utilise des cookies pour améliorer l'expérience utilisateur. En naviguant sur le site, vous acceptez l'utilisation des cookies.
+    </p>
+</div>
+{% block features %}{% endblock %}
+{% endblock %}

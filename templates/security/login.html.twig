@@ -25,13 +25,16 @@
             <input type="email" value="{{ last_username }}" name="_username" id="username" class="input-form" autocomplete="email" required autofocus>
            </div>
             <div class="form-element">
-                <label class="label-form" for="password">Mot de passe</label>
-            <input type="password" name="_password" id="password" class="input-form" autocomplete="current-password" required>
-    
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
-            </div>
+    <label class="label-form" for="password">Mot de passe</label>
+    <div class="input-with-icon">
+        <input type="password" name="_password" id="password" class="input-form" autocomplete="current-password" required>
+        <span class="toggle-password" onclick="togglePassword()">
+            <i class="fas fa-eye"></i>
+        </span>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+</div>
+
     
             {#
                 Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -49,5 +52,20 @@
         </form>
         <div>Voir les Annonces</div>
     </section>
+
+    <script>
+        function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const icon = document.querySelector(".toggle-password i");
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+}
+    </script>
 {% endblock %}
 {% block footer %}{% endblock %}

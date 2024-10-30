@@ -4,7 +4,8 @@
 
 {% block body %}
 
-<h2 class="conversation-header">
+<div class='messages-container'>
+    <h2 class="conversation-header">
     {% for participant in conversation.participants %}
         {% if participant != app.user %}
             {{ participant.infosUser.userName }}
@@ -27,6 +28,7 @@
     <div class="form-input">{{ form_widget(form.content) }}</div>
     <button type="submit" class="submit-button">Envoyer</button>
 {{ form_end(form) }}
+</div>
 
 
 {% endblock %}

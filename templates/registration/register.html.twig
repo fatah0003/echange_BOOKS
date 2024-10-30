@@ -22,15 +22,26 @@
 			{{ form_errors(registrationForm.email) }}
 		</div>
 		<div class="form-element">
-			{{ form_label(registrationForm.plainPassword.first) }}
-			{{ form_widget(registrationForm.plainPassword.first) }}
-			{{ form_errors(registrationForm.plainPassword.first) }}
-		</div>
-		<div class="form-element">
-			{{ form_label(registrationForm.plainPassword.second) }}
-			{{ form_widget(registrationForm.plainPassword.second) }}
-			{{ form_errors(registrationForm.plainPassword.second) }}
-		</div>
+    {{ form_label(registrationForm.plainPassword.first) }}
+    <div class="input-with-icon">
+        {{ form_widget(registrationForm.plainPassword.first) }}
+        <span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_first')">
+            <i class="fas fa-eye"></i>
+        </span>
+    </div>
+    {{ form_errors(registrationForm.plainPassword.first) }}
+</div>
+<div class="form-element">
+    {{ form_label(registrationForm.plainPassword.second) }}
+    <div class="input-with-icon">
+        {{ form_widget(registrationForm.plainPassword.second) }}
+        <span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_second')">
+            <i class="fas fa-eye"></i>
+        </span>
+    </div>
+    {{ form_errors(registrationForm.plainPassword.second) }}
+</div>
+
 		<div class="form-element">
 			{{ form_label(registrationForm.infosUser.userName) }}
 			{{ form_widget(registrationForm.infosUser.userName) }}
@@ -74,6 +85,26 @@
 		{{ form_end(registrationForm) }}
 		<a class="navigation-btn" href="{{ path('listings_show') }}">Annonces</a>
 	</section>
+
+	<script>
+                function togglePassword(fieldId) {
+        const passwordField = document.getElementById(fieldId);
+        const icon = passwordField.nextElementSibling.querySelector("i"); // Sélectionne l'icône à côté du champ
+
+        if (passwordField) { // Vérifie que l'élément existe
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.replace("fa-eye", "fa-eye-slash"); // Change l'icône en œil barré
+            } else {
+                passwordField.type = 'password';
+                icon.classList.replace("fa-eye-slash", "fa-eye"); // Change l'icône en œil ouvert
+            }
+        } else {
+            console.error(`Element with ID "${fieldId}" not found.`);
+        }
+    }
+            </script>
 {% endblock %}
     {% block features %}{% endblock %}
 {% block footer %}{% endblock %}
+

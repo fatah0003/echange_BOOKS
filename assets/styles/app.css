@@ -516,6 +516,14 @@ a {
 .logo-section .logo {
   width: 150px;
 }
+.logo-design-footer {
+  height: 40px;
+  width: 60px;
+}
+.logo-name-footer {
+  height: 40px;
+  width: 180px;
+}
 
 .footer-section h3 {
   font-size: 18px;
@@ -612,12 +620,12 @@ a {
 /* -------------------------Messages------------------------ */
 
 /* Style global de la page de conversation */
-/* body {
+.messages-container {
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
   margin: 0;
   padding: 0;
-} */
+}
 
 /* En-tête de la conversation */
 .conversation-header {
@@ -675,18 +683,18 @@ a {
 
 /* Date du message */
 .message-date {
+  display: block;
   font-size: 0.8em;
   color: #888;
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
+  margin-top: 5px;
+  text-align: right;
 }
 
 /* Formulaire de message */
 .form-group,
 .form-input {
   margin: 20px auto;
-  max-width: 600px;
+  width: 70%;
 }
 
 .form-group label {
@@ -946,3 +954,27 @@ a {
   background-color: #07b01f;
   color: #fff;
 }
+
+
+.input-with-icon {
+  position: relative;
+  
+}
+
+.input-with-icon input {
+  width: 97%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #ccc;
+}
+
+.toggle-password:hover {
+  color: #333;
+}
+

@@ -1,6 +1,11 @@
 <footer class="footer">
     <div class="footer-section logo-section">
-        <img src="logo.png" alt="BooksFinder Logo" class="logo">
+        <div class="logo-footer" id="logo">
+            <a class="hreflogo" href="{{ path('home')}}">
+            <img class="logo-design-footer" src="{{ asset('/images/logo.png')}}" alt="">
+            <img class="logo-name-footer" src="{{ asset('/images/logo-name.png')}}" alt="">
+            </a>
+        </div>
         <p>
     BooksFinder facilite les échanges de livres entre passionnés. Publiez, découvrez et échangez vos ouvrages pour partager le plaisir de lire !
 </p>
@@ -19,8 +24,8 @@
 <ul>
     <li><a href="#">À Propos</a></li>
     <li><a href="#">Blogs & Articles</a></li>
-    <li><a href="#">Conditions Générales</a></li>
-    <li><a href="#">Politique de Confidentialité</a></li>
+    <li><a href="{{ path('app_legal_notice') }}">Mentions légales</a></li>
+    <li><a href="{{ path('app_privacy_policy') }}">Politique de confidentialité</a></li>
     <li><a href="#">Contactez-Nous</a></li>
 </ul>
     </div>
