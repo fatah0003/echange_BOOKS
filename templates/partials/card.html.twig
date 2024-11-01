@@ -43,12 +43,12 @@
 					{% for exchangeType in book.exchangeType %}
 						{% if exchangeType.value == "permanent" %}
 							<div title="échange définitif" class="{{ exchangeType.value }}">
-								<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="">
+								<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="icone échange definitif">
 							</div>
 						{% endif %}
 						{% if exchangeType.value == "temporary" %}
 							<div title="échange temporaire" class="{{ exchangeType.value }}">
-								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="">
+								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="icone échange temporaire">
 							</div>
 						{% endif %}
 

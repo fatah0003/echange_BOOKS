@@ -30,51 +30,52 @@ class BooksRepository extends ServiceEntityRepository
         ?BookCategorie $bookCategorie,
     ): QueryBuilder {
         $qb = $this->createQueryBuilder('b');
-    
+
         if ($title) {
             $qb->andWhere('b.title LIKE :title')
                ->setParameter('title', '%' . $title . '%');
         }
-    
+
         if ($author) {
             $qb->andWhere('b.author LIKE :author')
                ->setParameter('author', '%' . $author . '%');
         }
-    
+
         if ($location) {
             $qb->andWhere('b.location LIKE :location')
                ->setParameter('location', '%' . $location . '%');
         }
-    
+
         if ($exchangeTypes) {
             $qb->andWhere('b.exchangeType LIKE :exchangeType')
                ->setParameter('exchangeType', '%' . $exchangeTypes->value . '%');
         }
-    
+
         if ($bookCategorie) {
             $qb->andWhere('b.bookCategorie = :bookCategorie')
                ->setParameter('bookCategorie', $bookCategorie);
         }
-    
+        $qb->orderBy('b.createdAt', 'DESC');
+
         return $qb;
     }
 
-    public function pagination (int $page = 1, int $limit = 12): \KNP\Component\Pager\Pagination\PaginationInterface 
+    public function pagination(int $page = 1, int $limit = 12): \KNP\Component\Pager\Pagination\PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->createQueryBuilder('b'),
+            $this->createQueryBuilder('b')
+            ->orderBy('b.createdAt', 'DESC'),
             $page,
             $limit
         );
     }
 
     public function findByUser(User $user): array
-{
-    return $this->createQueryBuilder('b')
+    {
+        return $this->createQueryBuilder('b')
         ->andWhere('b.user = :user')
         ->setParameter('user', $user)
         ->getQuery()
         ->getResult();
-}
-
+    }
 }

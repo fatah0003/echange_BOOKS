@@ -21,8 +21,8 @@ class InfosUser
     #[ORM\Column(length: 20)]
     private ?string $userName = null;
 
-    #[ORM\Column]
-    private ?int $phoneNumber = null;
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 30)]
     private ?string $city = null;
@@ -62,12 +62,12 @@ class InfosUser
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(int $phoneNumber): static
+    public function setPhoneNumber(string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
 

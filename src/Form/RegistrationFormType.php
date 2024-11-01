@@ -14,12 +14,15 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 // use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
+    use RegexTrait;
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,6 +34,14 @@ class RegistrationFormType extends AbstractType
                 'label_attr' => [
                     'class' => 'label-form'
                 ],
+                'constraints' => [
+        new NotBlank([
+            'message' => 'L\'adresse e-mail est obligatoire.',
+        ]),
+        new Email([
+            'message' => 'Veuillez entrer une adresse e-mail valide.',
+        ]),
+    ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -55,13 +66,10 @@ class RegistrationFormType extends AbstractType
                     ],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Ne doit pas etre vide....',
                         ]),
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
-                            'max' => 4096,
-                        ]),
+                        new Regex(self::STRONG_PASSWORD, message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
+)
                     ],
                     'label' => 'Mot de passe',
                     'label_attr' => [

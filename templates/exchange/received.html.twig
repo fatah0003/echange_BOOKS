@@ -3,15 +3,23 @@
 {% block title %}Demandes reçues{% endblock %}
 
 {% block body %}
-    <div class="received-requests-container">
+<div class="received-requests-container">
     <h1 class="received-requests-title">Demandes reçues</h1>
-    
+
     <ul class="received-requests-list">
         {% for request in received_requests %}
-            {% if request.status.value != 'validated' %}
+            {% if request.status.value == 'pending' %}
                 <li class="received-requests-item">
-                    Livre: {{ request.bookOne.title }}
+                    Livre: {{ request.bookOne.title }} - De: {{ request.userrequester.infosuser.username }}
                     <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="received-requests-link">Voir</a>
+                    
+                    <!-- Bouton "Refuser" -->
+                    <form action="{{ path('app_exchange_reject_request', { id: request.id }) }}" method="POST" style="display:inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('reject' ~ request.id) }}">
+    <button type="submit" class="exchange-btn exchange-btn-danger">Refuser</button>
+</form>
+
+
                 </li>
             {% else %}
                 <li class="received-requests-item">Aucune demande reçue.</li>

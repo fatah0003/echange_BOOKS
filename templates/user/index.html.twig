@@ -1,47 +1,131 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Tableau de bord Admin{% endblock %}
+
 {% block importmap %}
-	{{ importmap(['app', 'notification']) }}
+    {{ importmap(['app', 'notification']) }}
 {% endblock %}
+
 {% block body %}
-<div>aaaaaaaaaaaaaaaaaa</div>
-<div>aaaaaaaaaaaaaaaaaa</div>
-<div>aaaaaaaaaaaaaaaaaa</div>
-<div>aaaaaaaaaaaaaaaaaa</div>
-<div>bbbbbbbbbbb</div>
+    <div class="admin-dashboard">
+        <h1>Tableau de bord Admin</h1>
 
-    <h1>Liste des Utilisateurs</h1>
+        <!-- Navbar pour naviguer entre les sections -->
+        <nav class="dashboard-nav">
+            <a href="#users-section">Utilisateurs</a>
+            <a href="#books-section">Annonces</a>
+            <a href="#requests-section">Demandes</a>
+        </nav>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                {# <th>Password</th> #}
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                {# <td>{{ user.password }}</td> #}
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">Voir le Profil</a>
-                    <a href="{{ path('update', {'id': user.id}) }}">Modifier le Profil</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <h2 id="users-section">Liste des Utilisateurs</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Rôles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn">Voir le Profil</a>
+                        <a href="{{ path('update', {'id': user.id}) }}" class="btn">Modifier le Profil</a>
+                        <form class='btn' action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+							<button class="btn-dash" type="submit" class="delete-profil-btn" onclick="return confirm('Confirm action ?')">Désactiver
+								le compte</button>
+						</form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_register') }}" class="btn">Créer un nouvel utilisateur</a>
 
-    <a href="{{ path('app_register') }}">Create new</a>
+        <h2 id="books-section">Liste des Annonces</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Utilisateur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.user.email }}</td>
+                    <td>
+                        <a href="{{ path('listings_showone', {'id': book.id}) }}" class="btn">Voir</a>
+                        <a href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
+                        <form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
+						<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
+						<button class="delete-btn" type="submit">Supprimer</button>
+					</form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune Annonce trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 id="requests-section">Demandes</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Demandeur</th>
+                    <th>Receveur</th>
+                    <th>Livre demandé</th>
+                    <th>Livre choisi</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for request in receivedRequests %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.userRequester.email }}</td>
+                    <td>{{ request.userReceiver.email }}</td>
+                    <td>{{ request.bookOne.title }}</td>
+                    <td>
+                        {% if request.status.value == 'validated' %}
+                            {{ request.bookTwo.title }}
+                        {% elseif request.status.value == 'rejected' %}
+                            Rejetée
+                        {% elseif request.status.value == 'pending' %}
+                            En attente
+                        {% else %}
+                            "N/A"
+                        {% endif %}
+                    </td>
+                    <td>{{ request.status.value }}</td>
+                </tr>
+            {% endfor %}
+
+            {% if (sentRequests|length == 0 and receivedRequests|length == 0) %}
+                <tr>
+                    <td colspan="6">Aucune demande trouvée</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    {% block features %}{% endblock %}
 {% endblock %}

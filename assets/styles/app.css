@@ -36,7 +36,7 @@ header {
   align-items: center;
   justify-content: space-between;
   z-index: 2;
-  background-color: #0B2C3D;
+  background-color: #0b2c3d;
 }
 
 .hreflogo {
@@ -78,7 +78,7 @@ header {
   width: 120px;
   height: 40px;
   text-decoration: none;
-  color: #0B2C3D;
+  color: #0b2c3d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,10 +166,8 @@ header {
   font-size: 30px;
   font-weight: 700;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
-  -2px -2px 4px rgba(0, 0, 0, 0.8), 
-  2px -2px 4px rgba(0, 0, 0, 0.8), 
-  -2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), -2px -2px 4px rgba(0, 0, 0, 0.8),
+    2px -2px 4px rgba(0, 0, 0, 0.8), -2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* -------------------add-banner style------------ */
@@ -719,7 +717,7 @@ a {
   max-width: 150px;
   margin: 10px auto;
   padding: 10px 15px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -821,8 +819,6 @@ a {
   background-color: #07b01f;
   color: #fff;
 }
-
-
 
 /* ------------------------------------------------ */
 
@@ -955,10 +951,8 @@ a {
   color: #fff;
 }
 
-
 .input-with-icon {
   position: relative;
-  
 }
 
 .input-with-icon input {
@@ -978,3 +972,94 @@ a {
   color: #333;
 }
 
+/* ---------------------Dashboard----------- */
+/* Navbar Styles */
+/* Styles spécifiques au tableau de bord admin */
+.admin-dashboard {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.admin-dashboard h1,
+.admin-dashboard h2,
+.admin-dashboard h3 {
+  color: #343a40;
+}
+
+.dashboard-nav {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.dashboard-nav a {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.dashboard-nav a:hover {
+  background-color: #0056b3;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.table td .btn {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.btn-dash {
+  border: none;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.table td .btn:hover {
+  background-color: #0056b3;
+}
+.btn-dash:hover {
+  background-color: #0056b3;
+
+}
+
+.table td .btn.delete {
+  background-color: #dc3545;
+}
+
+.table td .btn.delete:hover {
+  background-color: #c82333;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}

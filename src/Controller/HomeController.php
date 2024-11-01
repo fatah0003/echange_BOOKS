@@ -27,8 +27,7 @@ class HomeController extends AbstractController
             'userReceiver' => $this->getUser(),
             'status' => ExchangeEnum::PENDING->value,
         ]);
-    
+
         return count($receivedRequests);
     }
 }
-

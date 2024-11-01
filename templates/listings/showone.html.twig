@@ -94,7 +94,7 @@ importmap %}
 			</div>
 
 			<div class="delete-edit-book">
-				{% if is_granted('ROLE_USER') and book.user.id == app.user.id %}
+				{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and book.user.id == app.user.id) %}
 				<div class="delete-update">
 					<a class="edit-btn" href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
 

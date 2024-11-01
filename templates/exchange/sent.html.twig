@@ -1,31 +1,32 @@
-{# templates/exchange/sent.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Demandes envoyées{% endblock %}
 
 {% block body %}
     <div class="sent-requests-container">
-    <h1 class="sent-requests-title">Demandes envoyées</h1>
+        <h1 class="sent-requests-title">Demandes envoyées</h1>
 
-    <ul class="sent-requests-list">
-        {% for request in sent_requests %}
-            {% if request.status.value != 'validated' %}
-                <li class="sent-requests-item">
-                    {{ request.bookOne.title }}
-                    <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
-                        <button type="submit" class="sent-requests-btn">Annuler</button>
-                    </form>
-                </li>
-            {% else %}
-                <li class="sent-requests-item">Aucune demande envoyée.</li>
+        <ul class="sent-requests-list">
+            {% set hasSentRequests = false %} {# Variable pour vérifier si des demandes sont présentes #}
+            {% for request in sent_requests %}
+                {% if request.status.value == 'pending' %} {# Afficher uniquement les demandes en attente #}
+                    <li class="sent-requests-item">
+                        Livre: {{ request.bookOne.title }} - À: {{ request.userReceiver.infosUser.username }}
+                        <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="sent-requests-btn">Annuler</button>
+                        </form>
+                    </li>
+                    {% set hasSentRequests = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if not hasSentRequests %} {# Message si aucune demande en attente #}
+                <li class="sent-requests-item">Aucune demande en attente.</li>
             {% endif %}
-        {% else %}
-            <li class="sent-requests-item">Aucune demande envoyée.</li>
-        {% endfor %}
-    </ul>
+        </ul>
 
-    <a href="{{ path('app_exchange_index') }}" class="sent-requests-back">Retour à l'index</a>
-</div>
+        <a href="{{ path('app_exchange_index') }}" class="sent-requests-back">Retour à l'index</a>
+    </div>
 
     {% block features %}{% endblock %}
 {% endblock %}

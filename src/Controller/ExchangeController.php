@@ -6,14 +6,18 @@ use App\Entity\Books;
 use App\Entity\Exchange;
 use App\Enum\ExchangeEnum;
 use App\Repository\ExchangeRepository;
-use App\Repository\BooksRepository; // Ajouter le repository des livres
+use App\Repository\BooksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 #[Route('/exchange', name: 'app_exchange_')]
 #[IsGranted(new Expression('is_granted("ROLE_ADMIN") or is_granted("ROLE_USER")'))]
@@ -67,70 +71,78 @@ class ExchangeController extends AbstractController
         $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
         // Récupérer la demande reçue par son ID
         $exchangeRequest = $exchangeRepository->find($id);
-    
+
         // Vérifier si la demande existe et si l'utilisateur est bien le destinataire
         if (!$exchangeRequest || $exchangeRequest->getUserReceiver() !== $this->getUser()) {
             throw $this->createNotFoundException('Demande non trouvée.');
         }
-    
+
         // Récupérer tous les livres de l'utilisateur demandeur (userRequester)
         $books = $booksRepository->findBy(['user' => $exchangeRequest->getUserRequester()]);
-    
+
         return $this->render('exchange/select_books.html.twig', [
             'exchange_request' => $exchangeRequest,
             'books' => $books, // Tous les livres de l'utilisateur demandeur
             'received_requests_number' => $receivedRequestsNumber,
         ]);
     }
-    
-
-
-
-
-    
 
     #[Route('/request/{id}', name: 'request', methods: ['POST'])]
-public function createRequest(Books $bookOne, EntityManagerInterface $entityManager): Response
-{
-    // Récupérer le livre que l'utilisateur souhaite échanger
-    if (!$bookOne) {
-        throw $this->createNotFoundException('Livre non trouvé.');
+    public function createRequest(Books $bookOne, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    {
+        // Récupérer le livre que l'utilisateur souhaite échanger
+        if (!$bookOne) {
+            throw $this->createNotFoundException('Livre non trouvé.');
+        }
+
+        // Créer une nouvelle demande d'échange
+        $exchange = new Exchange();
+        $exchange->setUserRequester($this->getUser()); // Utilisateur qui fait la demande
+        $exchange->setBookOne($bookOne); // Livre que l'utilisateur propose dans l'échange
+        $exchange->setUserReceiver($bookOne->getUser()); // Assigner l'utilisateur possesseur du livre comme destinataire
+        $exchange->setStatus(ExchangeEnum::PENDING); // Statut par défaut
+
+        // Définir la date de création avec DateTimeImmutable
+        $exchange->setCreatedAt(new \DateTimeImmutable()); // Définit l'heure actuelle
+
+        // Sauvegarder la demande d'échange
+        $entityManager->persist($exchange);
+        $entityManager->flush();
+
+        // Envoie un email de confirmation au demandeur
+        // $emailRequester = (new Email())
+        //     ->from('admin@booksfinder.com')
+        //     ->to($this->getUser()->getEmail())
+        //     ->subject('Confirmation : Demande envoyée')
+        //     ->html('Votre demande d\'échange a été envoyée avec succès.');
+
+        // $mailer->send($emailRequester);
+
+        // Envoie un email de notification au receveur
+        $emailReceiver = (new Email())
+            ->from('admin@booksfinder.com')
+            ->to($bookOne->getUser()->getEmail()) // Assure-toi que cette méthode récupère bien l'email du receveur
+            ->subject('Nouvelle demande d\'échange')
+            ->html('Vous avez reçu une nouvelle demande d\'échange. Connectez-vous pour la consulter.');
+
+        $mailer->send($emailReceiver);
+
+        $this->addFlash('success', [
+            'title' => 'Demande envoyée',
+            'message' => 'La demande a été envoyée avec succès.'
+        ]);
+
+        return $this->redirectToRoute('app_exchange_index');
     }
 
-    // Créer une nouvelle demande d'échange
-    $exchange = new Exchange();
-    $exchange->setUserRequester($this->getUser()); // Utilisateur qui fait la demande
-    $exchange->setBookOne($bookOne); // Livre que l'utilisateur propose dans l'échange
-    $exchange->setUserReceiver($bookOne->getUser()); // Assigner l'utilisateur possesseur du livre comme destinataire
-    $exchange->setStatus(ExchangeEnum::PENDING); // Statut par défaut
-
-    // Définir la date de création avec DateTimeImmutable
-    $exchange->setCreatedAt(new \DateTimeImmutable()); // Définit l'heure actuelle
-
-    // Sauvegarder la demande d'échange
-    $entityManager->persist($exchange);
-    $entityManager->flush();
-
-    return $this->redirectToRoute('app_exchange_index');
-}
- 
-
-
-
-
-
-
-
-
-
-
-
-
-#[Route('/accept/{id}', name: 'accept', methods: ['POST'])]
-public function acceptRequest(Exchange $exchange, BooksRepository $booksRepository, Request $request, EntityManagerInterface $entityManager): Response
-{
-    
-
+    #[Route('/accept/{id}', name: 'accept', methods: ['POST'])]
+public function acceptRequest(
+    Exchange $exchange,
+    BooksRepository $booksRepository,
+    Request $request,
+    EntityManagerInterface $entityManager,
+    MailerInterface $mailer
+): Response {
     // Vérifier si la demande existe et si l'utilisateur est bien le destinataire
     if (!$exchange || $exchange->getUserReceiver() !== $this->getUser()) {
         throw $this->createNotFoundException('Demande non trouvée.');
@@ -153,41 +165,74 @@ public function acceptRequest(Exchange $exchange, BooksRepository $booksReposito
     $entityManager->persist($exchange);
     $entityManager->flush();
 
+    // Envoi d'un email de confirmation à l'utilisateur demandeur (requester)
+    $emailRequester = (new Email())
+        ->from('admin@booksfinder.com')
+        ->to($exchange->getUserRequester()->getEmail())
+        ->subject('Demande d\'échange acceptée')
+        ->html('Votre demande d\'échange a bien été acceptée.');
+    $mailer->send($emailRequester);
+
+    // Envoi d'un email de confirmation au receveur (celui qui accepte l'échange)
+    // $emailReceiver = (new Email())
+    //     ->from('admin@booksfinder.com')
+    //     ->to($this->getUser()->getEmail())
+    //     ->subject('Confirmation : Echange effectué')
+    //     ->html('Votre échange a été effectué avec succès.');
+    // $mailer->send($emailReceiver);
+
+    $this->addFlash('success', [
+        'title' => 'Demande acceptée',
+        'message' => 'La demande a été acceptée avec succès.'
+    ]);
+
     return $this->redirectToRoute('app_exchange_received');
 }
 
 
+    #[Route('/cancel/{id}', name: 'cancel_request', methods: ['POST'])]
+    public function cancelRequest(Exchange $exchange, EntityManagerInterface $entityManager): Response
+    {
+        // Vérifier si la demande d'échange appartient à l'utilisateur connecté
+        if ($exchange->getUserRequester() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette demande.');
+        }
 
+        // Supprimer la demande d'échange
+        $entityManager->remove($exchange);
+        $entityManager->flush();
 
-#[Route('/cancel/{id}', name: 'cancel_request', methods: ['POST'])]
-public function cancelRequest(Exchange $exchange, EntityManagerInterface $entityManager): Response
-{
-    // Vérifier si la demande d'échange appartient à l'utilisateur connecté
-    if ($exchange->getUserRequester() !== $this->getUser()) {
-        throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette demande.');
+        // Ajouter un message flash pour confirmer l'annulation
+        // $this->addFlash('success', 'Demande de réservation annulée avec succès.');
+
+        // Rediriger vers l'index des échanges
+        return $this->redirectToRoute('app_exchange_index');
     }
 
-    // Supprimer la demande d'échange
-    $entityManager->remove($exchange);
-    $entityManager->flush();
+    private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int
+    {
+        $receivedRequests = $exchangeRepository->findBy([
+            'userReceiver' => $this->getUser(),
+            'status' => ExchangeEnum::PENDING->value,
+        ]);
 
-    // Ajouter un message flash pour confirmer l'annulation
-    // $this->addFlash('success', 'Demande de réservation annulée avec succès.');
+        return count($receivedRequests);
+    }
 
-    // Rediriger vers l'index des échanges
-    return $this->redirectToRoute('app_exchange_index');
+    #[Route('/reject-request/{id}', name: 'reject_request', methods: ['POST'])]
+    public function rejectRequest(Exchange $exchange, EntityManagerInterface $entityManager, Request $request, CsrfTokenManagerInterface $csrfTokenManager): Response
+    {
+        $token = $request->request->get('_token');
+
+        if (!$csrfTokenManager->isTokenValid(new CsrfToken('reject' . $exchange->getId(), $token))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+        }
+
+        // Change le statut à REJECTED et enregistre
+        $exchange->setStatus(ExchangeEnum::REJECTED);
+        $entityManager->persist($exchange);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_exchange_received'); // Redirection vers la page appropriée
+    }
 }
-
-private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int
-{
-    $receivedRequests = $exchangeRepository->findBy([
-        'userReceiver' => $this->getUser(),
-        'status' => ExchangeEnum::PENDING->value,
-    ]);
-
-    return count($receivedRequests);
-}
-
-
-}
-

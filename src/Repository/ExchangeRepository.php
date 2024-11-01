@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Exchange;
+use App\Enum\ExchangeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,15 +29,17 @@ class ExchangeRepository extends ServiceEntityRepository
     }
 
     public function findLatestReceivedRequests($user)
-    {
-        return $this->createQueryBuilder('e')
-            ->where('e.userReceiver = :user')
-            ->setParameter('user', $user)
-            ->orderBy('e.createdAt', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult();
-    }
+{
+    return $this->createQueryBuilder('e')
+        ->andWhere('e.userReceiver = :user')
+        ->andWhere('e.status = :status')
+        ->setParameter('user', $user)
+        ->setParameter('status', ExchangeEnum::PENDING->value)
+        ->orderBy('e.createdAt', 'DESC')
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return Exchange[] Returns an array of Exchange objects

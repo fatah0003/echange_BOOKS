@@ -4,49 +4,55 @@
 
 {% block body %}
     <div class="exchange-container">
-    <h1 class="exchange-title exchange-title-main">{{ controller_name }}</h1>
+        <h1 class="exchange-title exchange-title-main">{{ controller_name }}</h1>
 
-    <h2 class="exchange-title exchange-title-section">Dernières demandes envoyées</h2>
-    <ul class="exchange-list">
-        {% for request in latest_sent_requests %}
-            {% if request.status.value != 'validated' %}
-                <li class="exchange-item">
-                    {{ request.bookOne.title }}
-                    <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
-                        <button type="submit" class="exchange-btn exchange-btn-danger">Annuler</button>
-                    </form>
-                </li>
-            {% else %}
-                <li class="exchange-item">Aucune demande envoyée.</li>
+        <h2 class="exchange-title exchange-title-section">Dernières demandes envoyées</h2>
+        <ul class="exchange-list">
+            {% set hasSentRequests = false %}
+            {% for request in latest_sent_requests %}
+                {% if request.status.value == 'pending' %}
+                    <li class="exchange-item">
+                        Livre: {{ request.bookOne.title }} - À: {{ request.userReceiver.infosUser.username }} <!-- Affiche l'utilisateur à qui la demande est envoyée -->
+                        <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="exchange-btn exchange-btn-danger">Annuler</button>
+                        </form>
+                    </li>
+                    {% set hasSentRequests = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if not hasSentRequests %}
+                <li class="exchange-item">Aucune demande en attente.</li>
             {% endif %}
-        {% else %}
-            <li class="exchange-item">Aucune demande envoyée.</li>
-        {% endfor %}
-    </ul>
+        </ul>
 
-    <h2 class="exchange-title exchange-title-section">Dernières demandes reçues</h2>
-    <ul class="exchange-list">
-        {% for request in latest_received_requests %}
-            {% if request.status.value != 'validated' %}
-                <li class="exchange-item">
-                    Livre: {{ request.bookOne.title }}
-                    <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="exchange-link">Voir</a>
-                </li>
-            {% else %}
-                <li class="exchange-item">Aucune demande reçue.</li>
+        <h2 class="exchange-title exchange-title-section">Dernières demandes reçues</h2>
+        <ul class="exchange-list">
+            {% set hasReceivedRequests = false %}
+            {% for request in latest_received_requests %}
+                {% if request.status.value == 'pending' %}
+                    <li class="exchange-item">
+                        Livre: {{ request.bookOne.title }} - De: {{ request.userrequester.infosuser.username }} <!-- Affiche l'utilisateur qui a envoyé la demande -->
+                        <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="exchange-link">Voir</a>
+                        <form action="{{ path('app_exchange_reject_request', { id: request.id }) }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('reject' ~ request.id) }}">
+                            <button type="submit" class="exchange-btn exchange-btn-danger">Refuser</button>
+                        </form>
+                    </li>
+                    {% set hasReceivedRequests = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if not hasReceivedRequests %}
+                <li class="exchange-item">Aucune demande en attente.</li>
             {% endif %}
-        {% else %}
-            <li class="exchange-item">Aucune demande reçue.</li>
-        {% endfor %}
-    </ul>
+        </ul>
 
-    <div class="exchange-actions">
-        <a href="{{ path('app_exchange_sent') }}" class="exchange-link">Voir toutes mes demandes envoyées</a>
-        <a href="{{ path('app_exchange_received') }}" class="exchange-link">Voir toutes mes demandes reçues</a>
+        <div class="exchange-actions">
+            <a href="{{ path('app_exchange_sent') }}" class="exchange-link">Voir toutes mes demandes envoyées</a>
+            <a href="{{ path('app_exchange_received') }}" class="exchange-link">Voir toutes mes demandes reçues</a>
+        </div>
     </div>
-</div>
-
 
     {% block features %}{% endblock %}
 {% endblock %}
-

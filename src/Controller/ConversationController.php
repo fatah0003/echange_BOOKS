@@ -21,16 +21,14 @@ class ConversationController extends AbstractController
         User $recipient,
         EntityManagerInterface $entityManager,
         ConversationRepository $conversationRepository
-
-    ): Response
-    {
+    ): Response {
         /** @var User $sender */
         $sender = $this->getUser();
 
         //verification de conv existante
         $existingConversation = $conversationRepository->findConvBetweenusers($recipient, $sender);
-        
-        if($existingConversation) {
+
+        if ($existingConversation) {
             return $this->redirectToRoute('app_conversation_show', ['id' => $existingConversation->getId()]);
         }
 
@@ -49,8 +47,7 @@ class ConversationController extends AbstractController
         Request $request,
         Conversation $conversation,
         EntityManagerInterface $entityManager
-    ): Response 
-    {
+    ): Response {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
