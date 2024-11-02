@@ -5,7 +5,7 @@
 {% block importmap %}{{ importmap(['app', 'search', 'form']) }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier le Profil de {{ user.infosUser.userName }}</h1>
+    <h1><span><img class="add-icon" src="{{ asset('/images/edit.png') }}" alt=""></span>Modifier le Profil de {{ user.infosUser.userName }}</h1>
     <section class="container">
       <a class="navigation-btn" href="{{ path('home') }}">Accueil</a>
         

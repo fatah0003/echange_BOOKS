@@ -2,27 +2,53 @@ body{
     display: flex;
     align-items: center;
 }
-.container{
-    /* height: 100vh; */
-    margin-top: 20px;
-    width: 1440px;
+
+h1 {
+    width: 100%;
+    height: 100px;
+    background-color: #c4bb99;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.add-icon {
+    width: 30px;
+    margin-right: 10px;
+}
+.container{
+    margin-top: 20px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
 }
 .add-form-class, .registration-form-class {
     background-color: white;
     padding: 15px;
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 40%;
     justify-content: space-around;
     border: solid 10px rgb(207, 203, 203);
     border-radius: 6px;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
-h1{
-    /* color: rgb(241, 224, 224); */
+
+.required-label::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
 }
+
+.required-star {
+    color: red;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+
 .form-element{
     margin-bottom: 15px;
     display: flex;
@@ -71,22 +97,99 @@ input[type=checkbox]:checked::after {
     top: 0;
     left: 4px;
 }
-.add-form-btn, .navigation-btn {
-    background-color: #07b01f;
-    color: white;
-    height: 40px;
-    border-radius: 3px;
-    border: hidden;
-    margin-top: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 5px 0 5px;
+
+.forgot-password-link {
+    margin-top: 5px;
+    color: blue;
 }
+
+.forgot-password-link:hover {
+    text-decoration: none; 
+}
+
+.no-account-message {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.no-account-message a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .toggle-password:hover {
+    color: #333;
+  }
+
+  .input-with-icon input {
+    width: 97%;
+  }
+
+  .input-with-icon {
+    position: relative;
+  }
+
+
+.navigation-btn, .add-form-btn {
+    height: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 30px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-btn:hover {
+    background-color: #45a049;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.navigation-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.add-form-btn {
+    height: 40px;
+}
+
 .show{
     display: block;
 }
 ul{
    list-style-type: none;
+}
+
+@media (max-width: 576px) {
+    .container{
+        margin-top: 20px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .add-form-class, .registration-form-class {
+        width: 80%;
+        margin: 20px;
+    }
 }

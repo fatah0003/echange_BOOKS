@@ -1,0 +1,87 @@
+/* Styles généraux */
+.exchange-container, .received-requests-container, .sent-requests-container, .completed-requests-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .received-requests-container, .sent-requests-container, .completed-requests-container {
+    background-color: #f9f9f9;
+    height: 100vh;
+  }
+  
+  .exchange-title, .received-requests-title, .sent-requests-title, h1 {
+    color: #07b01f;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  h1 {
+    color: black;
+  }
+  
+  .exchange-list, .received-requests-list, .sent-requests-list, .completed-requests-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    margin: 20px auto;
+  }
+
+  .request-class {
+    max-width: 50%;
+  }
+  
+  .exchange-item, .received-requests-item, .sent-requests-item, .completed-requests-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .exchange-btn, .sent-requests-btn {
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    background-color: #e74c3c;
+    border: none;
+  }
+  
+  .exchange-btn-danger, .exchange-btn:hover, .sent-requests-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .exchange-link, .received-requests-link {
+    color: #07b01f;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .exchange-link:hover, .received-requests-link:hover {
+    text-decoration: underline;
+  }
+  
+  .exchange-actions a, .received-requests-back, .sent-requests-back {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #07b01f;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+    color: #07b01f;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .exchange-actions a:hover, .received-requests-back:hover, .sent-requests-back:hover {
+    background-color: #07b01f;
+    color: #fff;
+  }
+  

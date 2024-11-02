@@ -18,7 +18,7 @@ body {
   background-color: #fffbeb;
   font-family: "nunito", sans-serif;
   height: 100%;
-  width: 100%;
+  width: auto;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -41,22 +41,24 @@ header {
 
 .hreflogo {
   text-decoration: none;
+  /* height: 100%; */
+  display: flex;
+  align-items: center;
 }
 
 .logo-design {
-  height: 60px;
-  width: 80px;
+  width: 13%;
 }
 
 .logo-name {
-  height: 48px;
-  width: 243px;
+  width: 50%;
 }
 
 .logo {
   margin-left: 30px;
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .navbar {
@@ -126,6 +128,7 @@ header {
   position: relative;
   transform: translate(-8px, 35px);
   z-index: 1;
+  text-decoration: none;
 }
 
 .notifs-circle::after {
@@ -137,6 +140,10 @@ header {
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent #ff0000 transparent;
+}
+
+#burger {
+  display: none;
 }
 
 /* ---------------Banner Style---------------------- */
@@ -154,14 +161,6 @@ header {
   align-items: center;
 }
 
-/* .title {
-  font-size: 50px;
-  font-weight: 900;
-  color: #c26a0b;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000;
-} */
-
 .welcome {
   font-size: 30px;
   font-weight: 700;
@@ -170,19 +169,13 @@ header {
     2px -2px 4px rgba(0, 0, 0, 0.8), -2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* -------------------add-banner style------------ */
-/* .add-banner {
-  margin-top: 50px;
-  background-image: url(../images/add-banner7.jpg);
-  height: 800px;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
-
 /* ---------------Home style------------- */
 main {
   margin-top: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .introduction {
@@ -190,15 +183,21 @@ main {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   gap: 120px;
+  width: 80%;
+}
+
+.about {
+  align-self: flex-start;
+  margin-left: 100px;
 }
 
 .img-about,
 .img-step {
-  height: 350px;
+  /* height: 350px; */
+  width: 72%;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 5px;
-  /* box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.5); */
 }
 
 .about-text,
@@ -210,19 +209,18 @@ main {
   font-family: "Amaranth", sans-serif;
   font-size: 20px;
   color: rgb(27, 4, 4);
-  height: 300px;
-  width: 525px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   line-height: 60px;
-  /* text-align: justify; */
   word-spacing: 6px;
 }
 
-.objective {
+.about-text, .objective {
   line-height: 45px;
   word-spacing: 2px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .booksinder {
@@ -236,6 +234,7 @@ main {
   grid-template-rows: repeat(11, calc(300px / 4));
   column-gap: 150px;
   row-gap: 15px;
+  width: 80%;
 }
 
 .step-one,
@@ -244,8 +243,8 @@ main {
 .step-four {
   display: flex;
   flex-direction: column;
-  height: 300px;
-  width: 560px;
+  /* height: 300px;
+  width: 560px; */
   justify-content: space-around;
 }
 
@@ -320,62 +319,61 @@ main {
   margin-bottom: 100px;
 }
 
-/* -----------------------Announces style-------------- */
+/* ------------------- Base Announces Style ------------------- */
 .announces {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  padding: 0 15px;
 }
 
 .grid {
   margin-top: 20px;
-  width: 1300px;
+  width: 100%;
+  max-width: 1300px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes sur desktop */
   gap: 30px;
 }
 
-.listings-title {
-  color: black;
-}
-
 .titles {
-  width: 1300px;
+  width: 100%;
+  max-width: 1300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  margin-bottom: 20px;
+}
+
+.listings-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
 }
 
 .listings-options {
   display: flex;
-  width: 20%;
-  justify-content: space-between;
-  position: relative;
+  gap: 15px;
 }
 
 .add {
   text-decoration: none;
   background-color: #07b01f;
-  padding: 5px;
+  padding: 8px 12px;
   border-radius: 5px;
+  color: white;
+  font-weight: bold;
 }
 
 .filter-listings {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  position: absolute;
-  /* top: 100%; */
-  right: 0;
   background: #fffbeb;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .toggle-item {
@@ -384,11 +382,6 @@ main {
 
 .filter-listings.active .toggle-item {
   display: block;
-}
-
-a {
-  text-decoration: none;
-  color: #000;
 }
 
 /*------------------------ pagination style --------------*/
@@ -502,22 +495,26 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  padding: 40px 0 40px 0;
+  padding: 40px 0;
   background-color: #0b2a3e;
   color: #ffffff;
+  flex-wrap: wrap; /* Permet d'empiler les sections sur les petits écrans */
 }
 
 .footer-section {
   max-width: 250px;
+  margin-bottom: 20px; /* Espace entre les sections sur mobile */
 }
 
 .logo-section .logo {
   width: 150px;
 }
+
 .logo-design-footer {
   height: 40px;
   width: 60px;
 }
+
 .logo-name-footer {
   height: 40px;
   width: 180px;
@@ -614,7 +611,6 @@ a {
 .contact p i {
   margin-right: 10px;
 }
-
 /* -------------------------Messages------------------------ */
 
 /* Style global de la page de conversation */
@@ -731,247 +727,6 @@ a {
   background-color: #45a049;
 }
 
-/* ------------------------------Exchanges----------------------- */
-
-/* Styles pour la section d'échanges */
-.exchange-container {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  padding: 20px;
-}
-
-.exchange-title {
-  color: #07b01f;
-  text-align: center;
-}
-
-.exchange-title-main {
-  font-size: 2.5em;
-  margin-top: 20px;
-}
-
-.exchange-title-section {
-  font-size: 1.8em;
-  margin-top: 30px;
-}
-
-.exchange-list {
-  list-style-type: none; /* Désactive les puces */
-  padding: 0;
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-.exchange-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.exchange-btn {
-  padding: 8px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1em;
-}
-
-.exchange-btn-danger {
-  background-color: #e74c3c;
-  border: none;
-}
-
-.exchange-btn-danger:hover {
-  background-color: #c0392b;
-}
-
-.exchange-link {
-  color: #07b01f;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.exchange-link:hover {
-  text-decoration: underline;
-}
-
-.exchange-actions {
-  text-align: center;
-  margin: 20px;
-}
-
-.exchange-actions a {
-  display: inline-block;
-  padding: 10px 15px;
-  border: 1px solid #07b01f;
-  border-radius: 5px;
-  margin: 0 10px;
-}
-
-.exchange-actions a:hover {
-  background-color: #07b01f;
-  color: #fff;
-}
-
-/* ------------------------------------------------ */
-
-/* Styles pour la page des demandes reçues */
-.received-requests-container {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 20px;
-  height: 100vh;
-}
-
-.received-requests-title {
-  color: #07b01f;
-  text-align: center;
-  font-size: 2.5em;
-  margin-top: 20px;
-}
-
-.received-requests-list {
-  list-style-type: none; /* Désactive les puces */
-  padding: 0;
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-.received-requests-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.received-requests-link {
-  color: #07b01f;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.received-requests-link:hover {
-  text-decoration: underline;
-}
-
-.received-requests-back {
-  display: inline-block;
-  padding: 10px 15px;
-  border: 1px solid #07b01f;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-  color: #07b01f;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.received-requests-back:hover {
-  background-color: #07b01f;
-  color: #fff;
-}
-
-/* ------------------------------------------------------ */
-
-/* Styles pour la page des demandes envoyées */
-.sent-requests-container {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  padding: 20px;
-  height: 100vh;
-}
-
-.sent-requests-title {
-  color: #07b01f;
-  text-align: center;
-  font-size: 2.5em;
-  margin-top: 20px;
-}
-
-.sent-requests-list {
-  list-style-type: none; /* Désactive les puces */
-  padding: 0;
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-.sent-requests-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sent-requests-btn {
-  padding: 8px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1em;
-  background-color: #e74c3c;
-  border: none;
-}
-
-.sent-requests-btn:hover {
-  background-color: #c0392b;
-}
-
-.sent-requests-back {
-  display: inline-block;
-  padding: 10px 15px;
-  border: 1px solid #07b01f;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
-  color: #07b01f;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.sent-requests-back:hover {
-  background-color: #07b01f;
-  color: #fff;
-}
-
-.input-with-icon {
-  position: relative;
-}
-
-.input-with-icon input {
-  width: 97%;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #ccc;
-}
-
-.toggle-password:hover {
-  color: #333;
-}
-
 /* ---------------------Dashboard----------- */
 /* Navbar Styles */
 /* Styles spécifiques au tableau de bord admin */
@@ -1062,4 +817,255 @@ a {
 
 .table tr:hover {
   background-color: #f1f1f1;
+}
+
+/* ----------------------Mobile------------------------ */
+
+@media (max-width: 576px) {
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .navbar {
+      display: none; /* Cacher le menu sur mobile par défaut */
+      position: absolute;
+      top: 60px;
+      /* right: 20px; */
+      background-color: #333; /* Couleur de fond mobile */
+      flex-direction: column;
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+      height: 350px;
+      margin: 0;
+  }
+
+  .img-profil {
+    padding-left: 0;
+}
+
+  .navbar a {
+      padding: 10px 0;
+      color: white;
+      text-decoration: none;
+  }
+
+  #burger {
+      display: block; /* Afficher le bouton burger sur mobile */
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+  }
+
+  /* Lorsque le menu est ouvert */
+  .navbar.open {
+      display: flex;
+  }
+
+  /* ---------------Banner Style---------------------- */
+  p.welcome {
+    font-size: 20px;
+  }
+
+  .welcome {
+    margin-left: 15px;
+  }
+
+  /* ---------------Home style------------- */
+  main {
+    margin-top: 0;
+    width: 98%;
+    margin-left: 10px;
+  }
+
+  .about {
+    margin-left: 20px;
+  }
+  .introduction {
+    grid-template-columns: 1fr;
+    margin-left: 20px;
+  }
+
+  .img-about-display {
+    display: none;
+  }
+
+  .how-it-works {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    column-gap: 0;
+    row-gap: 100px;
+  }
+
+  .step-one {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .step-two {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  .step-three {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  .step-four {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .about-text,
+.text-step-one,
+.text-step-two,
+.text-step-three,
+.text-step-four {
+ margin-left: 20px;
+}
+
+.step-one-container,
+.step-two-container,
+.step-three-container,
+.step-four-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* -----------------------Announces style-------------- */
+@media (max-width: 576px) {
+  
+  .announces {
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .titles {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .listings-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .listings-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .add {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  .filter-listings {
+    position: static;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .svg-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .grid {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .navigation {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ------------------------choose--------------------------- */
+.why-choose-section {
+  width: 100%;
+  height:1500px;
+}
+
+.top-choose {
+  justify-items: center;
+}
+
+.bottom-choose {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.choose-box-one,
+.choose-box-two,
+.choose-box-three,
+.choose-box-four {
+  width: 80%;
+  margin: 10px;
+}
+
+.footer {
+  flex-direction: column; /* Empile les sections verticalement */
+  align-items: center;    /* Centre les sections */
+}
+
+.footer-section {
+  max-width: 100%;  /* Utilise toute la largeur */
+  text-align: center; /* Centre le texte pour un meilleur affichage mobile */
+}
+
+.logo-design-footer, .logo-name-footer {
+  width: 100px; /* Réduit la taille des logos sur mobile */
+  height: auto;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  margin: 0 5px;
+}
+
+.quick-links ul li a, .contact p, .newsletter p {
+  font-size: 13px; /* Ajuste la taille du texte pour les petits écrans */
+}
+
+.newsletter form {
+  width: 100%;  /* Assure que le formulaire prend toute la largeur */
+}
+
+.newsletter input[type="email"] {
+  font-size: 12px;
+}
+
+.newsletter button {
+  font-size: 14px;
+  padding: 8px;
+}
+
 }

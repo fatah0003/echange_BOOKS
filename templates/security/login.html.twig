@@ -6,9 +6,10 @@
 	{{ importmap(['app', 'notification', 'form']) }}
 {% endblock %}
 {% block body %}
+<h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
     <section class="container">
-        <div>Retour a l'acceuil</div>
-        <form method="post">
+        <a class="navigation-btn" href="{{ path('home') }}">Retour a l'acceuil</a>
+        <form class="registration-form-class" method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -19,13 +20,13 @@
                 </div>
             {% endif %}
     
-            <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
+            
            <div class="form-element">
-             <label class="label-form" for="username">Adresse E-mail</label>
+             <label class="label-form" for="username">Adresse E-mail<span class="required-star">*</span></label>
             <input type="email" value="{{ last_username }}" name="_username" id="username" class="input-form" autocomplete="email" required autofocus>
            </div>
             <div class="form-element">
-    <label class="label-form" for="password">Mot de passe</label>
+    <label class="label-form" for="password">Mot de passe<span class="required-star">*</span></label>
     <div class="input-with-icon">
         <input type="password" name="_password" id="password" class="input-form" autocomplete="current-password" required>
         <span class="toggle-password" onclick="togglePassword()">
@@ -33,6 +34,7 @@
         </span>
     </div>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <a href="{{ path('app_forgot_password_request') }}" class="forgot-password-link">Mot de passe oublié ?</a>
 </div>
 
     
@@ -46,11 +48,18 @@
                 </div>
             #}
     
-            <button class="btn btn-lg btn-primary" type="submit">
+            <button class="add-form-btn" type="submit">
                 Se connecter
             </button>
+            <p class="no-account-message">
+        Vous n'avez pas encore de compte?</p>
+        <p class="no-account-message">
+        Commencez votre aventure avec nous ! <a href="{{ path('app_register') }}">Créez-en un ici</a>.
+    </p>
+
         </form>
-        <div>Voir les Annonces</div>
+        
+        <a class="navigation-btn" href="{{ path('listings_show') }}">Voir les Annonces</a>
     </section>
 
     <script>

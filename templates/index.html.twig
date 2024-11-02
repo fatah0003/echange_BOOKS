@@ -4,22 +4,16 @@
 {% endblock %}
 {% block body %}
 <section class="banner">
-  {# <h1 class="title">BOOKSINDER</h1> #}
-  {# <img class="logo-name-banner" src="{{ asset('/images/logo-name.png')}}" alt=""> #}
   <h1 class="welcome">Bienvenue sur BOOKSINDER</h1>
   <p class="welcome">La communauté d'échange de livres Entre particuliers</p>
 </section>
 <main>
-  <h2 id="about">À propos</h2>
+  <h2 class="about" id="about">À propos</h2>
   <section class="introduction">
     <p class="about-text">
-      <span class="booksinder">BOOKSINDER</span> est né de la passion pour la
-      lecture et le désir de créer une communauté de partage et de découverte
-      littéraire. Notre mission est simple : permettre aux amoureux des livres
-      de trouver de nouvelles lectures sans dépenser un centime, tout en donnant
-      une seconde vie à leurs ouvrages.
+      <span class="booksinder">BOOKSINDER</span> Né de la passion pour la lecture et du désir de rassembler les âmes, notre mission est de créer une communauté de partage et découverte. Nous offrons aux amoureux des livres la chance de dénicher de nouvelles histoires sans débourser un centime, tout en donnant une seconde vie à leurs ouvrages et en tissant des liens précieux entre passionnés.
     </p>
-    <img class="img-about" src="{{ asset('/images/home1.svg') }}" alt="" />
+    <img class="img-about img-about-display" src="{{ asset('/images/home1.svg') }}" alt="" />
     <img class="img-about" src="{{ asset('/images/home2.svg') }}" alt="" />
     <p class="objective">
       <span class="booksinder">Pourquoi BOOKSINDER ?</span> Dans un monde où la
@@ -33,14 +27,14 @@
   </section>
 
   <hr class="decorative-line">
-  <h2>Comment ça fonctionne</h2>
+  <h2 class="about">Comment ça fonctionne</h2>
   <section class="how-it-works">
     <div class="step-one">
       <h3 class="step-title"><span class="step-number">01.</span>Inscription et Création de Profil</h3>
       <div class="step-one-container">
         
         <p class="text-step-one">
-          Je m'<a href="{{ path('app_register')}}" class="green-word">inscris</a> en créant un compte utilisateur et en
+          <a href="{{ path('app_register')}}" class="green-word">Je m'inscris</a> en créant un compte utilisateur et en
           remplissant les informations de mon profil.
         </p>
         <img class="img-step" src="{{ asset('/images/step1.svg') }}" alt="" />
@@ -54,7 +48,7 @@
         
         <p class="text-step-two">
           Je vais dans la <a href="{{ path('listings_show')}}" class="green-word">bibliotheque</a> pour ajouter les
-          livres que je souhaite échanger. Je remplis les détails comme le titre, l'auteur, et une description.
+          livres que je souhaite échanger. Je remplis les détails.
         </p>
         <img class="img-step" src="{{ asset('/images/step2.svg') }}" alt="" />
       </div>
@@ -65,8 +59,7 @@
       <div class="step-three-container">
         
         <p class="text-step-three">
-          Je parcours les livres disponibles, choisis celui qui m'intéresse, et envoie une demande d’échange au
-          propriétaire du livre.
+          Je parcours les livres disponibles, choisis celui qui m'intéresse, et demander un échange.
         </p>
         <img class="img-step" src="{{ asset('/images/step3.svg') }}" alt="" />
       </div>
@@ -77,8 +70,7 @@
       <div class="step-four-container">
         
         <p class="text-step-four">
-          Une fois la demande acceptée, je confirme les livres à échanger et reçois les informations nécessaires pour
-          finaliser l’échange avec l'autre utilisateur.
+          Une fois la demande acceptée, nous convenons d'un rendez-vous avec le partenaire d'échange pour finaliser l'échange.
         </p>
         <img class="img-step" src="{{ asset('/images/step4.svg') }}" alt="" />
       </div>

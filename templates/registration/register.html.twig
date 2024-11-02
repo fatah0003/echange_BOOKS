@@ -3,108 +3,113 @@
 {% block title %}Register
 {% endblock %}
 {% block header %}{% endblock %}
-{% block importmap %}{{ importmap(['app', 'search', 'form']) }}{% endblock %}
+{% block importmap %}{{ importmap(['app','form']) }}{% endblock %}
 
 {% block body %}
-	<h1>
+<h1>
 	{% if user is defined %}
-            Modifier le Profil de {{ user.infosUser.userName }}
-        {% else %}
-            Créer un Compte
-        {% endif %}
-	</h1>
-	<section class="container">
-		<a class="navigation-btn" href="{{ path('home') }}">Accueil</a>
-		{{ form_start(registrationForm, {'attr': {'class': 'registration-form-class'}}) }}
-		<div class="form-element">
-			{{ form_label(registrationForm.email) }}
-			{{ form_widget(registrationForm.email) }}
-			{{ form_errors(registrationForm.email) }}
+	Modifier le Profil de {{ user.infosUser.userName }}
+	{% else %}
+	<span><img class="add-icon" src="{{ asset('/images/add.png') }}" alt=""></span>Création de Compte
+	{% endif %}
+</h1>
+<section class="container">
+	<a class="navigation-btn" href="{{ path('home') }}">Accueil</a>
+	{{ form_start(registrationForm, {'attr': {'class': 'registration-form-class'}}) }}
+	<div class="form-element">
+		{{ form_label(registrationForm.email,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.email) }}
+		{{ form_errors(registrationForm.email) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.plainPassword.first,null, {'label_attr': {'class': 'required-label'}}) }}
+		<div class="input-with-icon">
+			{{ form_widget(registrationForm.plainPassword.first) }}
+			<span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_first')">
+				<i class="fas fa-eye"></i>
+			</span>
 		</div>
-		<div class="form-element">
-    {{ form_label(registrationForm.plainPassword.first) }}
-    <div class="input-with-icon">
-        {{ form_widget(registrationForm.plainPassword.first) }}
-        <span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_first')">
-            <i class="fas fa-eye"></i>
-        </span>
-    </div>
-    {{ form_errors(registrationForm.plainPassword.first) }}
-</div>
-<div class="form-element">
-    {{ form_label(registrationForm.plainPassword.second) }}
-    <div class="input-with-icon">
-        {{ form_widget(registrationForm.plainPassword.second) }}
-        <span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_second')">
-            <i class="fas fa-eye"></i>
-        </span>
-    </div>
-    {{ form_errors(registrationForm.plainPassword.second) }}
-</div>
+		{{ form_errors(registrationForm.plainPassword.first) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.plainPassword.second,null, {'label_attr': {'class': 'required-label'}}) }}
+		<div class="input-with-icon">
+			{{ form_widget(registrationForm.plainPassword.second) }}
+			<span class="toggle-password" onclick="togglePassword('registration_form_plainPassword_second')">
+				<i class="fas fa-eye"></i>
+			</span>
+		</div>
+		{{ form_errors(registrationForm.plainPassword.second) }}
+	</div>
 
-		<div class="form-element">
-			{{ form_label(registrationForm.infosUser.userName) }}
-			{{ form_widget(registrationForm.infosUser.userName) }}
-			{{ form_errors(registrationForm.infosUser.userName) }}
-		</div><div class="form-element">
-			{{ form_label(registrationForm.infosUser.phoneNumber) }}
-			{{ form_widget(registrationForm.infosUser.phoneNumber) }}
-			{{ form_errors(registrationForm.infosUser.phoneNumber) }}
-		</div><div class="form-element">
-			{{ form_label(registrationForm.infosUser.city) }}
-			{{ form_widget(registrationForm.infosUser.city) }}
-			{{ form_errors(registrationForm.infosUser.city) }}
-			<div id="showlist" class="show">
-    <ul id="showresults">
-    </ul>
-    </div>
+	<div class="form-element">
+		{{ form_label(registrationForm.infosUser.userName,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.infosUser.userName) }}
+		{{ form_errors(registrationForm.infosUser.userName) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.infosUser.phoneNumber,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.infosUser.phoneNumber) }}
+		{{ form_errors(registrationForm.infosUser.phoneNumber) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.infosUser.city,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.infosUser.city) }}
+		{{ form_errors(registrationForm.infosUser.city) }}
+		<div id="showlist" class="show">
+			<ul id="showresults">
+			</ul>
 		</div>
-		<div class="form-element">
-			{{ form_label(registrationForm.infosUser.birthDate) }}
-			{{ form_widget(registrationForm.infosUser.birthDate) }}
-			{{ form_errors(registrationForm.infosUser.birthDate) }}
-		</div><div class="form-element">
-			{{ form_label(registrationForm.infosUser.bio) }}
-			{{ form_widget(registrationForm.infosUser.bio) }}
-			{{ form_errors(registrationForm.infosUser.bio) }}
-		</div>
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.infosUser.birthDate,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.infosUser.birthDate) }}
+		{{ form_errors(registrationForm.infosUser.birthDate) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(registrationForm.infosUser.bio,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.infosUser.bio) }}
+		{{ form_errors(registrationForm.infosUser.bio) }}
+	</div>
 
 
-		<div class="form-element-check">
-			{{ form_label(registrationForm.agreeTerms) }}
-			{{ form_widget(registrationForm.agreeTerms) }}
-			{{ form_errors(registrationForm.agreeTerms) }}
-		</div>
-		<button class="add-form-btn" type="submit" class="btn">
+	<div class="form-element-check">
+		{{ form_label(registrationForm.agreeTerms,null, {'label_attr': {'class': 'required-label'}}) }}
+		{{ form_widget(registrationForm.agreeTerms) }}
+		{{ form_errors(registrationForm.agreeTerms) }}
+	</div>
+	<button class="add-form-btn" type="submit" class="btn">
 		{% if user is defined %}
-                Modifier
-            {% else %}
-                Créer un Compte
-            {% endif %}
-		</button>
-		{{ form_end(registrationForm) }}
-		<a class="navigation-btn" href="{{ path('listings_show') }}">Annonces</a>
-	</section>
+		Modifier
+		{% else %}
+		Créer un Compte
+		{% endif %}
+	</button>
+	{{ form_end(registrationForm) }}
+	<a class="navigation-btn" href="{{ path('listings_show') }}">Annonces</a>
+</section>
 
-	<script>
-                function togglePassword(fieldId) {
-        const passwordField = document.getElementById(fieldId);
-        const icon = passwordField.nextElementSibling.querySelector("i"); // Sélectionne l'icône à côté du champ
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePasswordIcons = document.querySelectorAll('.toggle-password');
 
-        if (passwordField) { // Vérifie que l'élément existe
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                icon.classList.replace("fa-eye", "fa-eye-slash"); // Change l'icône en œil barré
-            } else {
-                passwordField.type = 'password';
-                icon.classList.replace("fa-eye-slash", "fa-eye"); // Change l'icône en œil ouvert
-            }
-        } else {
-            console.error(`Element with ID "${fieldId}" not found.`);
-        }
-    }
-            </script>
+        togglePasswordIcons.forEach(icon => {
+            icon.addEventListener('click', function () {
+                // Trouver le champ de mot de passe associé en remontant au parent le plus proche
+                const inputField = this.previousElementSibling; 
+                
+                if (inputField && inputField.type === 'password') {
+                    inputField.type = 'text';
+                    this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+                } else if (inputField) {
+                    inputField.type = 'password';
+                    this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        });
+    });
+</script>
+
 {% endblock %}
-    {% block features %}{% endblock %}
+{% block features %}{% endblock %}
 {% block footer %}{% endblock %}
-

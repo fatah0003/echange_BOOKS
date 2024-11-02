@@ -41,6 +41,19 @@ class ExchangeRepository extends ServiceEntityRepository
         ->getResult();
 }
 
+public function findLatestCompletedRequests($user)
+{
+    return $this->createQueryBuilder('e')
+        ->where('e.status = :status')
+        ->setParameter('status', ExchangeEnum::VALIDATED)
+        ->andWhere('e.userRequester = :user OR e.userReceiver = :user')
+        ->setParameter('user', $user)
+        ->orderBy('e.acceptedAt', 'DESC') 
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+}
+
 //    /**
 //     * @return Exchange[] Returns an array of Exchange objects
 //     */

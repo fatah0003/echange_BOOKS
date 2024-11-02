@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les échanges effectués{% endblock %}
+{% block importmap %}
+{{ importmap(['app', 'exchange']) }}
+{% endblock %}
+
+{% block body %}
+<div class="completed-requests-container">
+    <h1 class="completed-requests-title">Les échanges effectués</h1>
+
+    {% if completed_requests is empty %}
+        <p>Aucune demande acceptée.</p>
+    {% else %}
+        <ul class="completed-requests-list">
+            {% for request in completed_requests %}
+                <li class="completed-requests-item">
+                    <div>{{ request.bookOne.title }} - De: {{ request.userReceiver.infosUser.username }} ↔  {{ request.bookTwo.title }} - De: {{ request.userRequester.infosUser.username }} </div>
+                    <span class="request-date">Accepté le: {{ request.acceptedAt|date('d/m/Y H:i') }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{{ path('app_exchange_index') }}" class="received-requests-back">Voir tous les échanges</a>
+</div>
+{% endblock %}
+{% block features %}{% endblock %}

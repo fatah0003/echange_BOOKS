@@ -2,11 +2,58 @@
 
 {% block title %}Reset your password{% endblock %}
 {% block header %}{% endblock %}
+{% block importmap %}{{ importmap(['app','form']) }}{% endblock %}
 {% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
+<h1>Reset your password</h1>
+<section class="container">
+    {{ form_start(resetForm, {'attr': {'class': 'registration-form-class'}}) }}
+    <div class="form-element">
+		{{ form_label(resetForm.plainPassword.first, null, {'label_attr': {'class': 'required-label'}}) }}
+		<div class="input-with-icon">
+			{{ form_widget(resetForm.plainPassword.first, { 'attr': { 'id': 'plainPasswordFirst' } }) }}
+			<span class="toggle-password" data-target="plainPasswordFirst">
+				<i class="fas fa-eye"></i>
+			</span>
+		</div>
+		{{ form_errors(resetForm.plainPassword.first) }}
+	</div>
+	<div class="form-element">
+		{{ form_label(resetForm.plainPassword.second, null, {'label_attr': {'class': 'required-label'}}) }}
+		<div class="input-with-icon">
+			{{ form_widget(resetForm.plainPassword.second, { 'attr': { 'id': 'plainPasswordSecond' } }) }}
+			<span class="toggle-password" data-target="plainPasswordSecond">
+				<i class="fas fa-eye"></i>
+			</span>
+		</div>
+		{{ form_errors(resetForm.plainPassword.second) }}
+	</div>
+    <button class="add-form-btn">Reset password</button>
     {{ form_end(resetForm) }}
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+        togglePasswordIcons.forEach(icon => {
+            icon.addEventListener('click', function () {
+                // Trouver le champ de mot de passe associé en remontant au parent le plus proche
+                const inputField = this.previousElementSibling; 
+                
+                if (inputField && inputField.type === 'password') {
+                    inputField.type = 'text';
+                    this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+                } else if (inputField) {
+                    inputField.type = 'password';
+                    this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        });
+    });
+</script>
+
+
+
 {% endblock %}
+{% block features %}{% endblock %}
+{% block footer %}{% endblock %}

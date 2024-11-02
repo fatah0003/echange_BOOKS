@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Demandes reçues{% endblock %}
-
+{% block importmap %}
+{{ importmap(['app', 'exchange']) }}
+{% endblock %}
 {% block body %}
 <div class="received-requests-container">
     <h1 class="received-requests-title">Demandes reçues</h1>
@@ -10,7 +12,7 @@
         {% for request in received_requests %}
             {% if request.status.value == 'pending' %}
                 <li class="received-requests-item">
-                    Livre: {{ request.bookOne.title }} - De: {{ request.userrequester.infosuser.username }}
+                    <div class="request-class">Livre: {{ request.bookOne.title }} - De: {{ request.userrequester.infosuser.username }}</div>
                     <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="received-requests-link">Voir</a>
                     
                     <!-- Bouton "Refuser" -->
@@ -29,7 +31,7 @@
         {% endfor %}
     </ul>
 
-    <a href="{{ path('app_exchange_index') }}" class="received-requests-back">Retour à l'index</a>
+    <a href="{{ path('app_exchange_index') }}" class="received-requests-back">Voir tous les échange</a>
 </div>
 {% block features %}{% endblock %}
 {% endblock %}

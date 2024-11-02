@@ -42,8 +42,7 @@
 
 
 			{% if app.user is not null and (app.user.id == user.id or is_granted('ROLE_ADMIN')) %}
-			<a class="show-exchange-profil" href="{{ path('app_exchange_index', {'id': user.id}) }}">Voir Mes échanges
-				de livres</a>
+
 			<ul class="profil-options-list">
 				<li class="svg-icon-option">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5"
@@ -60,21 +59,27 @@
 					<li>
 						<form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-							<button type="submit" class="delete-profil-btn" onclick="return confirm('Confirm action ?')">Désactiver
+							<button type="submit" class="delete-profil-btn"
+								onclick="return confirm('Confirm action ?')">Désactiver
 								le compte</button>
 						</form>
+					</li>
+					<li>
+						<a class="show-exchange-profil" href="{{ path('app_exchange_index', {'id': user.id}) }}">Voir
+							Mes échanges
+							de livres</a>
+						{% endif %}
+						{% if is_granted('ROLE_USER') and user.id != app.user.id %}
+						<a class="btn-contact" href="{{ path('app_conversation_new', {'id': user.id}) }}">Contacter</a>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('app_user_index') }}">Accéder au tableau de bord</a>
+						{% endif %}
 					</li>
 				</ul>
 			</ul>
 
 
-			{% endif %}
-			{% if is_granted('ROLE_USER') and user.id != app.user.id %}
-			<a class="btn-contact" href="{{ path('app_conversation_new', {'id': user.id}) }}">Contacter</a>
-			{% endif %}
-			{% if is_granted('ROLE_ADMIN') %}
-			<a href="{{ path('app_user_index') }}">Voir tous la liste des utilisateurs</a>
-			{% endif %}
 
 
 		</section>

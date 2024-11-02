@@ -4,14 +4,10 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-// use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-// use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-// use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-// use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
@@ -35,13 +31,13 @@ class RegistrationFormType extends AbstractType
                     'class' => 'label-form'
                 ],
                 'constraints' => [
-        new NotBlank([
-            'message' => 'L\'adresse e-mail est obligatoire.',
-        ]),
-        new Email([
-            'message' => 'Veuillez entrer une adresse e-mail valide.',
-        ]),
-    ],
+                    new NotBlank([
+                        'message' => 'L\'adresse e-mail est obligatoire.',
+                    ]),
+                    new Email([
+                        'message' => 'Veuillez entrer une adresse e-mail valide.',
+                    ]),
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -52,24 +48,27 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'Aaccepte les termes et conditions',
                 'label_attr' => [
-                        'class' => 'label-form'
-                    ],
-                    'attr' => [
-                        'class' => 'input-form'
-                    ],
+                    'class' => 'label-form'
+                ],
+                'attr' => [
+                    'class' => 'input-form'
+                ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => [
-                    'attr' => ['autocomplete' => 'new-password',
-                'class' => 'input-form'
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'class' => 'input-form'
                     ],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Ne doit pas etre vide....',
                         ]),
-                        new Regex(self::STRONG_PASSWORD, message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
-)
+                        new Regex(
+                            self::STRONG_PASSWORD,
+                            message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
+                        )
                     ],
                     'label' => 'Mot de passe',
                     'label_attr' => [
@@ -77,8 +76,9 @@ class RegistrationFormType extends AbstractType
                     ],
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password',
-                'class' => 'input-form'
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                        'class' => 'input-form'
                     ],
                     'label' => 'Confirmer le mot de passe',
                     'label_attr' => [
@@ -90,7 +90,7 @@ class RegistrationFormType extends AbstractType
 
             ])
             ->add('infosUser', InfoUserType::class)
-            ;
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

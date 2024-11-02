@@ -30,11 +30,14 @@ class ExchangeController extends AbstractController
         // Récupérer les 5 dernières demandes envoyées et reçues
         $latestSentRequests = $exchangeRepository->findLatestSentRequests($this->getUser());
         $latestReceivedRequests = $exchangeRepository->findLatestReceivedRequests($this->getUser());
+        // Récupérer les 5 derniers échanges complétés
+    $latestCompletedRequests = $exchangeRepository->findLatestCompletedRequests($this->getUser());
 
         return $this->render('exchange/index.html.twig', [
             'controller_name' => 'ExchangeController',
             'latest_sent_requests' => $latestSentRequests,
             'latest_received_requests' => $latestReceivedRequests,
+            'latest_completed_requests' => $latestCompletedRequests,
             'received_requests_number' => $receivedRequestsNumber,
         ]);
     }
@@ -235,4 +238,30 @@ public function acceptRequest(
 
         return $this->redirectToRoute('app_exchange_received'); // Redirection vers la page appropriée
     }
+
+    #[Route('/completed', name: 'completed')]
+public function completedRequests(ExchangeRepository $exchangeRepository): Response
+{
+    $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
+    // Récupérer toutes les demandes acceptées de l'utilisateur connecté
+    $completedRequests = $exchangeRepository->findBy([
+        'status' => ExchangeEnum::VALIDATED,
+        'userRequester' => $this->getUser() // Assure-toi que tu veux filtrer par utilisateur demandeur
+    ]);
+
+    // Si tu veux afficher aussi les échanges où l'utilisateur est le récepteur
+    $completedRequestsReceiver = $exchangeRepository->findBy([
+        'status' => ExchangeEnum::VALIDATED,
+        'userReceiver' => $this->getUser()
+    ]);
+
+    // Combine les deux résultats
+    $completedRequests = array_merge($completedRequests, $completedRequestsReceiver);
+
+    return $this->render('exchange/completed.html.twig', [
+        'completed_requests' => $completedRequests,
+        'received_requests_number' => $receivedRequestsNumber,
+    ]);
+}
+
 }

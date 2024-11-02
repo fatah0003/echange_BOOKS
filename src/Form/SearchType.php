@@ -20,7 +20,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'class' => 'input-search-form',
+                    'class' => 'form-search-element-input',
                     'placeholder' => 'Titre du Livre',
                 ],
             ])
@@ -28,7 +28,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'class' => 'input-search-form',
+                    'class' => 'form-search-element-input',
                     'placeholder' => 'Auteur',
                 ],
             ])
@@ -36,7 +36,7 @@ class SearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'class' => 'input-search-form',
+                    'class' => 'form-search-element-input',
                     'placeholder' => 'Ville',
                 ],
             ])
@@ -48,7 +48,7 @@ class SearchType extends AbstractType
                 'label' => false,
                 'placeholder' => 'Type d\'échange',
                 'attr' => [
-                    'class' => 'input-search-form',
+                    'class' => 'form-search-element-input-type',
                 ],
             ])
             ->add('bookCategorie', EntityType::class, [
@@ -58,7 +58,7 @@ class SearchType extends AbstractType
                 'label' => false,
                 'placeholder' => 'Catégorie', // Placeholder pour un champ <select>
                 'attr' => [
-                    'class' => 'input-search-form',
+                    'class' => 'form-search-element-input',
                 ],
             ])
             ;

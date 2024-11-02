@@ -61,4 +61,8 @@ return [
         'path' => './assets/profil.js',
         'entrypoint' => true,
     ],
+    'exchange' => [
+        'path' => './assets/exchange.js',
+        'entrypoint' => true,
+    ],
 ];
