@@ -138,7 +138,7 @@ public function remove(
     /** @var User $user */
     $user = $this->getUser();
 
-    // Vérifie si l'utilisateur est admin ou propriétaire de l'annonce
+    // Vérifie si l'utilisateur n'est admin ou propriétaire de l'annonce
     if (!$this->isGranted('ROLE_ADMIN') && !$user->getBooks()->contains($books)) {
         return $this->redirectToRoute('listings_show');
     }

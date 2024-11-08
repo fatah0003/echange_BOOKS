@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\UserStatusenum;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -69,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Exchange::class, mappedBy: 'userReceiver', orphanRemoval: true)]
     private Collection $exchangeReceive;
+
+    #[ORM\Column(enumType: UserStatusenum::class)]
+    private ?UserStatusenum $status = null;
 
     public function __construct()
     {
@@ -315,6 +319,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $exchangeReceive->setUserReceiver(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?UserStatusenum
+    {
+        return $this->status;
+    }
+
+    public function setStatus(UserStatusenum $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

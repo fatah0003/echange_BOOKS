@@ -57,13 +57,13 @@
 						<a href="{{ path('update', {'id': user.id}) }}">Modifier le compte</a>
 					</li>
 					<li>
-						<form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-							<button type="submit" class="delete-profil-btn"
-								onclick="return confirm('Confirm action ?')">Désactiver
-								le compte</button>
-						</form>
-					</li>
+    <form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+        <button type="submit" class="delete-profil-btn"
+            onclick="return confirm('Confirmer l\'action ?')">Désactiver le compte</button>
+    </form>
+</li>
+
 					<li>
 						<a class="show-exchange-profil" href="{{ path('app_exchange_index', {'id': user.id}) }}">Voir
 							Mes échanges

@@ -50,6 +50,9 @@
     flex-direction: column;
     justify-content: center;
     border-radius: 5px;
+    overflow-wrap: break-word;
+    word-break: break-all; 
+    padding: 10px;
   }
   .infos-title-profil {
     font-weight: bold;

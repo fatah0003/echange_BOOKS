@@ -3,7 +3,7 @@
 {% block title %}Tableau de bord Admin{% endblock %}
 
 {% block importmap %}
-    {{ importmap(['app', 'notification']) }}
+    {{ importmap(['app', 'notification', 'dashbord']) }}
 {% endblock %}
 
 {% block body %}
@@ -18,72 +18,80 @@
         </nav>
 
         <h2 id="users-section">Liste des Utilisateurs</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Email</th>
-                    <th>Rôles</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    <td>
-                        <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn">Voir le Profil</a>
-                        <a href="{{ path('update', {'id': user.id}) }}" class="btn">Modifier le Profil</a>
-                        <form class='btn' action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-							<button class="btn-dash" type="submit" class="delete-profil-btn" onclick="return confirm('Confirm action ?')">Désactiver
-								le compte</button>
-						</form>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="4">Aucun enregistrement trouvé</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <a href="{{ path('app_register') }}" class="btn">Créer un nouvel utilisateur</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Rôles</th>
+            <th>Statut</th> <!-- Nouvelle colonne pour le statut -->
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            <td>{{ user.status.value }}</td> <!-- Affichage du statut de l'utilisateur -->
+            <td>
+            <div class="action-buttons">
+                <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn">Voir</a>
+                <a href="{{ path('update', {'id': user.id}) }}" class="btn">Modifier</a>
+                <form class='form-listing-show' action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                    <button class="btn delete" type="submit" class="delete-profil-btn" onclick="return confirm('Confirm action ?')">Désactiver
+                    </button>
+                </form>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">Aucun enregistrement trouvé</td> <!-- Changer colspan en 5 pour inclure la nouvelle colonne -->
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+        <a href="{{ path('app_register') }}" class="btn-create-user">Créer un nouvel utilisateur</a>
 
         <h2 id="books-section">Liste des Annonces</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Titre</th>
-                    <th>Utilisateur</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for book in books %}
-                <tr>
-                    <td>{{ book.id }}</td>
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.user.email }}</td>
-                    <td>
-                        <a href="{{ path('listings_showone', {'id': book.id}) }}" class="btn">Voir</a>
-                        <a href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
-                        <form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
-						<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
-						<button class="delete-btn" type="submit">Supprimer</button>
-					</form>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="4">Aucune Annonce trouvée</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Utilisateur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.user.email }}</td>
+            <td>
+                <div class="action-buttons">
+                    <a href="{{ path('listings_showone', {'id': book.id}) }}" class="btn">Voir</a>
+                    <a href="{{ path('listings_update', { id: book.id }) }}" class="btn">Modifier</a>
+                    <form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
+                        <button class="btn delete" type="submit">Supprimer</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">Aucune Annonce trouvée</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 
         <h2 id="requests-section">Demandes</h2>
         <table class="table">

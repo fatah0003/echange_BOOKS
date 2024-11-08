@@ -43,30 +43,42 @@ class ConversationController extends AbstractController
     }
 
     #[Route('/{id}', name: '_show')]
-    public function shox(
+    public function show(
         Request $request,
         Conversation $conversation,
         EntityManagerInterface $entityManager
     ): Response {
+        // Vérifie si l'utilisateur connecté fait partie des participants de la conversation
+        if (!$conversation->getParticipants()->contains($this->getUser())) {
+            // Si l'utilisateur n'est pas un participant, redirige-le ou affiche une erreur
+            $this->addFlash('error', [
+                'title' => 'Accés refusé',
+                'message' => 'Vous n\'êtes pas autorisé à accéder à cette conversation!'
+            ]);
+            return $this->redirectToRoute('home'); // Ou la route de ton choix
+        }
+    
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $message
                 ->setWriter($this->getUser())
                 ->setCreatedAt(new \DateTimeImmutable())
                 ->setConversation($conversation)
             ;
-
+    
             $entityManager->persist($message);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_conversation_show', ['id' => $conversation->getId()]);
         }
-
+    
         return $this->render('conversation/index.html.twig', [
             'conversation' => $conversation,
             'form' => $form->createView(),
         ]);
     }
+    
 }

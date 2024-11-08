@@ -18,10 +18,10 @@ class InfosUser
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, unique : true)]
     private ?string $userName = null;
 
-    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[ORM\Column(type: 'string', length: 20, nullable: true, unique : true)]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 30)]

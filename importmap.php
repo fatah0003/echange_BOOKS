@@ -65,4 +65,8 @@ return [
         'path' => './assets/exchange.js',
         'entrypoint' => true,
     ],
+    'dashbord' => [
+        'path' => './assets/dashbord.js',
+        'entrypoint' => true,
+    ],
 ];
