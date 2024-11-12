@@ -29,8 +29,8 @@ class ExchangeRepository extends ServiceEntityRepository
     }
 
     public function findLatestReceivedRequests($user)
-{
-    return $this->createQueryBuilder('e')
+    {
+        return $this->createQueryBuilder('e')
         ->andWhere('e.userReceiver = :user')
         ->andWhere('e.status = :status')
         ->setParameter('user', $user)
@@ -39,20 +39,20 @@ class ExchangeRepository extends ServiceEntityRepository
         ->setMaxResults(5)
         ->getQuery()
         ->getResult();
-}
+    }
 
-public function findLatestCompletedRequests($user)
-{
-    return $this->createQueryBuilder('e')
+    public function findLatestCompletedRequests($user)
+    {
+        return $this->createQueryBuilder('e')
         ->where('e.status = :status')
         ->setParameter('status', ExchangeEnum::VALIDATED)
         ->andWhere('e.userRequester = :user OR e.userReceiver = :user')
         ->setParameter('user', $user)
-        ->orderBy('e.acceptedAt', 'DESC') 
+        ->orderBy('e.acceptedAt', 'DESC')
         ->setMaxResults(5)
         ->getQuery()
         ->getResult();
-}
+    }
 
 //    /**
 //     * @return Exchange[] Returns an array of Exchange objects

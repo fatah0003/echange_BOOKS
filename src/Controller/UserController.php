@@ -138,52 +138,52 @@ class UserController extends AbstractController
 
 
 
- 
+
    // Méthode pour marquer un utilisateur comme supprimé
-#[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
-#[IsGranted(
-    attribute: new Expression(
-        'user === subject or is_granted("ROLE_ADMIN")'
-    ),
-    subject: 'user'
-)]
-public function delete(Request $request, User $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-{
-    // Récupérer le token CSRF à partir du payload
-    $token = $request->getPayload()->get('_token');
+    #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[IsGranted(
+        attribute: new Expression(
+            'user === subject or is_granted("ROLE_ADMIN")'
+        ),
+        subject: 'user'
+    )]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    {
+        // Récupérer le token CSRF à partir du payload
+        $token = $request->getPayload()->get('_token');
 
-    // Vérifier la validité du token CSRF
-    if ($this->isCsrfTokenValid('delete' . $user->getId(), $token)) {
-        // Mettre à jour le statut de l'utilisateur en "supprimé"
-        $user->setStatus(UserStatusenum::SUPPRIME);
+        // Vérifier la validité du token CSRF
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $token)) {
+            // Mettre à jour le statut de l'utilisateur en "supprimé"
+            $user->setStatus(UserStatusenum::SUPPRIME);
 
-        // Sauvegarder les modifications dans la base de données
-        $entityManager->persist($user);
-        $entityManager->flush();
+            // Sauvegarder les modifications dans la base de données
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-        // Envoyer un email à l'utilisateur pour lui notifier que son compte est marqué comme supprimé
-        $email = (new Email())
+            // Envoyer un email à l'utilisateur pour lui notifier que son compte est marqué comme supprimé
+            $email = (new Email())
             ->from('admin@booksinder.com')
             ->to($user->getEmail())
             ->subject('Votre compte a été désactivé avec succès.')
             ->html('Nous espérons vous revoir bientôt :)');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
-        // Si l'utilisateur supprime son propre compte, déconnexion et invalidation de la session
-        if ($this->getUser() === $user) {
-            $this->container->get('security.token_storage')->setToken(null);
-            $request->getSession()->invalidate();
-            return $this->redirectToRoute('app_login');
+            // Si l'utilisateur supprime son propre compte, déconnexion et invalidation de la session
+            if ($this->getUser() === $user) {
+                $this->container->get('security.token_storage')->setToken(null);
+                $request->getSession()->invalidate();
+                return $this->redirectToRoute('app_login');
+            }
+
+            // Rediriger vers la page d'accueil après la mise à jour du statut (par un admin)
+            return $this->redirectToRoute('home');
         }
 
-        // Rediriger vers la page d'accueil après la mise à jour du statut (par un admin)
+        // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
         return $this->redirectToRoute('home');
     }
-
-    // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
-    return $this->redirectToRoute('home');
-}
 
 
     private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int

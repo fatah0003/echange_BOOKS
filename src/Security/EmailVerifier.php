@@ -38,17 +38,17 @@ class EmailVerifier
 
         $this->mailer->send($email);
     }
-    
+
     public function resendVerificationEmail(User $user, string $verifyEmailRouteName): void
-{
-    $email = (new TemplatedEmail())
-    ->from(new \Symfony\Component\Mime\Address('booksinder@registration.com', 'booksinder'))
+    {
+        $email = (new TemplatedEmail())
+        ->from(new \Symfony\Component\Mime\Address('booksinder@registration.com', 'booksinder'))
         ->to($user->getEmail())
         ->subject('Please Confirm your Email')
         ->htmlTemplate('registration/confirmation_email.html.twig');
-        
-    $this->sendEmailConfirmation($verifyEmailRouteName, $user, $email);
-}
+
+        $this->sendEmailConfirmation($verifyEmailRouteName, $user, $email);
+    }
 
 
     /**

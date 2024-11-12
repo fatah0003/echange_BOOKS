@@ -23,13 +23,13 @@ class ResetPasswordRequestFormType extends AbstractType
                 'class' => 'label-form'
             ],
             'constraints' => [
-    new NotBlank([
-        'message' => 'L\'adresse e-mail est obligatoire.',
-    ]),
-    new Email([
+            new NotBlank([
+            'message' => 'L\'adresse e-mail est obligatoire.',
+            ]),
+        new Email([
         'message' => 'Veuillez entrer une adresse e-mail valide.',
-    ]),
-],
+            ]),
+            ],
         ])
         ;
     }

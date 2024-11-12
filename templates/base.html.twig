@@ -5,24 +5,21 @@
         <title>{% block title %}BOOKS EXCHANGE{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        {% block stylesheets %}
-        {% endblock %}
-
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            {% include 'partials/notification.html.twig' %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                {% include 'partials/notification.html.twig' %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    
+        
         {% block header %} {% include "partials/header.html.twig" %} {% endblock %}
         
         {% block body %}
-        
         {% endblock %}
 
         {% block features %}
@@ -30,5 +27,15 @@
         {% endblock %}
 
         {% block footer %} {% include "partials/footer.html.twig" %} {% endblock %}
+
+        <!-- Bannière de consentement cookies -->
+<div id="cookie-banner" style="display: none; background-color: #222; color: white; padding: 15px; position: fixed; bottom: 0; width: 100%; text-align: center;">
+    <p>
+        Nous utilisons des cookies pour améliorer votre expérience sur notre site. En cliquant sur "Accepter", vous consentez à l'utilisation de cookies. 
+        <button id="accept-cookies" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; cursor: pointer;">Accepter</button>
+        <button id="reject-cookies" style="background-color: #f44336; color: white; border: none; padding: 10px 20px; cursor: pointer;">Refuser</button>
+    </p>
+</div>
+
     </body>
 </html>

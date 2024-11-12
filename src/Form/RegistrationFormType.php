@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 class RegistrationFormType extends AbstractType
 {
     use RegexTrait;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

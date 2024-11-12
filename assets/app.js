@@ -1,4 +1,5 @@
 import './bootstrap.js';
+
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -12,14 +13,10 @@ import './styles/app.css';
 // import './styles/book.css';
 // import './styles/notification.css';
 
-
-
-
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Gestionnaire de filtre des annonces sur linstings
+    // Gestionnaire de filtre des annonces sur les listings
     const filterSvgIcon = document.querySelector(".svg-icon svg");
     const filterListings = document.querySelector(".filter-listings");
 
@@ -38,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Gestionnaire des option du profil utisateur
+    // Gestionnaire des options du profil utilisateur
     const profilSvgIcon = document.querySelector(".svg-icon-option svg");
     const profilOptions = document.querySelector(".profil-options");
 
@@ -56,9 +53,40 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(".profil-options introuvable");
         }
     }
+
+// Gestionnaire de la bannière de cookies
+const cookieBanner = document.getElementById('cookie-banner');
+const acceptButton = document.getElementById('accept-cookies');
+const rejectButton = document.getElementById('reject-cookies');
+
+// Afficher la bannière si aucun choix n'a été fait
+if (!localStorage.getItem('cookies-accepted') && !localStorage.getItem('cookies-rejected')) {
+    cookieBanner.style.display = 'block';
+}
+
+// Gestion du clic sur le bouton Accepter
+acceptButton.addEventListener('click', function () {
+    localStorage.setItem('cookies-accepted', 'true');
+    cookieBanner.style.display = 'none';
+    enableCookies(); // Activer les cookies non essentiels
 });
 
+// Gestion du clic sur le bouton Refuser
+rejectButton.addEventListener('click', function () {
+    localStorage.setItem('cookies-rejected', 'true');
+    cookieBanner.style.display = 'none';
+    disableCookies(); // Désactiver les cookies non essentiels si nécessaires
+});
+
+// Fonction pour activer les cookies non essentiels
+function enableCookies() {
+    
+}
+
+// Fonction pour désactiver les cookies non essentiels
+function disableCookies() {
+    
+}
 
 
-
-
+});

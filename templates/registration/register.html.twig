@@ -77,7 +77,14 @@
 		{{ form_label(registrationForm.agreeTerms,null, {'label_attr': {'class': 'required-label'}}) }}
 		{{ form_widget(registrationForm.agreeTerms) }}
 		{{ form_errors(registrationForm.agreeTerms) }}
+		
 	</div>
+	<p>
+        En vous inscrivant, vous acceptez notre
+        <a href="{{ path('app_privacy_policy') }}" target="_blank" class="terms-link">politique de confidentialité</a>
+        et nos
+        <a href="{{ path('app_legal_notice') }}" target="_blank" class="terms-link">termes et conditions</a>.
+    </p>
 	<button class="add-form-btn" type="submit" class="btn">
 		{% if user is defined %}
 		Modifier

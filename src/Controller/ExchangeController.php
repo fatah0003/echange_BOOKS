@@ -31,7 +31,7 @@ class ExchangeController extends AbstractController
         $latestSentRequests = $exchangeRepository->findLatestSentRequests($this->getUser());
         $latestReceivedRequests = $exchangeRepository->findLatestReceivedRequests($this->getUser());
         // Récupérer les 5 derniers échanges complétés
-    $latestCompletedRequests = $exchangeRepository->findLatestCompletedRequests($this->getUser());
+        $latestCompletedRequests = $exchangeRepository->findLatestCompletedRequests($this->getUser());
 
         return $this->render('exchange/index.html.twig', [
             'controller_name' => 'ExchangeController',
@@ -139,58 +139,58 @@ class ExchangeController extends AbstractController
     }
 
     #[Route('/accept/{id}', name: 'accept', methods: ['POST'])]
-public function acceptRequest(
-    Exchange $exchange,
-    BooksRepository $booksRepository,
-    Request $request,
-    EntityManagerInterface $entityManager,
-    MailerInterface $mailer
-): Response {
-    // Vérifier si la demande existe et si l'utilisateur est bien le destinataire
-    if (!$exchange || $exchange->getUserReceiver() !== $this->getUser()) {
-        throw $this->createNotFoundException('Demande non trouvée.');
-    }
+    public function acceptRequest(
+        Exchange $exchange,
+        BooksRepository $booksRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+        // Vérifier si la demande existe et si l'utilisateur est bien le destinataire
+        if (!$exchange || $exchange->getUserReceiver() !== $this->getUser()) {
+            throw $this->createNotFoundException('Demande non trouvée.');
+        }
 
-    // Récupérer le livre sélectionné
-    $bookTwoId = $request->request->get('selected_book');
-    $bookTwo = $booksRepository->find($bookTwoId);
+        // Récupérer le livre sélectionné
+        $bookTwoId = $request->request->get('selected_book');
+        $bookTwo = $booksRepository->find($bookTwoId);
 
-    if (!$bookTwo) {
-        throw $this->createNotFoundException('Livre non trouvé.');
-    }
+        if (!$bookTwo) {
+            throw $this->createNotFoundException('Livre non trouvé.');
+        }
 
-    // Mettre à jour la demande d'échange
-    $exchange->setBookTwo($bookTwo); // Livre choisi par le destinataire
-    $exchange->setAcceptedAt(new \DateTimeImmutable()); // Date d'acceptation
-    $exchange->setStatus(ExchangeEnum::VALIDATED); // Statut mis à jour
+        // Mettre à jour la demande d'échange
+        $exchange->setBookTwo($bookTwo); // Livre choisi par le destinataire
+        $exchange->setAcceptedAt(new \DateTimeImmutable()); // Date d'acceptation
+        $exchange->setStatus(ExchangeEnum::VALIDATED); // Statut mis à jour
 
-    // Sauvegarder les changements
-    $entityManager->persist($exchange);
-    $entityManager->flush();
+        // Sauvegarder les changements
+        $entityManager->persist($exchange);
+        $entityManager->flush();
 
-    // Envoi d'un email de confirmation à l'utilisateur demandeur (requester)
-    $emailRequester = (new Email())
+        // Envoi d'un email de confirmation à l'utilisateur demandeur (requester)
+        $emailRequester = (new Email())
         ->from('admin@booksfinder.com')
         ->to($exchange->getUserRequester()->getEmail())
         ->subject('Demande d\'échange acceptée')
         ->html('Votre demande d\'échange a bien été acceptée.');
-    $mailer->send($emailRequester);
+        $mailer->send($emailRequester);
 
-    // Envoi d'un email de confirmation au receveur (celui qui accepte l'échange)
-    // $emailReceiver = (new Email())
-    //     ->from('admin@booksfinder.com')
-    //     ->to($this->getUser()->getEmail())
-    //     ->subject('Confirmation : Echange effectué')
-    //     ->html('Votre échange a été effectué avec succès.');
-    // $mailer->send($emailReceiver);
+        // Envoi d'un email de confirmation au receveur (celui qui accepte l'échange)
+        // $emailReceiver = (new Email())
+        //     ->from('admin@booksfinder.com')
+        //     ->to($this->getUser()->getEmail())
+        //     ->subject('Confirmation : Echange effectué')
+        //     ->html('Votre échange a été effectué avec succès.');
+        // $mailer->send($emailReceiver);
 
-    $this->addFlash('success', [
+        $this->addFlash('success', [
         'title' => 'Demande acceptée',
         'message' => 'La demande a été acceptée avec succès.'
-    ]);
+        ]);
 
-    return $this->redirectToRoute('app_exchange_received');
-}
+        return $this->redirectToRoute('app_exchange_received');
+    }
 
 
     #[Route('/cancel/{id}', name: 'cancel_request', methods: ['POST'])]
@@ -240,28 +240,27 @@ public function acceptRequest(
     }
 
     #[Route('/completed', name: 'completed')]
-public function completedRequests(ExchangeRepository $exchangeRepository): Response
-{
-    $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
-    // Récupérer toutes les demandes acceptées de l'utilisateur connecté
-    $completedRequests = $exchangeRepository->findBy([
+    public function completedRequests(ExchangeRepository $exchangeRepository): Response
+    {
+        $receivedRequestsNumber = $this->getReceivedRequestsNumber($exchangeRepository);
+        // Récupérer toutes les demandes acceptées de l'utilisateur connecté
+        $completedRequests = $exchangeRepository->findBy([
         'status' => ExchangeEnum::VALIDATED,
         'userRequester' => $this->getUser() // Assure-toi que tu veux filtrer par utilisateur demandeur
-    ]);
+        ]);
 
-    // Si tu veux afficher aussi les échanges où l'utilisateur est le récepteur
-    $completedRequestsReceiver = $exchangeRepository->findBy([
+        // Si tu veux afficher aussi les échanges où l'utilisateur est le récepteur
+        $completedRequestsReceiver = $exchangeRepository->findBy([
         'status' => ExchangeEnum::VALIDATED,
         'userReceiver' => $this->getUser()
-    ]);
+        ]);
 
-    // Combine les deux résultats
-    $completedRequests = array_merge($completedRequests, $completedRequestsReceiver);
+        // Combine les deux résultats
+        $completedRequests = array_merge($completedRequests, $completedRequestsReceiver);
 
-    return $this->render('exchange/completed.html.twig', [
+        return $this->render('exchange/completed.html.twig', [
         'completed_requests' => $completedRequests,
         'received_requests_number' => $receivedRequestsNumber,
-    ]);
-}
-
+        ]);
+    }
 }

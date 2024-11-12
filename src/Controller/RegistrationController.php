@@ -100,7 +100,7 @@ class RegistrationController extends AbstractController
                 'title' => 'Erreur',
                 'message' => 'Ce compte est déjà vérifié ou n\'existe pas.'
             ]);
-            
+
             return $this->redirectToRoute('app_login');
         }
 
@@ -111,7 +111,7 @@ class RegistrationController extends AbstractController
             'title' => 'Succès',
             'message' => 'Un nouveau lien de vérification vous a été envoyé.'
         ]);
-        
+
         return $this->redirectToRoute('app_login');
     }
 
@@ -143,7 +143,7 @@ class RegistrationController extends AbstractController
                 'title' => 'Erreur de vérification',
                 'message' => 'Le lien a expiré, veuillez redemander un nouveau lien.'
             ]);
-            
+
             return $this->redirectToRoute('app_resend_verification_email', ['id' => $user->getId()]);
         }
 
@@ -151,7 +151,7 @@ class RegistrationController extends AbstractController
             'title' => 'Succès',
             'message' => 'Votre adresse e-mail a été vérifiée.'
         ]);
-        
+
 
         return $this->redirectToRoute('app_login');
     }

@@ -127,96 +127,96 @@ class ListingsController extends AbstractController
 
 
   // Méthode pour supprimer une annonce
-#[Route(path: "/remove/{id}", name: "remove")]
-#[IsGranted('ROLE_USER')]
-public function remove(
-    Request $request,
-    Books $books,
-    EntityManagerInterface $entityManager,
-    MailerInterface $mailer
-): Response {
-    /** @var User $user */
-    $user = $this->getUser();
+    #[Route(path: "/remove/{id}", name: "remove")]
+    #[IsGranted('ROLE_USER')]
+    public function remove(
+        Request $request,
+        Books $books,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
 
-    // Vérifie si l'utilisateur n'est admin ou propriétaire de l'annonce
-    if (!$this->isGranted('ROLE_ADMIN') && !$user->getBooks()->contains($books)) {
-        return $this->redirectToRoute('listings_show');
-    }
+        // Vérifie si l'utilisateur n'est admin ou propriétaire de l'annonce
+        if (!$this->isGranted('ROLE_ADMIN') && !$user->getBooks()->contains($books)) {
+            return $this->redirectToRoute('listings_show');
+        }
 
-    $token = $request->getPayload()->get('token');
+        $token = $request->getPayload()->get('token');
 
-    if ($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
-        $entityManager->remove($books);
-        $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete-book' . $books->getId(), $token)) {
+            $entityManager->remove($books);
+            $entityManager->flush();
 
-        // Envoie un email de confirmation
-        $email = (new Email())
+            // Envoie un email de confirmation
+            $email = (new Email())
             ->from('admin@booksfinder.com')
             ->to($books->getUser()->getEmail())
             ->subject('Confirmation : Votre annonce a été supprimée avec succès')
             ->html('Annonce supprimée');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
-        $this->addFlash('success', [
+            $this->addFlash('success', [
             'title' => 'Annonce supprimée',
             'message' => 'L\'annonce a été supprimée avec succès.'
-        ]);
+            ]);
+
+            return $this->redirectToRoute('listings_show');
+        }
 
         return $this->redirectToRoute('listings_show');
     }
-
-    return $this->redirectToRoute('listings_show');
-}
 
 
   // Méthode pour modifier une annonce (page formulaire de modification)
-#[Route(path: "/update/{id}", name: "update")]
-#[IsGranted('ROLE_USER')]
-public function update(
-    Books $books,
-    Request $request,
-    EntityManagerInterface $entityManager,
-    MailerInterface $mailer
-): Response {
-    /** @var User $user */
-    $user = $this->getUser();
+    #[Route(path: "/update/{id}", name: "update")]
+    #[IsGranted('ROLE_USER')]
+    public function update(
+        Books $books,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
+    ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
 
-    // Vérifie si l'utilisateur est admin ou propriétaire de l'annonce
-    if (!$this->isGranted('ROLE_ADMIN') && !$user->getBooks()->contains($books)) {
-        return $this->redirectToRoute('listings_show');
-    }
+        // Vérifie si l'utilisateur est admin ou propriétaire de l'annonce
+        if (!$this->isGranted('ROLE_ADMIN') && !$user->getBooks()->contains($books)) {
+            return $this->redirectToRoute('listings_show');
+        }
 
-    $form = $this->createForm(ListingType::class, $books);
-    $form->handleRequest($request);
+        $form = $this->createForm(ListingType::class, $books);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $books->setUpdatedAt(new \DateTimeImmutable());
-        $entityManager->persist($books);
-        $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $books->setUpdatedAt(new \DateTimeImmutable());
+            $entityManager->persist($books);
+            $entityManager->flush();
 
-        // Envoie un email de confirmation
-        $email = (new Email())
+            // Envoie un email de confirmation
+            $email = (new Email())
             ->from('admin@booksfinder.com')
             ->to($books->getUser()->getEmail())
             ->subject('Confirmation : Votre annonce a été modifiée avec succès')
             ->html('Annonce modifiée');
 
-        $mailer->send($email);
+            $mailer->send($email);
 
-        $this->addFlash('success', [
+            $this->addFlash('success', [
             'title' => 'Annonce modifiée',
             'message' => 'L\'annonce a été modifiée avec succès.'
-        ]);
+            ]);
 
-        return $this->redirectToRoute('listings_showone', ['id' => $books->getId()]);
-    }
+            return $this->redirectToRoute('listings_showone', ['id' => $books->getId()]);
+        }
 
-    return $this->render('listings/add.html.twig', [
+        return $this->render('listings/add.html.twig', [
         'form' => $form,
         'book' => $books
-    ]);
-}
+        ]);
+    }
 
   //Méthode pour les favoris
     #[Route('/favorite/{id}', name: 'toggle_favorite')]

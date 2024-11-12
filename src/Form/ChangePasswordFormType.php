@@ -13,10 +13,10 @@ use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints\Regex;
 
-
 class ChangePasswordFormType extends AbstractType
 {
     use RegexTrait;
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,8 +30,7 @@ class ChangePasswordFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Ne doit pas etre vide....',
                     ]),
-                    new Regex(self::STRONG_PASSWORD, message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).'
-)
+                    new Regex(self::STRONG_PASSWORD, message: 'Le mot de passe doit contenir au minimum huit caractères, avec au moins une lettre majuscule, une lettre minuscule, un chiffre, et un caractère spécial (#?!@$ %^&*-_).')
                 ],
                 'label' => 'Mot de passe',
                 'label_attr' => [
