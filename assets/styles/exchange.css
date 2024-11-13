@@ -84,3 +84,86 @@
     color: #fff;
   }
   
+  .exchange-details-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.exchange-details-container h1 {
+    color: black;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.exchange-details-container h2 {
+    color: #07b01f;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.exchange-details-container p {
+    font-size: 1.2em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.grid {
+  margin-left: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #07b01f;
+    color: white;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #069d18;
+}
+
+input[type="radio"] {
+  appearance: none; /* Supprime le style par défaut */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #07b01f;
+  background-color: #fff;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+  background-color: #07b01f;
+  border-color: #07b01f;
+}
+
+input[type="radio"]:checked::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}

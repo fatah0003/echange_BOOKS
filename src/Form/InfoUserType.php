@@ -121,7 +121,7 @@ class InfoUserType extends AbstractType
                 'message' => 'Veuillez entrer une biographie.',
                 ]),
         new Length([
-            'min' => 50,
+            'min' => 10,
             'max' => 300,
             'minMessage' => 'La biographie doit comporter au moins {{ limit }} caractères.',
             'maxMessage' => 'La biographie ne peut pas dépasser {{ limit }} caractères.',

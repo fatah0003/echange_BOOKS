@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Enum\UserStatusenum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,6 +25,7 @@ class UserFixtures extends Fixture
                 $user,
                 '0123456'
             ))
+            ->setStatus(UserStatusenum::ACTIF)
              ;
              $this->addReference('user_' . $i, $user);
              $manager->persist($user);
