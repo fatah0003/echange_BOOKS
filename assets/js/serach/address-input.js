@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (features && features.length > 0) {
                     features.map((feature) => {
                         let li = document.createElement('li');
-                        li.className = "aaa";
+                        li.className = "showresults-li";
                         li.innerText = `${feature.properties.name} - ${feature.properties.postcode}`;
 
                         li.addEventListener('click', () => {

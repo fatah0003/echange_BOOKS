@@ -94,8 +94,8 @@ class ListingsController extends AbstractController
             $mailer->send($email);
 
             $this->addFlash('success', [
-            'title' => 'Success title',
-            'message' => 'Message de notification'
+            'title' => 'Annonce publiée !',
+            'message' => 'Annonce ajoutée avec succès'
             ]);
             return $this->redirectToRoute('listings_showone', ['id' => $books->getId()]);
         }
@@ -228,8 +228,8 @@ class ListingsController extends AbstractController
 
         $entityManager->flush();
         $this->addFlash('success', [
-        'title' => 'Success title',
-        'message' => 'Message de notification'
+        'title' => 'Ajouté aux favoris !',
+        'message' => 'L\'annonce a été ajoutée à vos favoris.'
         ]);
 
         //return $this->redirectToRoute('listings_show');

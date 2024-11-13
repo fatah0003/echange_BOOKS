@@ -81,7 +81,7 @@ input[type=checkbox] {
     width: 20px;
     height: 20px;
     border: solid 2px skyblue;
-    border-radius: 4px; /* Coins arrondis */
+    border-radius: 4px;
     position: relative;
     cursor: pointer;
 }

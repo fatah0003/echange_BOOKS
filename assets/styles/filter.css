@@ -42,7 +42,7 @@
     }
 
     .text-desktop {
-      display: inline; /* Par défaut, visible en mode desktop */
+      display: inline;
   }
 
     .icon-mobile {
@@ -87,12 +87,12 @@
         }
 
         .text-desktop {
-          display: none; /* Masque le texte en mode mobile */
+          display: none; 
       }
     
       .icon-mobile {
-          display: inline; /* Affiche l'icône en mode mobile */
-          font-size: 1.2em; /* Ajuste la taille de l'icône */
+          display: inline; 
+          font-size: 1.2em; 
       }
     }
 

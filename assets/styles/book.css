@@ -176,9 +176,9 @@
   background-color: #ffffff;
   padding: 10px 10px 20px 10px;
   font-style: italic;
-    overflow-wrap: break-word; /* Pour couper les mots longs */
-    word-break: break-all; /* Pour forcer la coupure des mots si nécessaire */
-    padding: 10px; /* Ajoute un peu de padding pour le confort de lecture */
+    overflow-wrap: break-word; 
+    word-break: break-all; 
+    padding: 10px; 
 }
 
 .summary {
@@ -216,38 +216,38 @@
   }
 
   .book-creator-book {
-      width: 100%; /* Full width on mobile */
-      flex-direction: row; /* Row layout for creator info */
-      margin: 10px 0; /* Add margin for spacing */
+      width: 100%; 
+      flex-direction: row; 
+      margin: 10px 0; 
   }
 
   .creator-infos {
-      height: auto; /* Adjust height to fit content */
-      margin: 5px 0; /* Add margin for spacing */
+      height: auto; 
+      margin: 5px 0; 
   }
 
   .info-label {
-      width: auto; /* Allow labels to take up natural space */
-      margin: 5px 0; /* Add margin for spacing */
+      width: auto; 
+      margin: 5px 0; 
   }
 
   .summary {
-      padding: 10px; /* Add padding for better readability */
+      padding: 10px; 
   }
 
   .edit-btn,
   .btn-reservation,
   .delete-btn {
-      width: 100%; /* Full width for buttons on mobile */
-      margin-top: 10px; /* Space between buttons */
+      width: 100%; 
+      margin-top: 10px;
   }
 
   .form-listing-show {
-      width: 100%; /* Full width for form input */
+      width: 100%; 
   }
 
   .delete-update {
-      flex-direction: column; /* Stack buttons vertically */
-      align-items: stretch; /* Full width for buttons */
+      flex-direction: column; 
+      align-items: stretch; 
   }
 }

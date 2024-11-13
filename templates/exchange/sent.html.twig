@@ -15,7 +15,7 @@
                     <li class="sent-requests-item">
                         <div class="request-class">Livre: {{ request.bookOne.title }} - À: {{ request.userReceiver.infosUser.username }}</div>
                         <form action="{{ path('app_exchange_cancel_request', {id: request.id}) }}" method="POST" style="display:inline;">
-                            <button type="submit" class="sent-requests-btn">Annuler</button>
+                            <button type="submit" class="sent-requests-btn" aria-label="Annuler la demande d'échange pour le livre {{ request.bookOne.title }}">Annuler</button>
                         </form>
                     </li>
                     {% set hasSentRequests = true %}
@@ -27,7 +27,7 @@
             {% endif %}
         </ul>
 
-        <a href="{{ path('app_exchange_index') }}" class="sent-requests-back">Voir tous les échange</a>
+        <a href="{{ path('app_exchange_index') }}" class="sent-requests-back" aria-label="Retour à la liste des échanges">Voir tous les échanges</a>
     </div>
 
     {% block features %}{% endblock %}

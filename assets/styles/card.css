@@ -82,6 +82,7 @@
     display: flex;
     justify-content: space-between;
     gap: 15px;
+    margin: 0 5px;
 }
 
 .detail {
@@ -131,7 +132,7 @@
 }
 
 .fav:hover {
-    background-color: rgba(167, 96, 102, 0.9); /* Changement de couleur au survol */
+    background-color: rgba(167, 96, 102, 0.9);
 }
 
 .favorite {

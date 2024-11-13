@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (filterSvgIcon && filterListings) {
         filterSvgIcon.addEventListener("click", function(event) {
-            event.stopPropagation(); // Empêche la propagation du clic vers les autres éléments
+            event.stopPropagation();
             filterListings.classList.toggle("active");
             console.log("SVG de filtrage cliqué, options de filtrage basculées");
         });

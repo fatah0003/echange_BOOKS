@@ -122,6 +122,10 @@ class UserController extends AbstractController
             ->html('Votre compte a été modifié avec succès');
             $mailer->send($email);
 
+            $this->addFlash('success', [
+                'title' => 'Profil mis à jour !',
+                'message' => 'Vos informations ont été mises à jour.'
+            ]);
             // Redirection après modification
             return $this->redirectToRoute('app_user_show', [
             'id' => $user->getId(),
@@ -139,7 +143,7 @@ class UserController extends AbstractController
 
 
 
-   // Méthode pour marquer un utilisateur comme supprimé
+   // Méthode pour désactiver un compte
     #[Route('/delete/{id}', name: 'app_user_delete', methods: ['POST'])]
     #[IsGranted(
         attribute: new Expression(
@@ -149,10 +153,10 @@ class UserController extends AbstractController
     )]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
-        // Récupérer le token CSRF à partir du payload
-        $token = $request->getPayload()->get('_token');
+    // Récupérer le token CSRF à partir des paramètres de requête
+        $token = $request->request->get('_token');
 
-        // Vérifier la validité du token CSRF
+    // Vérifier la validité du token CSRF
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $token)) {
             // Mettre à jour le statut de l'utilisateur en "supprimé"
             $user->setStatus(UserStatusenum::SUPPRIME);
@@ -161,19 +165,28 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Envoyer un email à l'utilisateur pour lui notifier que son compte est marqué comme supprimé
+            // Envoyer un email à l'utilisateur pour lui notifier que son compte est désactivé
             $email = (new Email())
             ->from('admin@booksinder.com')
             ->to($user->getEmail())
             ->subject('Votre compte a été désactivé avec succès.')
-            ->html('Nous espérons vous revoir bientôt :)');
-
+            ->html('
+                Votre compte a été désactivé avec succès. Si vous souhaitez le réactiver, veuillez nous contacter. Nous serons heureux de vous aider.
+                <br><br>
+                À bientôt :)
+            ');
             $mailer->send($email);
 
             // Si l'utilisateur supprime son propre compte, déconnexion et invalidation de la session
             if ($this->getUser() === $user) {
                 $this->container->get('security.token_storage')->setToken(null);
                 $request->getSession()->invalidate();
+
+                $this->addFlash('success', [
+                    'title' => 'Compte désactivé',
+                    'message' => 'Votre compte a été désactivé avec succès.'
+                ]);
+
                 return $this->redirectToRoute('app_login');
             }
 
@@ -181,9 +194,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
+    // Si le token CSRF n'est pas valide, rediriger vers la page d'accueil
         return $this->redirectToRoute('home');
     }
+
 
 
     private function getReceivedRequestsNumber(ExchangeRepository $exchangeRepository): int

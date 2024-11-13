@@ -212,7 +212,7 @@
 
   .profils-options, .profil-options-list {
       width: 100%;
-      align-items: center; /* Centre les éléments */
+      align-items: center;
   }
 
   .bottom-container {

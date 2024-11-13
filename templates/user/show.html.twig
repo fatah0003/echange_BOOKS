@@ -60,7 +60,7 @@
     <form action="{{ path('app_user_delete', {'id': user.id}) }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
         <button type="submit" class="delete-profil-btn"
-            onclick="return confirm('Confirmer l\'action ?')">Désactiver le compte</button>
+            onclick="return confirm('Êtes-vous sûr de vouloir désactiver votre compte ? Cette action est irréversible. ?')">Désactiver le compte</button>
     </form>
 </li>
 

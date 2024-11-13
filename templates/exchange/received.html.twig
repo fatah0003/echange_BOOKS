@@ -13,15 +13,13 @@
             {% if request.status.value == 'pending' %}
                 <li class="received-requests-item">
                     <div class="request-class">Livre: {{ request.bookOne.title }} - De: {{ request.userrequester.infosuser.username }}</div>
-                    <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="received-requests-link">Voir</a>
+                    <a href="{{ path('app_exchange_received_select_books', { id: request.id }) }}" class="received-requests-link" aria-label="Voir les détails de la demande pour le livre {{ request.bookOne.title }}">Voir</a>
                     
                     <!-- Bouton "Refuser" -->
                     <form action="{{ path('app_exchange_reject_request', { id: request.id }) }}" method="POST" style="display:inline;">
-    <input type="hidden" name="_token" value="{{ csrf_token('reject' ~ request.id) }}">
-    <button type="submit" class="exchange-btn exchange-btn-danger">Refuser</button>
-</form>
-
-
+                        <input type="hidden" name="_token" value="{{ csrf_token('reject' ~ request.id) }}">
+                        <button type="submit" class="exchange-btn exchange-btn-danger" aria-label="Refuser la demande pour le livre {{ request.bookOne.title }}">Refuser</button>
+                    </form>
                 </li>
             {% else %}
                 <li class="received-requests-item">Aucune demande reçue.</li>
@@ -31,7 +29,7 @@
         {% endfor %}
     </ul>
 
-    <a href="{{ path('app_exchange_index') }}" class="received-requests-back">Voir tous les échange</a>
+    <a href="{{ path('app_exchange_index') }}" class="received-requests-back" aria-label="Retour à la liste des échanges">Voir tous les échanges</a>
 </div>
 {% block features %}{% endblock %}
 {% endblock %}

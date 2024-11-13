@@ -1,45 +1,54 @@
 {% extends "base.html.twig" %}
+
 {% block title %}Annonces
 {% endblock %}
 {% block importmap %}
-{{ importmap(['app', 'card', 'notification', 'filter']) }}
+	{{ importmap(['app', 'card', 'notification', 'filter']) }}
 {% endblock %}
 {% block body %}
 
-<section class="banner">
-	{# <span class="title">BOOKSINDER</span> #}
-	<span class="welcome">Bienvenue sur BOOKSINDER</span>
-	<span class="welcome">Les livres de tes rêves</span>
-	{% include "search/form.html.twig" %}
-</section>
+	<section class="banner">
+		<span class="welcome" aria-label="Bienvenue sur BOOKSINDER">Bienvenue sur BOOKSINDER</span>
+		<span class="welcome" aria-label="Découvrez les livres de vos rêves">Les livres de tes rêves</span>
+		{% include "search/form.html.twig" %}
+	</section>
+
+	<section class="announces">
+		<div class="titles">
+			<h1 class="listings-title" aria-label="Bibliothèque Booksinder">Notre bibliothèque BOOKSINDER</h1>
+			<div class="listings-options">
+				<a class="add" href="{{ path('listings_add') }}" aria-label="Ajouter une nouvelle annonce">Ajouter une annonce</a>
+				<ul class="filter-listings">
+					<li class="svg-icon" aria-label="Filtrer par icon">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="#0b2c3d" class="size-6" width="40" height="40">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/>
+						</svg>
 
 
-<section class="announces">
-	<div class="titles">
-		<h1 class="listings-title">Notre bibliotheque BOOKSINDER</h1>
-		<div class="listings-options">
-			<a class="add" href="{{ path('listings_add')}}">Ajouter une annonce</a>
-			<ul class="filter-listings">
-				<li class="svg-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5"
-						stroke="currentColor" width="30" height="30">
-						<path stroke-linecap="round" stroke-linejoin="round"
-							d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-					</svg>
-				</li>
-				<li class="toggle-item">{{ knp_pagination_sortable(books, 'Titre', 'b.title') }}</li>
-				<li class="toggle-item">{{ knp_pagination_sortable(books, 'Auteur', 'b.author') }}</li>
-			</ul>
+					</li>
+					<li class="toggle-item" aria-label="Trier par titre">
+						{{ knp_pagination_sortable(books, 'Titre', 'b.title') }}
+					</li>
+					<li class="toggle-item" aria-label="Trier par auteur">
+						{{ knp_pagination_sortable(books, 'Auteur', 'b.author') }}
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
-	<div class="grid">
-		{% for book in books %}
-		{% include "partials/card.html.twig" %}
-		{% endfor %}
-	</div>
-	<div class="navigation">
-		{{ knp_pagination_render(books) }}
-	</div>
+		<div class="grid">
+			{% if books is not empty %}
+				{% for book in books %}
+					{% include "partials/card.html.twig" %}
+				{% endfor %}
+			{% else %}
+				<div id="no-results" aria-live="polite">
+					Aucun résultat pour cette recherche. Essayez d'affiner vos critères.
+				</div>
+			{% endif %}
+		</div>
+		<div class="navigation" aria-label="Navigation des pages de résultats">
+			{{ knp_pagination_render(books) }}
+		</div>
+	</section>
 
-</section>
 {% endblock %}

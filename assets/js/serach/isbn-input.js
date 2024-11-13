@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Crée un élément <li> pour afficher le résultat
             let li = document.createElement("li");
-            li.className = "aaa"; // Ajoute une classe au <li>
+            li.className = "showresults-isbn-li"; // Ajoute une classe au <li>
             li.innerText = `${title} de ${author}`; // Texte affiché dans la liste
 
             // Lorsqu'un livre est cliqué, remplit les champs du formulaire

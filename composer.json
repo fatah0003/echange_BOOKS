@@ -101,7 +101,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "7.1.*",

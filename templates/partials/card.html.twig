@@ -1,66 +1,56 @@
 <article id="card" class="card">
 	<section class="sup-card">
 		<div class="rate">
-			<img class="icone-rate" src="{{ asset('/images/star.png') }}" alt="icone étoile"/><span class="value">5</span>
+			<img class="icone-rate" src="{{ asset('/images/star.png') }}" alt="Icône étoile de notation"/><span class="value">5</span>
 		</div>
-		<a href="{{ path('listings_showone', { id: book.id }) }}">
-
-
-		{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %}
-        {% if book.cover is defined and book.cover is not null %}
-            {% set imageUrl = vich_uploader_asset(book.cover) %}
-        {% endif %}
-			<img class="image-box" src="{{ imageUrl }}" alt="image du livre"/>
+		<a href="{{ path('listings_showone', { id: book.id }) }}" aria-label="Voir les détails de {{ book.title }}">
+			{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %}
+			{% if book.cover is defined and book.cover is not null %}
+				{% set imageUrl = vich_uploader_asset(book.cover) %}
+			{% endif %}
+			<img class="image-box" src="{{ imageUrl }}" alt="Couverture du livre {{ book.title }}"/>
 		</a>
 
-
-
 		{% if app.user %}
-			<a class="fav" href="{{ path('listings_toggle_favorite', {'id': book.id })}}">
+			<a class="fav" href="{{ path('listings_toggle_favorite', {'id': book.id })}}" aria-label="Ajouter aux favoris">
 				{% if book in app.user.favorites %}
-					
-					<img class="favorite" src="{{ asset('/images/fav.png') }}" alt="logo favoris"/>
+					<img class="favorite" src="{{ asset('/images/fav.png') }}" alt="Livre ajouté aux favoris"/>
 				{% else %}
-					
-					<img class="favorite" src="{{ asset('/images/favori.png') }}" alt="logo favoris"/>
+					<img class="favorite" src="{{ asset('/images/favori.png') }}" alt="Ajouter ce livre aux favoris"/>
 				{% endif %}
-
-
 			</a>
 		{% endif %}
-
 	</section>
 	<div></div>
 	<section class="low-card">
-		<div class="book-title">{{ book.title }}</div>
-		<div class="book-author">{{ book.author }}</div>
+		<div class="book-title" aria-label="Titre du livre">{{ book.title }}</div>
+		<div class="book-author" aria-label="Auteur du livre">{{ book.author }}</div>
 		<div class="details">
 			<div class="detail">
 				<div class="location">
-					<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="icone localisation"/><span class="value">{{ book.location }}</span>
+					<img class="infos-logo" src="{{ asset('/images/localisation.png') }}" alt="Icône localisation"/><span class="value">{{ book.location }}</span>
 				</div>
 				<div class="type">
 					{% for exchangeType in book.exchangeType %}
 						{% if exchangeType.value == "permanent" %}
-							<div title="échange définitif" class="{{ exchangeType.value }}">
-								<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="icone échange definitif">
+							<div title="Échange définitif" class="{{ exchangeType.value }}">
+								<img class="permanenticone" src="{{ asset('images/permanent.png') }}" alt="Icône échange définitif">
 							</div>
 						{% endif %}
 						{% if exchangeType.value == "temporary" %}
-							<div title="échange temporaire" class="{{ exchangeType.value }}">
-								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="icone échange temporaire">
+							<div title="Échange temporaire" class="{{ exchangeType.value }}">
+								<img class="permanenticone" src="{{ asset('images/temporary.png') }}" alt="Icône échange temporaire">
 							</div>
 						{% endif %}
-
 					{% endfor %}
 				</div>
 			</div>
 			<div class="detail">
 				<div class="book-state">
-					<img class="infos-logo" src="{{ asset('/images/etatdulivre.png') }}" alt="icone état du livre"/><span class="value">{{ book.state.value }}</span>
+					<img class="infos-logo" src="{{ asset('/images/etatdulivre.png') }}" alt="Icône état du livre"/><span class="value">{{ ('state.' ~ book.state.value) | trans }}</span>
 				</div>
 				<div class="book-categorie">
-					<img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt="icone catégorie"/><span class="value">{{book.bookCategorie.name}}</span>
+					<img class="infos-logo" src="{{ asset('/images/categorie.png') }}" alt="Icône catégorie"/><span class="value">{{book.bookCategorie.name}}</span>
 				</div>
 			</div>
 		</div>

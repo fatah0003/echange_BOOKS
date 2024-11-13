@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ListingType extends AbstractType
 {
@@ -44,15 +45,22 @@ class ListingType extends AbstractType
                 ],
             ])
             ->add('isbn', TextType::class, [
-                'label' => 'ISBN',
+                'label' => 'ISBN ou EAN',
                 'required' => true,
                 'label_attr' => [
                     'class' => 'label-form',
                 ],
                 'attr' => [
                     'data-action' => 'isbn-input',
-                    'class' => 'input-form'
+                    'class' => 'input-form',
+                    'placeholder' => 'Saisissez l\'ISBN ou l\'EAN sans les tirets'
                 ],
+                'constraints' => [
+                new Assert\Regex([
+                'pattern' => '/^\d+$/',
+                'message' => 'L\'ISBN ou l\'EAN doit contenir uniquement des chiffres.'
+                ])
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -65,7 +73,7 @@ class ListingType extends AbstractType
                 ],
             ])
             ->add('edition', TextType::class, [
-                'label' => 'Edition',
+                'label' => 'Année d\'édition',
                 'required' => true,
                 'label_attr' => [
                     'class' => 'label-form',
@@ -99,19 +107,22 @@ class ListingType extends AbstractType
             ])
             ->add('state', EnumType::class, [
                 'class' => StateEnum::class,
-                'label' => 'Etat du Livre',
+                'label' => 'État du Livre',
                 'required' => true,
                 'label_attr' => [
-                    'class' => 'label-form',
+                    'class' => 'required-label',
                 ],
                 'attr' => [
-                    'class' => 'input-form'
+                    'class' => 'input-form',
                 ],
+                'choice_label' => function (StateEnum $state) {
+                    return 'state.' . $state->value;
+                },
             ])
             ->add('exchangeType', EnumType::class, [
                 'class' => ExchangeTypeEnum::class,
                 'multiple' => true,
-                'label' => 'Type change',
+                'label' => 'Type d\'échange',
                 'expanded' => true,
                 'required' => true,
                 'label_attr' => [
@@ -120,6 +131,9 @@ class ListingType extends AbstractType
                 'attr' => [
                     'class' => 'input-form-type'
                 ],
+                'choice_label' => function (ExchangeTypeEnum $type) {
+                    return 'exchange_type.' . $type->value;
+                },
             ])
             ->add('bookCategorie', EntityType::class, [
                 'class' => BookCategorie::class,

@@ -1,0 +1,11 @@
+# book state
+state.new: "Neuf"
+state.like_new: "Comme neuf"
+state.very_good: "Très bon état"
+state.good: "Bon état"
+state.acceptable: "Acceptable"
+state.well_loved: "Bien vécu"
+
+# exchage type 
+exchange_type.permanent: "Permanent"
+exchange_type.temporary: "Temporaire"

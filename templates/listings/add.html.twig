@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
-{% block title %}Add Listing
-{% endblock %}
+
+{% block title %}Add Listing{% endblock %}
 {% block header %}{% endblock %}
 {% block importmap %}{{ importmap(['app', 'search', 'search-isbn', 'form']) }}{% endblock %}
 {% block body %}
@@ -10,29 +10,29 @@
             Ajouter une Annonce
         {% endif %}</h1>
 <section class="container">
-<a class="navigation-btn" href="{{ path('home')}}">Accueil</a>
+<a class="navigation-btn" href="{{ path('home')}}" aria-label="Retour à la page d'accueil">Accueil</a>
     {{ form_start(form, {'attr': {'class': 'add-form-class'}}) }}
 
     <div class="form-element">
-        {{ form_label(form.cover,null, {'label_attr': {'class': 'required-label'}}) }}
-        {{ form_widget(form.cover) }}
+        {{ form_label(form.cover, null, {'label_attr': {'class': 'required-label'}}) }}
+        {{ form_widget(form.cover, {'attr': {'aria-label': 'Sélectionner la couverture du livre'}}) }}
         {{ form_errors(form.cover) }}
         {% if book.cover is defined and book.cover is not null %}
-        <img src="{{ vich_uploader_asset(book.cover) }}" alt="">
+        <img src="{{ vich_uploader_asset(book.cover) }}" alt="Couverture du livre {{ book.title }}">
         {% endif %}
     </div>
     <div class="form-element">
-        {{ form_label(form.back,null, {'label_attr': {'class': 'required-label'}}) }}
-        {{ form_widget(form.back) }}
+        {{ form_label(form.back, null, {'label_attr': {'class': 'required-label'}}) }}
+        {{ form_widget(form.back, {'attr': {'aria-label': 'Sélectionner l\'arrière de la couverture du livre'}}) }}
         {{ form_errors(form.back) }}
         {% set imageBackUrl = asset('/images/back.jpg') %}
         {% if book.back is defined and book.back is not null %}
-            <img src="{{ vich_uploader_asset(book.back) }}" alt="">
+            <img src="{{ vich_uploader_asset(book.back) }}" alt="Arrière du livre {{ book.title }}">
         {% endif %}
     </div>
     <div class="form-element" id="isbnContainer">
-        {{ form_label(form.isbn,null, {'label_attr': {'class': 'required-label'}}) }}
-        {{ form_widget(form.isbn) }}
+        {{ form_label(form.isbn, null, {'label_attr': {'class': 'required-label'}}) }}
+        {{ form_widget(form.isbn, {'attr': {'aria-label': 'Entrez le numéro ISBN du livre'}}) }}
         {{ form_errors(form.isbn) }}
         <div id="showlist-isbn" class="show-isbn">
     <ul id="showresults-isbn">
@@ -41,59 +41,55 @@
     </div>
     </div>
 <div class="form-element">
-    {{ form_label(form.title,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.title) }}
+    {{ form_label(form.title, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.title, {'attr': {'aria-label': 'Entrez le titre du livre'}}) }}
     {{ form_errors(form.title) }}
 </div>
 
 <div class="form-element">
-    {{ form_label(form.author,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.author) }}
+    {{ form_label(form.author, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.author, {'attr': {'aria-label': 'Entrez l\'auteur du livre'}}) }}
     {{ form_errors(form.author) }}
 </div>
 
-
-
 <div class="form-element">
-    {{ form_label(form.description,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.description) }}
+    {{ form_label(form.description, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.description, {'attr': {'aria-label': 'Entrez une description du livre'}}) }}
     {{ form_errors(form.description) }}
 </div>
 
 <div class="form-element">
-    {{ form_label(form.edition,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.edition) }}
+    {{ form_label(form.edition, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.edition, {'attr': {'aria-label': 'Entrez l\'édition du livre'}}) }}
     {{ form_errors(form.edition) }}
 </div>
 
-
-
 <div class="form-element">
-    {{ form_label(form.pages,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.pages) }}
+    {{ form_label(form.pages, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.pages, {'attr': {'aria-label': 'Indiquez le nombre de pages du livre'}}) }}
     {{ form_errors(form.pages) }}
 </div>
 
 <div class="form-element">
-    {{ form_label(form.state,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.state) }}
+    {{ form_label(form.state, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.state, {'attr': {'class': 'input-form', 'aria-label': 'Sélectionner l\'état du livre'}}) }}
     {{ form_errors(form.state) }}
 </div>
 
 <div class="form-element-type">
-    {{ form_label(form.exchangeType,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.exchangeType) }}
+    {{ form_label(form.exchangeType, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.exchangeType, {'attr': {'aria-label': 'Sélectionner le type d\'échange'}}) }}
     {{ form_errors(form.exchangeType) }}
 </div>
 
 <div class="form-element">
-    {{ form_label(form.bookCategorie,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.bookCategorie) }}
+    {{ form_label(form.bookCategorie, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.bookCategorie, {'attr': {'aria-label': 'Sélectionner la catégorie du livre'}}) }}
     {{ form_errors(form.bookCategorie) }}
 </div>
 <div class="form-element" id="locationContainer">
-    {{ form_label(form.location,null, {'label_attr': {'class': 'required-label'}}) }}
-    {{ form_widget(form.location) }}
+    {{ form_label(form.location, null, {'label_attr': {'class': 'required-label'}}) }}
+    {{ form_widget(form.location, {'attr': {'aria-label': 'Sélectionner la localisation du livre'}}) }}
     {{ form_errors(form.location) }}
     <div id="showlist" class="show">
     <ul id="showresults">
@@ -102,7 +98,7 @@
     </div>
 </div>
 
-<button class="add-form-btn" type="submit">
+<button class="add-form-btn" type="submit" aria-label="Envoyer l'annonce">
 {% if book is defined %}
                 Modifier
             {% else %}
@@ -111,10 +107,8 @@
 </button>
 
 {{ form_end(form) }}
-<a class="navigation-btn" href="{{ path('listings_show')}}">Annonces</a>
+<a class="navigation-btn" href="{{ path('listings_show')}}" aria-label="Voir toutes les annonces">Annonces</a>
 </section>
-
-
 
 {% endblock %}
 {% block features %}{% endblock %}

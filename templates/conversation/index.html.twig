@@ -1,35 +1,43 @@
 {% extends 'base.html.twig' %}
 {% block header %}{% endblock %}
-{% block title %}Conversation{% endblock %}
+{% block title %}Conversation
+{% endblock %}
 
 {% block body %}
 
-<div class='messages-container'>
-    <h2 class="conversation-header">
-    {% for participant in conversation.participants %}
-        {% if participant != app.user %}
-            {{ participant.infosUser.userName }}
-        {% endif %}
-    {% endfor %}
-</h2>
-<ul class="messages-list">
-    {% for message in conversation.messages %}
-        <li class="message-item {% if message.writer == app.user %}sent{% else %}received{% endif %}">
-            <strong class="message-writer">{{ message.writer.infosUser.userName }}:</strong> 
-            <span class="message-content">{{ message.content }}</span>
-            <br>
-            <small class="message-date">{{ message.createdAt|date('d-m-Y H:i') }}</small>
-        </li>
-    {% endfor %}
-</ul>
+	<div class='messages-container'>
+    <a class="navigation-msg" href="{{ path('home') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="50" height="50" stroke-width="1.5" stroke="currentColor" aria-label="Home icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+    </a>
+		<h2 class="conversation-header">
+			{% for participant in conversation.participants %}
+				{% if participant != app.user %}
+					<a href="{{ path('app_user_show', {id: participant.id}) }}">{{ participant.infosUser.userName }}</a>
+				{% endif %}
+			{% endfor %}
+		</h2>
+		<ul class="messages-list">
+			{% for message in conversation.messages %}
+				<li class="message-item {% if message.writer == app.user %}sent{% else %}received{% endif %}">
+					<strong class="message-writer">{{ message.writer.infosUser.userName }}:</strong>
+					<span class="message-content">{{ message.content }}</span>
+					<br>
+					<small class="message-date">{{ message.createdAt|date('d-m-Y H:i') }}</small>
+				</li>
+			{% endfor %}
+		</ul>
 
-{{ form_start(form) }}
-    {# <div class="form-group">{{ form_label(form.content) }}</div> #}
-    <div class="form-input">{{ form_widget(form.content) }}</div>
-    <button type="submit" class="submit-button">Envoyer</button>
-{{ form_end(form) }}
-</div>
-
+		{{ form_start(form) }}
+		<div class="form-group">
+		    <label for="{{ form.content.vars.id }}">Message</label>
+		    <div class="form-input">{{ form_widget(form.content) }}</div>
+        </div>
+		<button type="submit" class="submit-button">Envoyer</button>
+		{{ form_end(form) }}
+		
+	</div>
 
 {% endblock %}
 {% block features %}{% endblock %}

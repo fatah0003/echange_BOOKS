@@ -1,119 +1,104 @@
 {% extends "base.html.twig" %}
-{% block title %}Annonce
-{% endblock %}
-{% block
-importmap %}
+
+{% block title %}Annonce{% endblock %}
+{% block importmap %}
 {{ importmap(["app", "notification", "book"]) }}
 {% endblock %}
 {% block body %}
-<h1 class="book-infos-book-title">{{ book.title }}</h1>
+<h1 class="book-infos-book-title" aria-labelledby="book-title">{{ book.title }}</h1>
 <div class="details-container">
 	<section class="details-section-one">
 		<article class="article-one">
-		<h2>Caractéristiques</h2>
-			{# <div class="book-infos-book-title">
-				{{ book.title }}
-			</div> #}
-			<div class="book-infos-book-one"><span class="info-label">Auteur :
-				</span>
+			<h2>Caractéristiques</h2>
+			<div class="book-infos-book-one">
+				<span class="info-label" aria-label="Auteur du livre">Auteur :</span>
 				{{ book.author }}
 			</div>
 			<div class="book-infos-book-two">
-				<span class="info-label">État du livre :
-				</span>
-				{{ book.state.value }}
+				<span class="info-label" aria-label="État du livre">État du livre :</span>
+				{{ ('state.' ~ book.state.value) | trans }}
 			</div>
 			<div class="book-infos-book-one">
-				<span class="info-label">Type d'échange :
-				</span>
+				<span class="info-label" aria-label="Type d'échange">Type d'échange :</span>
 				{% for exchangeType in book.exchangeType %}
-				{{ exchangeType.value }}
+					{{ ('exchange_type.' ~ exchangeType.value) | trans }}
 				{% endfor %}
 			</div>
 			<div class="book-infos-book-two">
-				<span class="info-label">Catégorie :
-				</span>
+				<span class="info-label" aria-label="Catégorie du livre">Catégorie :</span>
 				{{ book.bookCategorie.name }}
 			</div>
 			<div class="book-infos-book-one">
-				<span class="info-label">Pages :
-				</span>
+				<span class="info-label" aria-label="Nombre de pages">Pages :</span>
 				{{ book.pages }}
 			</div>
 			<div class="book-infos-book-two">
-				<span class="info-label">Année d'édition :
-				</span>
+				<span class="info-label" aria-label="Année d'édition">Année d'édition :</span>
 				{{ book.edition }}
 			</div>
 			<div class="book-infos-book-one">
-				<span class="info-label">ISBN :
-				</span>
+				<span class="info-label" aria-label="ISBN du livre">ISBN :</span>
 				{{ book.isbn }}
 			</div>
-
-			{#
-			<div class="book-rate-book"></div>
-			<div class="book-fav-book"></div>
-			#}
 		</article>
+
 		<article class="image-cover-book">
 			{% set imageUrl = asset('/images/9782100844395-001-X.jpeg') %}
-			{% if
-			book.cover is defined and book.cover is not null %}
-			{% set imageUrl =
-			vich_uploader_asset(book.cover) %}
+			{% if book.cover is defined and book.cover is not null %}
+				{% set imageUrl = vich_uploader_asset(book.cover) %}
 			{% endif %}
-			<img class="cover-book" src="{{ imageUrl }}" alt="image du livre" />
+			<img class="cover-book" src="{{ imageUrl }}" alt="Image de couverture du livre" />
 		</article>
+
 		<article class="image-back-book">
 			{% set imageBackUrl = asset('/images/back.jpg') %}
-			{% if book.back is
-			defined and book.back is not null %}
-			{% set imageBackUrl =
-			vich_uploader_asset(book.back) %}
+			{% if book.back is defined and book.back is not null %}
+				{% set imageBackUrl = vich_uploader_asset(book.back) %}
 			{% endif %}
-			<img class="back-book" src="{{ imageBackUrl }}" alt="image du livre" />
+			<img class="back-book" src="{{ imageBackUrl }}" alt="Image du dos du livre" />
 		</article>
+
 		<article class="book-creator-book">
 			<div class="creator-infos">
 				{% if is_granted('ROLE_USER') and book.user.id != app.user.id %}
-				<a class="creator-profil" href="{{ path('app_user_show', { id: book.user.id }) }}">{{ user.infosUser.userName|slice(0, 2)|upper }}</a>
-				<a class="creator-contact" href="{{ path('app_conversation_new', { id: book.user.id }) }}">Contacter</a>
-				
-				{% if requestExists %}
-    <form action="{{ path('app_exchange_cancel_request', {id: exchange.id}) }}" method="POST">
-        <button type="submit" class="btn-reservation">Annuler</button>
-    </form>
-{% else %}
-    <form action="{{ path('app_exchange_request', {id: book.id}) }}" method="POST">
-        <button type="submit" class="btn-reservation">Réserver</button>
-    </form>
-{% endif %}
+					<a class="creator-profil" href="{{ path('app_user_show', { id: book.user.id }) }}" aria-label="Voir le profil de l'utilisateur">{{ user.infosUser.userName|slice(0, 2)|upper }}</a>
+					<a class="creator-contact" href="{{ path('app_conversation_new', { id: book.user.id }) }}" aria-label="Contacter l'utilisateur">Contacter</a>
 
+					{% if requestExists %}
+						<form action="{{ path('app_exchange_cancel_request', {id: exchange.id}) }}" method="POST">
+							<button type="submit" class="btn-reservation" aria-label="Annuler la demande">Annuler</button>
+						</form>
+					{% else %}
+						<form action="{{ path('app_exchange_request', {id: book.id}) }}" method="POST">
+							<button type="submit" class="btn-reservation" aria-label="Réserver ce livre">Réserver</button>
+						</form>
+					{% endif %}
 				{% endif %}
 			</div>
 
 			<div class="delete-edit-book">
 				{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and book.user.id == app.user.id) %}
-				<div class="delete-update">
-					<a class="edit-btn" href="{{ path('listings_update', { id: book.id }) }}">Modifier</a>
+					<div class="delete-update">
+						<a class="edit-btn" href="{{ path('listings_update', { id: book.id }) }}" aria-label="Modifier cette annonce">Modifier</a>
 
-					<form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
-						<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
-						<button class="delete-btn" type="submit">Supprimer</button>
-					</form>
-				</div>
+						<form class="form-listing-show" action="{{ path('listings_remove', { id: book.id }) }}" method="POST">
+							<input type="hidden" name="token" value="{{ csrf_token('delete-book' ~ book.id) }}" />
+							<button class="delete-btn" type="submit" aria-label="Supprimer cette annonce">Supprimer</button>
+						</form>
+					</div>
 				{% endif %}
 			</div>
 		</article>
 	</section>
+
 	<section class="details-section-two">
 		<article class="book-summary-book">
-			<div class="input-summary">Résumé</div>
+			<div class="input-summary" aria-label="Résumé du livre">Résumé</div>
 			<p class="summary">{{ book.description }}</p>
 		</article>
 	</section>
 </div>
-	{% block features %}
-        {% endblock %}
+
+{% block features %}
+{% endblock %}
 {% endblock %}
